@@ -2,11 +2,26 @@ import React from 'react';
 import XLSX from 'xlsx';
 
 class AutotestTable extends React.Component {
+
+
     constructor(props) {
         super(props);
         this.state = {
-            tableData: [{ "qrcode": "a", "power": "41", "duration": "33", "dBm": "u", "dBc": "n", "timestamp": "13:02:29" }, { "qrcode": "b", "power": "41", "duration": "33", "dBm": "u", "dBc": "n", "timestamp": "13:02:31" }, { "qrcode": "c", "power": "41", "duration": "33", "dBm": "u", "dBc": "n", "timestamp": "13:02:33" }, { "qrcode": "d", "power": "41", "duration": "33", "dBm": "u", "dBc": "n", "timestamp": "13:02:34" }, { "qrcode": "e", "power": "41", "duration": "33", "dBm": "u", "dBc": "n", "timestamp": "13:02:36" }, { "qrcode": "f", "power": "41", "duration": "33", "dBm": "u", "dBc": "n", "timestamp": "13:02:37" }, { "qrcode": "g", "power": "41", "duration": "33", "dBm": "u", "dBc": "n", "timestamp": "13:02:39" }, { "qrcode": "h", "power": "41", "duration": "33", "dBm": "u", "dBc": "n", "timestamp": "13:02:44" }, { "qrcode": "i", "power": "41", "duration": "33", "dBm": "u", "dBc": "n", "timestamp": "13:02:46" }, { "qrcode": "j", "power": "41", "duration": "33", "dBm": "u", "dBc": "n", "timestamp": "13:02:48" }, { "qrcode": "k", "power": "41", "duration": "33", "dBm": "u", "dBc": "n", "timestamp": "13:02:51" }, { "qrcode": "l", "power": "41", "duration": "33", "dBm": "u", "dBc": "n", "timestamp": "13:02:52" }, { "qrcode": "m", "power": "41", "duration": "33", "dBm": "u", "dBc": "n", "timestamp": "13:02:54" }]
+            tableData: []
         };
+    }
+
+    checkBackupData() {
+        debugger;
+        let local = JSON.parse(localStorage.getItem("table"));
+        let dummy = [{ "qrcode": "a", "power": "41", "duration": "33", "dBm": "u", "dBc": "n", "timestamp": "13:02:29" }, { "qrcode": "b", "power": "41", "duration": "33", "dBm": "u", "dBc": "n", "timestamp": "13:02:31" }, { "qrcode": "c", "power": "41", "duration": "33", "dBm": "u", "dBc": "n", "timestamp": "13:02:33" }, { "qrcode": "d", "power": "41", "duration": "33", "dBm": "u", "dBc": "n", "timestamp": "13:02:34" }, { "qrcode": "e", "power": "41", "duration": "33", "dBm": "u", "dBc": "n", "timestamp": "13:02:36" }, { "qrcode": "f", "power": "41", "duration": "33", "dBm": "u", "dBc": "n", "timestamp": "13:02:37" }, { "qrcode": "g", "power": "41", "duration": "33", "dBm": "u", "dBc": "n", "timestamp": "13:02:39" }];
+        try {
+            if(local.length > 0) {
+                this.state.tableData = local;
+            }    
+        } catch(e) {
+            this.setState({ tableData: dummy });
+        }
     }
 
     componentWillReceiveProps(props) {
@@ -14,9 +29,16 @@ class AutotestTable extends React.Component {
         this.setState({ tableData: finalData });
     }
 
+    componentDidMount() {
+        this.checkBackupData();
+    }
+
     componentDidUpdate() {
         var scrollDiv = document.querySelector('#autotesttable > div');
         scrollDiv.scrollTop = scrollDiv.scrollHeight;
+        if(this.state.tableData.length > 0 && this.state.tableData[0]['qrcode']) {
+            localStorage.setItem('table', JSON.stringify(this.state.tableData));
+        }
     }
 
     render() {

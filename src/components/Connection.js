@@ -5,7 +5,7 @@ class Connection extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            addresses: ['aa','bb']
+            addresses: ['no_connection']
         };
     }
 

@@ -243,9 +243,25 @@ html, body {
   padding: 10px;
 }
 
+#autotest span {
+  font-weight: bold;
+  text-align: left;
+}
+
+#autotest .divleft {
+  width: 40%;
+  display: inline-block;
+  text-align: right;
+}
+
+#autotest .divright {
+  width: 50%;
+  display: inline-block;
+}
+
 #autotest #scanner {
-  margin-top: 22px;
-  width: 70%;
+  margin-top: 10px;
+  width: 95%;
   padding: 10px;
   text-align: center;
   font-size: 22px;
@@ -255,9 +271,10 @@ html, body {
 /* ============= AUTOTEST TABLE PAGE ============= */
 
 #autotesttable div {
-  height: 250px;
-  width: 90%;
-  overflow-y: scroll;
+  /*height: 250px;*/
+  width: 100%;
+  /*overflow-y: scroll;*/
+  font-size: 200%;
   margin: 30px auto;
   text-align: center;
   border: 0px groove;
