@@ -10,7 +10,7 @@ class Header extends React.Component {
           <table>
             <tbody>
               <tr>
-                <td><img src="/assets/logo.png" alt="Anritsu Logo" /></td>
+                <td><img src="/logo.png" alt="Anritsu Logo" /></td>
                 <td><h2>Anritsu PIM Analyzer Automation GUI</h2>
                   <nav>
                     <li onClick={this.divert}><Link activeClassName="navLink" exact to="/"><button>Connection</button></Link></li>

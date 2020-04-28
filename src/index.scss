@@ -58,7 +58,21 @@ html, body {
   filter: hue-rotate(165deg);
 }
 
-.modal {
+#modal-text {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1200;
+    margin-top: 80px;
+    color: white;
+    /*-webkit-font-smoothing: subpixel-antialiased;*/
+    /*-webkit-transform: translateZ(0) scale(1.0, 1.0);*/
+    /*text-shadow: 1px 1px 0px black;*/
+
+  }
+
+  .modal {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -73,23 +87,29 @@ html, body {
   }
 
   .modal p {
-    color: gray;
-    background-color: white;
+    color: white;
     border-radius: 10px;
+    margin: 10px 0 2px 0;
+    padding: 0;
   }
 
   .modal hr {
     display: none;
     float: left;
     width: 0px;
-    margin-top: 1px;
     z-index: 12000;
     position: relative;
     border: 1px solid #00ffd0;
   }
 
-  .modal span {
-    background-color: pink;
+  #progressbar {
+    margin-top: 10px;
+    width: 1px;
+  }
+
+  #progressBarHolder {
+    height: 20px;
+    display: block;
   }
 
   .modal-overlay {

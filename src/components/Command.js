@@ -14,7 +14,7 @@ class Command extends React.Component {
         return (
             <main id='command-page'>
 
-                <button onClick={_ => this.sendCommand('*IDN?')}>*IDN?</button>
+                <button onClick={_ => this.sendCommand('*IDN?', 2000 , 'Machine ID')}>*IDN?</button>
                 <button onClick={_ => this.sendCommand('*ABC?')}>*ABC?</button>
                 <button onClick={_ => this.sendCommand('*DEF?')}>*DEF?</button>
                 <button onClick={_ => this.sendCommand('*XYZ?')}>*XYZ?</button>
@@ -27,8 +27,8 @@ class Command extends React.Component {
         )
     }
 
-    sendCommand(cmd) {
-        connectMachine(cmd).then( data => {
+    sendCommand(cmd, sec, msg) {
+        connectMachine(cmd, sec, msg).then( data => {
             this.setResponse(data);
         });
     }

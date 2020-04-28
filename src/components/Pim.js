@@ -63,7 +63,7 @@ class Pim extends React.Component {
     }
 
     changingtopimanalyzerHandler() {
-        connectMachine(':INSTrument:NSELect 46', 30000)
+        connectMachine(':INSTrument:NSELect 46', 'Changing to PIM Analyzer...', 30000)
         .then( data => {
             this.setResponse(data);
         });

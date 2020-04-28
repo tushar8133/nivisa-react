@@ -1,1 +1,1 @@
-cmd /k npm run serve
+cmd /k node server.js
