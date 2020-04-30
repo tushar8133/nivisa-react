@@ -1,5 +1,5 @@
 import React from 'react';
-import connectMachine from '../service';
+import connectMachine from './service';
 
 class Connection extends React.Component {
     constructor(props) {
@@ -24,16 +24,32 @@ class Connection extends React.Component {
                         <div key={value}><input type="radio" id={'rad' + (index + 1)} name='addrs' onInput={_ => this.radioHandler(value)} /><label htmlFor={'rad' + (index + 1)}>{value}</label></div>
                     ))
                 }
+            
+                <div id='command-page'>
+                    <button onClick={_ => this.sendCommand('*IDN?', 2000 , 'Machine ID')}>*IDN?</button>
+                    <span className="spacer" />
+                    <input type="text" id="custom-cmd" placeholder="SCPI command" />
+                    <button onClick={_ => this.sendCommand(document.getElementById('custom-cmd').value)}>Send</button>
+                    <span className="spacer" />
+                    <textarea id="textarea" rows="10" cols="60"></textarea>
+                </div>
             </main>
+
         )
     }
 
     getDeviceList() {
-        connectMachine('GET_DEVICE_LIST').then( data => {
+        connectMachine('GET_DEVICE_LIST', 'Getting connections', 1000)
+        .then( data => {
             console.log("data here..", data)
             this.setState(state => ({ addresses: data }));
             this.selectDefaultOption(data[0]);
-        });
+            return connectMachine(':INSTrument:CATalog:FULL?', 'Getting machine all supported MODES', 3000)
+        })
+        .then( data => {
+            console.log(data);
+            localStorage.setItem("modes", JSON.stringify(data));
+        })
     }
 
     radioHandler(val) {
@@ -43,6 +59,16 @@ class Connection extends React.Component {
     selectDefaultOption(val) {
         document.getElementById('rad1').checked = true;
         this.radioHandler(val);
+    }
+
+    sendCommand(cmd, sec, msg) {
+        connectMachine(cmd, sec, msg).then( data => {
+            this.setResponse(data);
+        });
+    }
+
+    setResponse(resp) {
+        document.getElementById('textarea').value = String(resp);
     }
 }
 

@@ -2,10 +2,10 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from './Header';
 import Footer from './Footer';
-import Connection from './components/Connection';
-import Command from './components/Command';
-import Pim from './components/Pim';
-import Autotest from './components/Autotest';
+import Connection from './Connection';
+import Command from './Command';
+import Pim from './Pim';
+import Autotest from './Autotest';
 
 function App() {
   return (

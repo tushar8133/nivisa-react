@@ -1,6 +1,6 @@
 import React from 'react';
 import AutotestTable from './AutotestTable';
-import connectMachine from '../service';
+import connectMachine from './service';
 
 class Autotest extends React.Component {
 

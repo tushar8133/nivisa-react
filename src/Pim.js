@@ -1,5 +1,5 @@
 import React from 'react';
-import connectMachine from '../service';
+import connectMachine from './service';
 
 class Pim extends React.Component {
     constructor(props) {
@@ -12,7 +12,7 @@ class Pim extends React.Component {
     componentDidMount() {
         this.savePower();
         this.saveDuration();
-        this.changingtopimanalyzerHandler()
+        this.checkCurrentMode();
     }
 
     render() {
@@ -32,6 +32,14 @@ class Pim extends React.Component {
                 {/*<textarea id="textarea"></textarea>*/}
             </main>
         )
+    }
+
+    checkCurrentMode() {
+        // var local = JSON.parse(localStorage.getItem('modes'));
+        connectMachine(':INSTrument:NSELect?', 'Checking current mode', 1000)
+        .then( data => {
+            if(!data.indexOf("46")) this.changingtopimanalyzerHandler();
+        });
     }
 
     pimvstimeHandler(){
@@ -63,7 +71,7 @@ class Pim extends React.Component {
     }
 
     changingtopimanalyzerHandler() {
-        connectMachine(':INSTrument:NSELect 46', 'Changing to PIM Analyzer...', 1000)
+        connectMachine(':INSTrument:NSELect 46', 'Changing to PIM Analyzer...', 3000)
         .then( data => {
             this.setResponse(data);
         });
