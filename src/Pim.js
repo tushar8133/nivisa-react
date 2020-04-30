@@ -35,6 +35,7 @@ class Pim extends React.Component {
                 </div>
                 <div>
                     <button onClick={ _ => {this.pimvstimeHandler()} }>PIM Vs Time</button><br />
+                    <button onClick={ _ => {this.noiseFloor()} }>Noise Floor</button><br />
                     <button onClick={ _ => {this.dtpHandler()} }>Distance to PIM</button><br />
                     <button onClick={ _ => {this.sweptpimHandler()} }>Swept PIM</button><br />
                 </div>
@@ -115,6 +116,13 @@ class Pim extends React.Component {
     	.then( data => {
     		this.setResponse(data);
     	});
+    }
+
+    noiseFloor(){
+        connectMachine(':PIManalyzer:MODe SPECTRUM_VIEW')
+        .then( data => {
+            this.setResponse(data);
+        });
     }
 
     setResponse(resp) {
