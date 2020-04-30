@@ -5,7 +5,7 @@ class Pim extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            f1 : null, f2: null
         };
     }
 
@@ -19,12 +19,25 @@ class Pim extends React.Component {
         return (
             <main id='pim-page'>
 
-            <div>
-            <button onClick={ _ => {this.pimvstimeHandler()} }>PIM Vs Time</button><br />
-            <button onClick={ _ => {this.dtpHandler()} }>Distance to PIM</button><br />
-            <button onClick={ _ => {this.sweptpimHandler()} }>Swept PIM</button><br />
-            <button onClick={ _ => {this.setPower()} }>Set Output Power Level (dBm):</button> <input type="number" id="outputPowerLevel" onInput={this.savePower} /><br />
-            <button onClick={ _ => {this.setDuration()} }>Set Test Duration (sec):</button> <input type="number" id="testDuration" onInput={this.saveDuration} /><br />
+            <div className="grid">
+                <div>
+                    <div><button className="btnPower" onClick={ _ => {this.setPower()} }>Set Output Power Level (dBm):</button> <input type="number" id="outputPowerLevel" onInput={this.savePower} /></div>
+                    <div><button className="btnPower" onClick={ _ => {this.setDuration()} }>Set Test Duration (sec):</button> <input type="number" id="testDuration" onInput={this.saveDuration} /></div>
+                    <button className="btnOrder" onClick={ _ => {this.getIMDOrder(3)} }>Order 3</button>
+                    <button className="btnOrder" onClick={ _ => {this.getIMDOrder(5)} }>Order 5</button>
+                    <button className="btnOrder" onClick={ _ => {this.getIMDOrder(7)} }>Order 7</button>
+
+                    <span className="orderFreq">
+                        <div>Frequency F1: {this.state.f1}</div>
+                        <div>Frequency F2: {this.state.f2}</div>
+                    </span>
+
+                </div>
+                <div>
+                    <button onClick={ _ => {this.pimvstimeHandler()} }>PIM Vs Time</button><br />
+                    <button onClick={ _ => {this.dtpHandler()} }>Distance to PIM</button><br />
+                    <button onClick={ _ => {this.sweptpimHandler()} }>Swept PIM</button><br />
+                </div>
             </div>
 
 	            <br />
@@ -32,6 +45,26 @@ class Pim extends React.Component {
                 {/*<textarea id="textarea"></textarea>*/}
             </main>
         )
+    }
+
+    getIMDOrder(val) {
+        connectMachine(':PIManalyzer:IMD:ORDer '+val)
+        .then( data => {
+            return connectMachine(':PIManalyzer:FREQuency:F1?')
+        })
+        .then( data => {
+            var freq = data.substr(0, 4) + ' MHz';
+            this.setState(prevState => ({
+                f1: freq
+            }));
+            return connectMachine(':PIManalyzer:FREQuency:F2?')
+        })
+        .then( data => {
+            var freq = data.substr(0, 4) + ' MHz';
+            this.setState(prevState => ({
+                f2: freq
+            }));
+        });
     }
 
     checkCurrentMode() {
@@ -97,8 +130,10 @@ class Pim extends React.Component {
 			// localStorage.setItem('power', evt.target.value);
             if(evt.target.value >= 20 && evt.target.value <= 46) {
                 document.getElementById('outputPowerLevel').style.backgroundColor = "white";
+                localStorage.setItem('power', evt.target.value);
             } else {
                 document.getElementById('outputPowerLevel').style.backgroundColor = "#ff5976";
+                localStorage.setItem('power', "");
             }
 
 		} else {

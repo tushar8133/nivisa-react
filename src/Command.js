@@ -16,6 +16,7 @@ class Command extends React.Component {
 
                 <h2>Caution During calibration, RF power is present, and the red RF On light is illuminated.</h2>
 
+                <button onClick={ _ => {this.calibrate()} }>Calibrate</button>
                 <p>Please use MW82119B PIM Master unit and follow the below steps as described for the standard calibration process.</p>
 
                 <div className="grid">
@@ -55,6 +56,12 @@ class Command extends React.Component {
     sendCommand(cmd, sec, msg) {
         connectMachine(cmd, sec, msg).then( data => {
             this.setResponse(data);
+        });
+    }
+
+    calibrate() {
+        connectMachine(':CALibration:PIManalyzer:FULL').then( data => {
+            console.log(data);
         });
     }
 }
