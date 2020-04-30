@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 var socket = io("http://localhost:8472");
 var timer = null;
 
-export default function connectMachine(cmd, msg = "", sec = 3000) {
+export default function connectMachine(cmd, msg = "", sec = 1000) {
 
 	if(timer) return;
 

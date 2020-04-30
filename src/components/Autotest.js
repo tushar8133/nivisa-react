@@ -14,12 +14,36 @@ class Autotest extends React.Component {
 
     render() {
         return (<main id="autotest">
-            <div className="divright">
-            <input type="text" id="scanner" placeholder="Place scanner here" onInput={this.waitForQRCode.bind(this)} className="backgroundAnimated" autoComplete="off" />
-            </div>
-            <div className="divleft">
-            <span>Output Power Level : {this.getPower()} dBm</span> <br /> <span>Test Duration : {this.getDuration()} sec</span>
-            </div>
+
+
+
+            <table width="100%">
+                <tr>
+                    <td>
+                        <input type="text" id="scanner" placeholder="Place scanner here" onInput={this.waitForQRCode.bind(this)} className="backgroundAnimatedGreen" autoComplete="off" />            
+                    </td>
+                    <td>
+                        <table className="infoTable">
+
+                          <tbody>
+                            <tr>
+                              <td>Output Power Level</td>
+                              <td> : 2 X {this.getPower()} dBm</td>
+                            </tr>
+                            <tr>
+                              <td>Test Duration</td>
+                              <td> : {this.getDuration()} seconds</td>
+                            </tr>
+                            <tr>
+                              <td>Calibration Status</td>
+                              <td> : <span id="calibrationStatusON">ON</span><span id="calibrationStatusOFF">OFF</span></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+
             <AutotestTable addon={this.state.newData} />
             <br />
         </main>);
@@ -89,8 +113,26 @@ class Autotest extends React.Component {
         return Number(localStorage.getItem('duration'));
     }
 
+    checkCalibrationStatus() {
+        connectMachine('CALibration:PIManalyzer:FULL?')
+        .then( data => {
+            var status = Math.random() >= 0.5;
+
+            if(status) {
+                document.getElementById("calibrationStatusON").className = "calibrationStatusON";
+                document.getElementById("calibrationStatusOFF").className = "";
+                document.getElementById("scanner").className = "backgroundAnimatedGreen";
+            } else {
+                document.getElementById("calibrationStatusOFF").className = "calibrationStatusOFF";
+                document.getElementById("calibrationStatusON").className = "";
+                document.getElementById("scanner").className = "backgroundAnimatedRed";
+            }
+        });
+
+    }
+
     componentDidMount() {
-        // TODO: try to use these methods from PIM class file
+        this.checkCalibrationStatus();
     }
 
 }

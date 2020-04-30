@@ -265,7 +265,7 @@ html, body {
 
 #autotest span {
   font-weight: bold;
-  text-align: left;
+  /*text-align: left;*/
 }
 
 #autotest .divleft {
@@ -280,12 +280,72 @@ html, body {
 }
 
 #autotest #scanner {
-  margin-top: 10px;
-  width: 95%;
+  /*margin-top: 10px;*/
+  width: 100%;
   padding: 10px;
   text-align: center;
   font-size: 22px;
   color: black;
+}
+
+#autotest > table > tr > td:nth-child(2) {
+  width: 250px;
+}
+
+#calibrationStatus {
+  height: 20px;
+  width: 12px;
+  background-color: #00ff00;
+  padding: 0px 8px;
+  box-shadow: 0px 0px 4px 1px #0F1;
+  margin-top: 20px;
+}
+
+#calibrationStatus td:first-child { 
+  text-align: right;
+}
+
+#calibrationStatusON { 
+  margin-right: 10px;
+  background-color: lime;
+  opacity: 0.2;
+  width: 25px;
+  display: inline-block;
+  text-align: center;
+}
+
+#calibrationStatusOFF { 
+  background-color: red;
+  opacity: 0.2;
+  width: 25px;
+  display: inline-block;
+  text-align: center;
+}
+
+.calibrationStatusON {
+  opacity: 1 !important;
+  box-shadow: 0px 0px 3px 1px green;
+}
+
+.calibrationStatusOFF { 
+  opacity: 1 !important;
+  box-shadow: 0px 0px 3px 1px maroon;
+}
+
+.infoTable {
+  text-align: left;
+  border: 1px solid lightgray;
+  float: right;
+  margin-right: 5%;
+  width: 80%;
+}
+
+.infoTable td:nth-child(1) {
+  text-align: left;
+}
+
+.infoTable td:nth-child(2) {
+  text-align: left;
 }
 
 /* ============= AUTOTEST TABLE PAGE ============= */
@@ -339,21 +399,38 @@ html, body {
   font-size: 130%;
 }
 
-@-o-keyframes fadeIt {
+@-o-keyframes fadeItGreen {
   0%   { background-color: #FFFFFF; }
   50%  { background-color: lightgreen; }
   100% { background-color: #FFFFFF; }
 }
-@keyframes fadeIt {
+@keyframes fadeItGreen {
   0%   { background-color: #FFFFFF; }
   50%  { background-color: lightgreen; }
   100% { background-color: #FFFFFF; }
 }
 
-.backgroundAnimated{    
+@-o-keyframes fadeItRed {
+  0%   { background-color: #FFFFFF; }
+  50%  { background-color: pink; }
+  100% { background-color: #FFFFFF; }
+}
+@keyframes fadeItRed {
+  0%   { background-color: #FFFFFF; }
+  50%  { background-color: pink; }
+  100% { background-color: #FFFFFF; }
+}
+
+.backgroundAnimatedGreen{    
     background-image:none !important; 
-         -o-animation: fadeIt 2s ease-in-out infinite normal;
-            animation: fadeIt 2s ease-in-out infinite normal;
+         -o-animation: fadeItGreen 2s ease-in-out infinite normal;
+            animation: fadeItGreen 2s ease-in-out infinite normal;
+}
+
+.backgroundAnimatedRed{    
+    background-image:none !important; 
+         -o-animation: fadeItRed 2s ease-in-out infinite normal;
+            animation: fadeItRed 2s ease-in-out infinite normal;
 }
 
 

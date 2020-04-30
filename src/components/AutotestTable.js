@@ -12,7 +12,6 @@ class AutotestTable extends React.Component {
     }
 
     checkBackupData() {
-        debugger;
         let local = JSON.parse(localStorage.getItem("table"));
         let dummy = [{ "qrcode": "a", "power": "41", "duration": "33", "dBm": "u", "dBc": "n", "timestamp": "13:02:29" }, { "qrcode": "b", "power": "41", "duration": "33", "dBm": "u", "dBc": "n", "timestamp": "13:02:31" }, { "qrcode": "c", "power": "41", "duration": "33", "dBm": "u", "dBc": "n", "timestamp": "13:02:33" }, { "qrcode": "d", "power": "41", "duration": "33", "dBm": "u", "dBc": "n", "timestamp": "13:02:34" }, { "qrcode": "e", "power": "41", "duration": "33", "dBm": "u", "dBc": "n", "timestamp": "13:02:36" }, { "qrcode": "f", "power": "41", "duration": "33", "dBm": "u", "dBc": "n", "timestamp": "13:02:37" }, { "qrcode": "g", "power": "41", "duration": "33", "dBm": "u", "dBc": "n", "timestamp": "13:02:39" }];
         try {

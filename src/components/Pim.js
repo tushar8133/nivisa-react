@@ -20,11 +20,11 @@ class Pim extends React.Component {
             <main id='pim-page'>
 
             <div>
-            <button onClick={ _ => {this.setPower()} }>Set Output Power Level (dBm):</button> <input type="number" id="outputPowerLevel" onInput={this.savePower} /><br />
-            <button onClick={ _ => {this.setDuration()} }>Set Test Duration (sec):</button> <input type="number" id="testDuration" onInput={this.saveDuration} /><br />
             <button onClick={ _ => {this.pimvstimeHandler()} }>PIM Vs Time</button><br />
             <button onClick={ _ => {this.dtpHandler()} }>Distance to PIM</button><br />
             <button onClick={ _ => {this.sweptpimHandler()} }>Swept PIM</button><br />
+            <button onClick={ _ => {this.setPower()} }>Set Output Power Level (dBm):</button> <input type="number" id="outputPowerLevel" onInput={this.savePower} /><br />
+            <button onClick={ _ => {this.setDuration()} }>Set Test Duration (sec):</button> <input type="number" id="testDuration" onInput={this.saveDuration} /><br />
             </div>
 
 	            <br />
@@ -63,7 +63,7 @@ class Pim extends React.Component {
     }
 
     changingtopimanalyzerHandler() {
-        connectMachine(':INSTrument:NSELect 46', 'Changing to PIM Analyzer...', 30000)
+        connectMachine(':INSTrument:NSELect 46', 'Changing to PIM Analyzer...', 1000)
         .then( data => {
             this.setResponse(data);
         });
@@ -82,10 +82,17 @@ class Pim extends React.Component {
     }
 
     savePower(evt) {
+
 		if(evt) {
-			if(evt.target.value < 20) evt.target.value = 20;
-			if(evt.target.value > 46) evt.target.value = 46;
-			localStorage.setItem('power', evt.target.value);
+			// if(evt.target.value < 20) evt.target.value = 20;
+			// if(evt.target.value > 46) evt.target.value = 46;
+			// localStorage.setItem('power', evt.target.value);
+            if(evt.target.value >= 20 && evt.target.value <= 46) {
+                document.getElementById('outputPowerLevel').style.backgroundColor = "white";
+            } else {
+                document.getElementById('outputPowerLevel').style.backgroundColor = "#ff5976";
+            }
+
 		} else {
 			var power = 43;
 	    	try {
