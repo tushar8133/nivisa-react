@@ -140,7 +140,7 @@ html, body {
   margin: 5px 5px;
   padding: 5px;
   opacity: 0.8;
-  font-size: 130%;
+  font-size: 120%;
 }
 
 #header-page li {
@@ -156,7 +156,10 @@ html, body {
 
 #header-page nav {
   text-align: center;
-  margin-bottom: 20px;
+  /*margin-bottom: 20px;*/
+  background-color: #EEE;
+  padding: 5px;
+  /*margin-bottom: 10px;*/
 }
 
 #header-page a {
@@ -167,15 +170,19 @@ html, body {
 
 #header-page {
   /*background-color: #289B7D;*/
-  background-color: lightseagreen;
   /* border: 1px solid transparent;
   display: block;*/
   padding-top: 1px;
-  position: relative;
+  /*position: relative;*/
 }
 
 #header-page table {
-  margin: 0 auto;
+  background-color: lightseagreen;
+  width: 100%;
+}
+
+#header-page table tr:first-child {
+  width: 0px;
 }
 
 #header-page img {
@@ -184,12 +191,12 @@ html, body {
   margin: 25px;*/
   display: inline;
   float: left;
-  margin-right: 30px;
+  margin: 10px;
 }
 
 #header-page hr {
   /* border-width: 2px; */
-  margin-bottom: 20px;
+  margin: 0px;
 }
 
 /* ============= CONNECTION PAGE ============= */
@@ -354,7 +361,7 @@ html, body {
   /*height: 250px;*/
   width: 100%;
   /*overflow-y: scroll;*/
-  font-size: 200%;
+  font-size: 120%;
   margin: 30px auto;
   text-align: center;
   border: 0px groove;

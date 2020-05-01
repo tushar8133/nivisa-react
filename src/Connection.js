@@ -7,6 +7,8 @@ class Connection extends React.Component {
         this.state = {
             addresses: ['no_connection']
         };
+
+        localStorage.setItem("demo", (window.location.href.indexOf('?') > -1));
     }
 
     componentDidMount() {

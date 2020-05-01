@@ -4,7 +4,8 @@ var socket = io("http://localhost:8472");
 var timer = null;
 
 export default function connectMachine(cmd, msg = "", sec = 1000) {
-	sec = 0;
+
+	if(JSON.parse(localStorage.getItem("demo"))) sec = 0;
 	if(timer) return;
 
 	progressBar(msg, sec);
