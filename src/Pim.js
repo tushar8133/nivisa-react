@@ -10,6 +10,7 @@ class Pim extends React.Component {
     }
 
     componentDidMount() {
+        this.getDBCutoff();
         this.savePower();
         this.saveDuration();
         this.checkCurrentMode();
@@ -21,15 +22,16 @@ class Pim extends React.Component {
 
             <div className="grid">
                 <div>
+                    <div><button className="btnPower" onClick={ _ => {this.setPower()} }>Set dBm/dBc cut-off</button> <input type="number" id="dbcutoff" onInput={this.saveDBCutoff} /></div>
                     <div><button className="btnPower" onClick={ _ => {this.setPower()} }>Set Output Power Level (dBm):</button> <input type="number" id="outputPowerLevel" onInput={this.savePower} /></div>
-                    <div><button className="btnPower" onClick={ _ => {this.setDuration()} }>Set Test Duration (sec):</button> <input type="number" id="testDuration" onInput={this.saveDuration} /></div>
+                    <div><button className="btnPower" onClick={ _ => {this.setDuration()} }>Set Test Duration (sec)</button> <input type="number" id="testDuration" onInput={this.saveDuration} /></div>
                     <button className="btnOrder" onClick={ _ => {this.getIMDOrder(3)} }>Order 3</button>
                     <button className="btnOrder" onClick={ _ => {this.getIMDOrder(5)} }>Order 5</button>
                     <button className="btnOrder" onClick={ _ => {this.getIMDOrder(7)} }>Order 7</button>
 
                     <span className="orderFreq">
-                        <div>Frequency F1: {this.state.f1}</div>
-                        <div>Frequency F2: {this.state.f2}</div>
+                        <div>Frequency F1: {this.state.f1 + " MHz"} </div>
+                        <div>Frequency F2: {this.state.f2 + " MHz"} </div>
                     </span>
 
                 </div>
@@ -54,16 +56,14 @@ class Pim extends React.Component {
             return connectMachine(':PIManalyzer:FREQuency:F1?')
         })
         .then( data => {
-            var freq = data.substr(0, 4) + ' MHz';
             this.setState(prevState => ({
-                f1: freq
+                f1: data.substr(0, 4)
             }));
             return connectMachine(':PIManalyzer:FREQuency:F2?')
         })
         .then( data => {
-            var freq = data.substr(0, 4) + ' MHz';
             this.setState(prevState => ({
-                f2: freq
+                f2: data.substr(0, 4)
             }));
         });
     }
@@ -130,18 +130,25 @@ class Pim extends React.Component {
         // document.getElementById('textarea').value = String(resp);
     }
 
+    getDBCutoff() {
+        var local = localStorage.getItem('dbcutoff');
+        var final = (local)? local : 100;
+        document.getElementById('dbcutoff').value = final;
+        return final;
+    }
+
+    saveDBCutoff(evt) {
+        localStorage.setItem('dbcutoff', evt.target.value);
+    }
+
     savePower(evt) {
 
 		if(evt) {
-			// if(evt.target.value < 20) evt.target.value = 20;
-			// if(evt.target.value > 46) evt.target.value = 46;
-			// localStorage.setItem('power', evt.target.value);
             if(evt.target.value >= 20 && evt.target.value <= 46) {
                 document.getElementById('outputPowerLevel').style.backgroundColor = "white";
                 localStorage.setItem('power', evt.target.value);
             } else {
                 document.getElementById('outputPowerLevel').style.backgroundColor = "#ff5976";
-                localStorage.setItem('power', "");
             }
 
 		} else {

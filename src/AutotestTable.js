@@ -58,12 +58,30 @@ class AutotestTable extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {this.state.tableData.map((row, index) => <tr key={row.qrcode}><td>{index + 1}</td><td>{row.qrcode}</td><td>{row.power}</td><td>{row.duration}</td><td id={'cutoff'+index}>{row.dBm}</td><td id={'cutoff'+index}>{row.dBc}</td><td>{row.timestamp}</td><td><button onClick={_ => this.deleteRow(index)}>&#10005;</button></td></tr>)}
+                            {this.state.tableData.map((row, index) => <tr key={row.qrcode}><td>{index + 1}</td><td>{row.qrcode}</td><td>{row.power}</td><td>{row.duration}</td><td className={this.checkDBMValue(row.dBm)}>{row.dBm} dBm</td><td className={this.checkDBCValue(row.dBc)}>{row.dBc} dBc</td><td>{row.timestamp}</td><td><button onClick={_ => this.deleteRow(index)}>&#10005;</button></td></tr>)}
                         </tbody>
                     </table>
                 </div>
                 <button onClick={_ => this.exportData()}>Save Excel</button>
             </main>);
+    }
+
+    checkDBMValue(val) {
+        var local = Number(localStorage.getItem("dbcutoff"));
+        if(local) {
+            return (val > local)? "pass" : "fail";
+        } else {
+            return "";
+        }
+    }
+
+    checkDBCValue(val) {
+        var local = Number(localStorage.getItem("dbcutoff"));
+        if(local) {
+            return ((val + 20) > local)? "pass" : "fail";
+        } else {
+            return "";
+        }
     }
 
     deleteRow(index) {

@@ -82,9 +82,8 @@ class Autotest extends React.Component {
         }
 
         var arr = data.split(',');
-        arr[0] = String(arr[0]).trim() + ' dBc';
-        arr[1] = String(arr[1]).trim() + ' dBm';
-        console.log(">> >> >>",arr)
+        arr[0] = String(arr[0]).trim();
+        arr[1] = String(arr[1]).trim();
         return arr;
     }
 
