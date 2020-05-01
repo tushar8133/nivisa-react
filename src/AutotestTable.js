@@ -12,12 +12,9 @@ class AutotestTable extends React.Component {
 
     checkBackupData() {
         let local = JSON.parse(localStorage.getItem("table"));
-        let dummy = [{ "qrcode": "demo", "power": "demo", "duration": "demo", "dBm": "demo", "dBc": "demo", "timestamp": "demo" }];
         try {
             if(local[0]['qrcode']) {
                 this.setState({ tableData: local });    
-            } else {
-                this.setState({ tableData: dummy });
             }
         } catch(e) {}
     }
@@ -35,13 +32,13 @@ class AutotestTable extends React.Component {
     }
 
     componentDidUpdate() {
-        var scrollDiv = document.querySelector('#autotesttable > div');
-        scrollDiv.scrollTop = scrollDiv.scrollHeight;
+        // var scrollDiv = document.querySelector('#autotesttable > div');
+        // scrollDiv.scrollTop = scrollDiv.scrollHeight;
         localStorage.setItem('table', JSON.stringify(this.state.tableData));
     }
 
     clearData() {
-        if (confirm("Are you sure! This will delete all the entries.")) {
+        if (confirm("Are you sure!\nThis will delete all the entries")) {
             this.setState({
                 tableData: []
             })
@@ -66,7 +63,7 @@ class AutotestTable extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
-                             {this.state.tableData.map((row, index) => <tr key={row.qrcode}><td>{index + 1}</td><td>{row.qrcode}</td><td>{row.power}</td><td>{row.duration}</td><td className={this.checkDBMValue(row.dBm)}>{row.dBm} dBm</td><td className={this.checkDBCValue(row.dBc)}>{row.dBc} dBc</td><td>{row.timestamp}</td><td><button onClick={_ => this.deleteRow(index)}>&#10005;</button></td></tr>)}
+                             {this.state.tableData.map((row, index) => <tr key={row.qrcode}><td>{this.state.tableData.length - index}</td><td>{row.qrcode}</td><td>{row.power}</td><td>{row.duration}</td><td className={this.checkDBMValue(row.dBm)}>{row.dBm} dBm</td><td className={this.checkDBCValue(row.dBc)}>{row.dBc} dBc</td><td>{row.timestamp}</td><td><button onClick={_ => this.deleteRow(index)}>&#10005;</button></td></tr>)}
                         </tbody>
                     </table>
                 </div>
@@ -106,7 +103,7 @@ class AutotestTable extends React.Component {
         var unique = oldData.filter((val, index) => {
             return (val.qrcode !== newData.qrcode);
         });
-        unique.push(newData)
+        unique.unshift(newData)
         return unique;
     }
 
@@ -126,8 +123,8 @@ class AutotestTable extends React.Component {
             }
         } catch(e) {}
         
-        console.table(this.state.tableData)
-        var data = [...this.state.tableData];
+        console.table(this.state.tableData);
+        var data = [...this.state.tableData].reverse();
         var newData = data.map((obj, index) => {
             return Object.assign({ index: String(index + 1) }, obj)
         })
