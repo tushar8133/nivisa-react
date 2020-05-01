@@ -1,5 +1,6 @@
 import React from 'react';
 import AutotestTable from './AutotestTable';
+import AutotestInfo from './AutotestInfo';
 import connectMachine from './service';
 
 class Autotest extends React.Component {
@@ -14,36 +15,18 @@ class Autotest extends React.Component {
 
     render() {
         return (<main id="autotest">
-
-
-
             <table width="100%">
+                <tbody>
                 <tr>
                     <td>
                         <input type="text" id="scanner" placeholder="Place scanner here" onInput={this.waitForQRCode.bind(this)} className="backgroundAnimatedGreen" autoComplete="off" />            
                     </td>
                     <td>
-                        <table className="infoTable">
-
-                          <tbody>
-                            <tr>
-                              <td>Output Power Level</td>
-                              <td> : 2 X {this.getPower()} dBm</td>
-                            </tr>
-                            <tr>
-                              <td>Test Duration</td>
-                              <td> : {this.getDuration()} seconds</td>
-                            </tr>
-                            <tr>
-                              <td>Calibration Status</td>
-                              <td> : <span id="calibrationStatusON">ON</span><span id="calibrationStatusOFF">OFF</span></td>
-                            </tr>
-                          </tbody>
-                        </table>
+                        <AutotestInfo />
                     </td>
                 </tr>
+                </tbody>
             </table>
-
             <AutotestTable addon={this.state.newData} />
             <br />
         </main>);

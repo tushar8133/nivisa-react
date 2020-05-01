@@ -3,29 +3,31 @@ import XLSX from 'xlsx';
 
 class AutotestTable extends React.Component {
 
-
     constructor(props) {
         super(props);
         this.state = {
             tableData: []
         };
+        console.log(props)
     }
 
     checkBackupData() {
         let local = JSON.parse(localStorage.getItem("table"));
-        let dummy = [{ "qrcode": "a", "power": "41", "duration": "33", "dBm": "u", "dBc": "n", "timestamp": "13:02:29" }];
+        let dummy = [{ "qrcode": "demo", "power": "demo", "duration": "demo", "dBm": "demo", "dBc": "demo", "timestamp": "demo" }];
         try {
-            if(local.length > 0) {
-                this.state.tableData = local;
-            }    
-        } catch(e) {
-            this.setState({ tableData: dummy });
-        }
+            if(local[0]['qrcode']) {
+                this.setState({ tableData: local });    
+            } else {
+                this.setState({ tableData: dummy });
+            }
+        } catch(e) {}
     }
 
     componentWillReceiveProps(props) {
-        var finalData = this.checkDuplicate(this.state.tableData, props.addon);
-        this.setState({ tableData: finalData });
+        if(props.addon && props.addon.qrcode) {
+            var finalData = this.checkDuplicate(this.state.tableData, props.addon);
+            this.setState({ tableData: finalData });
+        }
     }
 
     componentDidMount() {
@@ -35,9 +37,7 @@ class AutotestTable extends React.Component {
     componentDidUpdate() {
         var scrollDiv = document.querySelector('#autotesttable > div');
         scrollDiv.scrollTop = scrollDiv.scrollHeight;
-        if(this.state.tableData.length > 0 && this.state.tableData[0]['qrcode']) {
-            localStorage.setItem('table', JSON.stringify(this.state.tableData));
-        }
+        localStorage.setItem('table', JSON.stringify(this.state.tableData));
     }
 
     render() {
@@ -58,7 +58,7 @@ class AutotestTable extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {this.state.tableData.map((row, index) => <tr key={row.qrcode}><td>{index + 1}</td><td>{row.qrcode}</td><td>{row.power}</td><td>{row.duration}</td><td>{row.dBm}</td><td>{row.dBc}</td><td>{row.timestamp}</td><td><button onClick={_ => this.deleteRow(index)}>&#10005;</button></td></tr>)}
+                            {this.state.tableData.map((row, index) => <tr key={row.qrcode}><td>{index + 1}</td><td>{row.qrcode}</td><td>{row.power}</td><td>{row.duration}</td><td id={'cutoff'+index}>{row.dBm}</td><td id={'cutoff'+index}>{row.dBc}</td><td>{row.timestamp}</td><td><button onClick={_ => this.deleteRow(index)}>&#10005;</button></td></tr>)}
                         </tbody>
                     </table>
                 </div>
