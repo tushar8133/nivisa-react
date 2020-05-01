@@ -8,7 +8,8 @@ class Autotest extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            newData: {}
+            newData: {},
+            auto: true
         };
         this.debounceTimer;
     }
@@ -19,7 +20,10 @@ class Autotest extends React.Component {
                 <tbody>
                 <tr>
                     <td>
-                        <input type="text" id="scanner" placeholder="Place scanner here" onInput={this.waitForQRCode.bind(this)} className="backgroundAnimatedGreen" autoComplete="off" />            
+                        <button onClick={this.pause.bind(this)} className="pause"><div>AUTO</div></button>
+                    </td>
+                    <td>
+                        <input type="text" id="scanner" spellcheck="false" placeholder="Place scanner here" onInput={this.waitForQRCode.bind(this)} className="backgroundAnimatedGreen" autoComplete="off" />
                     </td>
                     <td>
                         <AutotestInfo />
@@ -32,7 +36,27 @@ class Autotest extends React.Component {
         </main>);
     }
 
+    pause() {
+        this.setState(prevState => ({
+            auto: !this.state.auto
+        }));
+
+        if(!this.state.auto){
+            this.sendCommandToDevice();
+            document.querySelector('.pause > div').innerHTML = "AUTO";
+            document.getElementById("scanner").placeholder = "Place scanner here";
+            document.getElementById("scanner").focus();
+            document.getElementById("scanner").className = (document.getElementById("calibrationStatusON").className.indexOf("ON") > -1)? "backgroundAnimatedGreen" : "backgroundAnimatedRed";
+
+        } else {
+            document.querySelector('.pause > div').innerHTML = "TEST";
+            document.getElementById("scanner").className = "backgroundAnimatedOrange";
+            document.getElementById("scanner").placeholder = "Enter Serial No. manually";
+        }
+    }
+
     waitForQRCode() {
+        if(!this.state.auto) return;
         clearTimeout(this.debounceTimer);
         this.debounceTimer = setTimeout( _ => {
             this.sendCommandToDevice();

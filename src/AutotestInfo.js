@@ -25,10 +25,6 @@ class AutotestInfo extends React.Component {
                   <td>Calibration Status</td>
                   <td> : <span id="calibrationStatusON">ON</span><span id="calibrationStatusOFF">OFF</span></td>
                 </tr>
-                <tr>
-                  <td><button onClick={ _ => {this.pimvstimeHandler()} }>Start/Pause</button></td>
-                  <td></td>
-                </tr>
               </tbody>
             </table>
 
