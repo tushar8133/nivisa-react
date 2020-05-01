@@ -27,7 +27,7 @@ class AutotestInfo extends React.Component {
                 </tr>
                 <tr>
                   <td><button onClick={ _ => {this.pimvstimeHandler()} }>Start/Pause</button></td>
-                  <td><button onClick={ _ => {this.props.clearTable()} }>Clear Results</button></td>
+                  <td></td>
                 </tr>
               </tbody>
             </table>

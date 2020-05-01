@@ -24,12 +24,6 @@ class AutotestTable extends React.Component {
 
     componentWillReceiveProps(props) {
 
-        if(props.addon === null) {
-            if (confirm("Are you sure! This will delete all entries.")) {
-                this.state.tableData = [];
-            }
-        }
-
         if(props.addon && props.addon.qrcode) {
             var finalData = this.checkDuplicate(this.state.tableData, props.addon);
             this.setState({ tableData: finalData });
@@ -44,6 +38,14 @@ class AutotestTable extends React.Component {
         var scrollDiv = document.querySelector('#autotesttable > div');
         scrollDiv.scrollTop = scrollDiv.scrollHeight;
         localStorage.setItem('table', JSON.stringify(this.state.tableData));
+    }
+
+    clearData() {
+        if (confirm("Are you sure! This will delete all the entries.")) {
+            this.setState({
+                tableData: []
+            })
+        }
     }
 
     render() {
@@ -68,6 +70,7 @@ class AutotestTable extends React.Component {
                         </tbody>
                     </table>
                 </div>
+                <button onClick={_ => this.clearData()}>Clear Data</button> &nbsp;
                 <button onClick={_ => this.exportData()}>Save Excel</button>
             </main>);
     }
