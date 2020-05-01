@@ -5,9 +5,7 @@ class AutotestInfo extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            newData: {}
-        };
+        console.log(props)
     }
 
     render() {
@@ -27,6 +25,10 @@ class AutotestInfo extends React.Component {
                   <td>Calibration Status</td>
                   <td> : <span id="calibrationStatusON">ON</span><span id="calibrationStatusOFF">OFF</span></td>
                 </tr>
+                <tr>
+                  <td><button onClick={ _ => {this.pimvstimeHandler()} }>Start/Pause</button></td>
+                  <td><button onClick={ _ => {this.props.clearTable()} }>Clear Results</button></td>
+                </tr>
               </tbody>
             </table>
 
@@ -41,7 +43,6 @@ class AutotestInfo extends React.Component {
     getDuration() {
         return Number(localStorage.getItem('duration'));
     }
-
 
 }
 

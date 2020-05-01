@@ -8,7 +8,6 @@ class AutotestTable extends React.Component {
         this.state = {
             tableData: []
         };
-        console.log(props)
     }
 
     checkBackupData() {
@@ -24,6 +23,13 @@ class AutotestTable extends React.Component {
     }
 
     componentWillReceiveProps(props) {
+
+        if(props.addon === null) {
+            if (confirm("Are you sure! This will delete all entries.")) {
+                this.state.tableData = [];
+            }
+        }
+
         if(props.addon && props.addon.qrcode) {
             var finalData = this.checkDuplicate(this.state.tableData, props.addon);
             this.setState({ tableData: finalData });

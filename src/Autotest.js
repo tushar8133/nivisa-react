@@ -22,7 +22,7 @@ class Autotest extends React.Component {
                         <input type="text" id="scanner" placeholder="Place scanner here" onInput={this.waitForQRCode.bind(this)} className="backgroundAnimatedGreen" autoComplete="off" />            
                     </td>
                     <td>
-                        <AutotestInfo />
+                        <AutotestInfo clearTable={this.clearData.bind(this)} />
                     </td>
                 </tr>
                 </tbody>
@@ -98,6 +98,12 @@ class Autotest extends React.Component {
 
     getDuration() {
         return Number(localStorage.getItem('duration'));
+    }
+
+    clearData() {
+        this.setState(prevState => ({
+            newData: null
+        }));
     }
 
     checkCalibrationStatus() {
