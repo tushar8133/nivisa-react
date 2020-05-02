@@ -74,7 +74,7 @@ class Autotest extends React.Component {
 
         connectMachine('INITiate:PIManalyzer:MEASure ON')
         .then( _ => {
-            return connectMachine(':PIManalyzer:MEASure:VALue?');
+            return connectMachine('FAKE');
         })
         .then( _ => {
             return connectMachine(':PIManalyzer:MEASure:VALue?');

@@ -53,7 +53,7 @@ class Pim extends React.Component {
     getIMDOrder(val) {
         connectMachine(':PIManalyzer:IMD:ORDer '+val)
         .then( data => {
-            return connectMachine(':PIManalyzer:FREQuency:F1?')
+            return connectMachine('FAKE')
         })
         .then( data => {
             return connectMachine(':PIManalyzer:FREQuency:F1?')
@@ -74,7 +74,7 @@ class Pim extends React.Component {
     checkCurrentMode() {
         connectMachine(':INSTrument:NSELect?')
         .then( _ => {
-            return connectMachine(':INSTrument:NSELect?')
+            return connectMachine('FAKE')
         })
         .then( data => {
             if(data != 46) this.changingtopimanalyzerHandler();

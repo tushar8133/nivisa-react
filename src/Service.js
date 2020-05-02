@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-import cmdNames from './Service-cmd';
+import {cmdNames} from './Service-cmd';
 
 var socket = io("http://localhost:8472");
 var timer = null;
@@ -9,8 +9,12 @@ export default function connectMachine(cmd) {
 
 	var sec = 0;
 	var msg = '';
-
-	console.log(cmdNames)
+	cmdNames.forEach( (obj) => {
+		if(cmd.indexOf(obj.id) > -1) {
+			sec = Number(obj.delay) * 1000;
+			msg = obj.desc;
+		}
+	})
 
 	if(JSON.parse(localStorage.getItem("demo"))) sec = 0;
 	if(timer) return;
