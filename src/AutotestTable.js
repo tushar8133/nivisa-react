@@ -70,12 +70,12 @@ class AutotestTable extends React.Component {
                                 <th>Duration</th>
                                 <th>dBm</th>
                                 <th>dBc</th>
-                                <th>Timestamp</th>
+                                <th>Time</th>
                                 <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
-                             {this.state.tableData.map((row, index) => <tr key={row.qrcode}><td>{this.state.tableData.length - index}</td><td>{row.qrcode}</td><td>{row.power}</td><td>{row.duration}</td><td className={this.checkDBMValue(row.dBm)}>{row.dBm} dBm</td><td className={this.checkDBCValue(row.dBc)}>{row.dBc} dBc</td><td>{row.timestamp}</td><td><button onClick={_ => this.deleteRow(index)}>&#10005;</button></td></tr>)}
+                             {this.state.tableData.map((row, index) => <tr key={row.qrcode}><td>{this.state.tableData.length - index}</td><td>{row.qrcode}</td><td>{row.power}</td><td>{row.duration}</td><td className={this.checkDBMValue(row.dBm)}>{row.dBm} dBm</td><td className={this.checkDBCValue(row.dBc)}>{row.dBc} dBc</td><td>{row.time}</td><td><button onClick={_ => this.deleteRow(index)}>&#10005;</button></td></tr>)}
                         </tbody>
                     </table>
                 </div>
