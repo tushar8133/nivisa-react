@@ -51,29 +51,33 @@ class Pim extends React.Component {
     }
 
     getIMDOrder(val) {
-        debugger;
         connectMachine(':PIManalyzer:IMD:ORDer '+val, 'Setting Order '+val, 5000)
         .then( data => {
-            return connectMachine(':PIManalyzer:FREQuency:F1?', 'Getting F1', 2000)
+            return connectMachine(':PIManalyzer:FREQuency:F1?', 'Getting Frequency', 5000)
+        })
+        .then( data => {
+            return connectMachine(':PIManalyzer:FREQuency:F1?', 'Getting F1', 500)
         })
         .then( data => {
             this.setState(prevState => ({
-                f1: data.substr(0, 4)
+                f1: data.substr(0, 3)
             }));
-            return connectMachine(':PIManalyzer:FREQuency:F2?', 'Getting F2', 2000)
+            return connectMachine(':PIManalyzer:FREQuency:F2?', 'Getting F2', 500)
         })
         .then( data => {
             this.setState(prevState => ({
-                f2: data.substr(0, 4)
+                f2: data.substr(0, 3)
             }));
         });
     }
 
     checkCurrentMode() {
-        // var local = JSON.parse(localStorage.getItem('modes'));
-        connectMachine(':INSTrument:NSELect?', 'Checking if mode is PIM Analyzer', 2000)
+        connectMachine(':INSTrument:NSELect?', 'Checking if mode is PIM Analyzer', 1000)
+        .then( _ => {
+            return connectMachine(':INSTrument:NSELect?', 'Getting Ready', 1000)
+        })
         .then( data => {
-            if(!data.indexOf("46")) this.changingtopimanalyzerHandler();
+            if(data != 46) this.changingtopimanalyzerHandler();
         });
     }
 

@@ -94,7 +94,7 @@ class AutotestTable extends React.Component {
     checkDBMValue(val) {
         var local = Number(localStorage.getItem("dbcutoff"));
         if(local) {
-            return (val > local)? "pass" : "fail";
+            return (val <= local)? "pass" : "fail";
         } else {
             return "";
         }
@@ -103,7 +103,7 @@ class AutotestTable extends React.Component {
     checkDBCValue(val) {
         var local = Number(localStorage.getItem("dbcutoff"));
         if(local) {
-            return ((val + 20) > local)? "pass" : "fail";
+            return (val <= (local - 20))? "pass" : "fail";
         } else {
             return "";
         }

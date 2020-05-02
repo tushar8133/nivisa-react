@@ -315,8 +315,17 @@ html, body {
   }
 }
 
-#autotest > table > tr > td:nth-child(2) {
-  width: 250px;
+.autoTestCol1 {
+  width: 0px;
+}
+
+.autoTestCol2 {
+  width: 100%;
+}
+
+.autoTestCol3 {
+  min-width: 190px;
+  max-width: 190px;
 }
 
 #data-table .fail {
@@ -550,7 +559,7 @@ html, body {
 }
 
 #pim-page input {
-  width: 50px;
+  width: 80px;
   padding-left: 5px;
   font-size: 150%;
   display: inline-block;

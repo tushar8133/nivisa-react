@@ -19,13 +19,13 @@ class Autotest extends React.Component {
             <table width="100%">
                 <tbody>
                 <tr>
-                    <td>
+                    <td className="autoTestCol1">
                         <button onClick={this.pause.bind(this)} className="pause"><div>AUTO</div></button>
                     </td>
-                    <td>
+                    <td className="autoTestCol2">
                         <input type="text" id="scanner" spellCheck="false" placeholder="Place scanner here" onInput={this.waitForQRCode.bind(this)} className="backgroundAnimatedGreen" autoComplete="off" />
                     </td>
-                    <td>
+                    <td className="autoTestCol3">
                         <AutotestInfo />
                     </td>
                 </tr>
@@ -72,12 +72,15 @@ class Autotest extends React.Component {
         var power = this.getPower();
         var duration = this.getDuration();
 
-        connectMachine('INITiate:PIManalyzer:MEASure ON', 'RUNNING TEST...' , (this.getDuration() * 1000) + 5000)
-        .then( data => {
-            return connectMachine(':PIManalyzer:MEASure:VALue?', 'Getting test values');
+        connectMachine('INITiate:PIManalyzer:MEASure ON', 'RUNNING TEST...' , (this.getDuration() * 1000) )
+        .then( _ => {
+            return connectMachine(':PIManalyzer:MEASure:VALue?', 'Getting Ready', 4000);
+        })
+        .then( _ => {
+            return connectMachine(':PIManalyzer:MEASure:VALue?', 'Getting Test Values', 1000);
         })
         .then( data => {
-            console.log(data)
+            if(JSON.parse(localStorage.getItem('demo'))) data = `${Math.floor(Math.random()*(999-100+1)+100)}, ${Math.floor(Math.random()*(999-100+1)+100)}`;
             this.formatFinalData(qrcode, data, power, duration);
             elem.disabled = false;
             elem.value = '';
@@ -100,11 +103,9 @@ class Autotest extends React.Component {
     }
 
     formatPeakData(data) {
-
         if(JSON.parse(localStorage.getItem('demo'))) {
             data = `${Math.floor(Math.random()*(999-100+1)+100)}, ${Math.floor(Math.random()*(999-100+1)+100)}`;
         }
-
         var arr = data.split(',');
         arr[0] = String(arr[0]).trim();
         arr[1] = String(arr[1]).trim();
@@ -127,19 +128,17 @@ class Autotest extends React.Component {
     checkCalibrationStatus() {
         connectMachine('CALibration:PIManalyzer:FULL?')
         .then( data => {
-            var status = Math.random() >= 0.5;
-
-            if(status) {
+            if(data.indexOf("ON") > -1) {
                 document.getElementById("calibrationStatusON").className = "calibrationStatusON";
                 document.getElementById("calibrationStatusOFF").className = "";
                 document.getElementById("scanner").className = "backgroundAnimatedGreen";
-            } else {
+            }
+            if(data.indexOf("OFF") > -1) {
                 document.getElementById("calibrationStatusOFF").className = "calibrationStatusOFF";
                 document.getElementById("calibrationStatusON").className = "";
                 document.getElementById("scanner").className = "backgroundAnimatedRed";
             }
         });
-
     }
 
     componentDidMount() {
