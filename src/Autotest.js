@@ -23,7 +23,7 @@ class Autotest extends React.Component {
                         <button onClick={this.pause.bind(this)} className="pause"><div>AUTO</div></button>
                     </td>
                     <td>
-                        <input type="text" id="scanner" spellcheck="false" placeholder="Place scanner here" onInput={this.waitForQRCode.bind(this)} className="backgroundAnimatedGreen" autoComplete="off" />
+                        <input type="text" id="scanner" spellCheck="false" placeholder="Place scanner here" onInput={this.waitForQRCode.bind(this)} className="backgroundAnimatedGreen" autoComplete="off" />
                     </td>
                     <td>
                         <AutotestInfo />
@@ -60,7 +60,7 @@ class Autotest extends React.Component {
         clearTimeout(this.debounceTimer);
         this.debounceTimer = setTimeout( _ => {
             this.sendCommandToDevice();
-        }, 100);
+        }, 200);
     }
 
     sendCommandToDevice() {
@@ -72,9 +72,9 @@ class Autotest extends React.Component {
         var power = this.getPower();
         var duration = this.getDuration();
 
-        connectMachine('INITiate:PIManalyzer:MEASure ON', this.getDuration() + 5000)
+        connectMachine('INITiate:PIManalyzer:MEASure ON', 'RUNNING TEST...' , (this.getDuration() * 1000) + 5000)
         .then( data => {
-            return connectMachine(':PIManalyzer:MEASure:VALue?');
+            return connectMachine(':PIManalyzer:MEASure:VALue?', 'Getting test values');
         })
         .then( data => {
             console.log(data)

@@ -60,7 +60,7 @@ class Command extends React.Component {
     }
 
     calibrate() {
-        connectMachine(':CALibration:PIManalyzer:FULL').then( data => {
+        connectMachine(':CALibration:PIManalyzer:FULL ON').then( data => {
             console.log(data);
         });
     }

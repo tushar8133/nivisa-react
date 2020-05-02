@@ -28,7 +28,7 @@ class Connection extends React.Component {
                 }
             
                 <div id='command-page'>
-                    <button onClick={_ => this.sendCommand('*IDN?', 2000 , 'Machine ID')}>*IDN?</button>
+                    <button onClick={_ => this.sendCommand('*IDN?', 'Getting Machine ID', 2000)}>*IDN?</button>
                     <span className="spacer" />
                     <input type="text" id="custom-cmd" placeholder="SCPI command" />
                     <button onClick={_ => this.sendCommand(document.getElementById('custom-cmd').value)}>Send</button>

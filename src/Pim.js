@@ -22,9 +22,9 @@ class Pim extends React.Component {
 
             <div className="grid">
                 <div>
-                    <div><button className="btnPower" onClick={ _ => {this.setPower()} }>Set dBm/dBc cut-off</button> <input type="number" id="dbcutoff" onInput={this.saveDBCutoff} /></div>
-                    <div><button className="btnPower" onClick={ _ => {this.setPower()} }>Set Output Power Level (dBm):</button> <input type="number" id="outputPowerLevel" onInput={this.savePower} /></div>
-                    <div><button className="btnPower" onClick={ _ => {this.setDuration()} }>Set Test Duration (sec)</button> <input type="number" id="testDuration" onInput={this.saveDuration} /></div>
+                    <div><label>dBm/dBc Cut-off<input type="number" id="dbcutoff" onInput={this.saveDBCutoff} /></label></div>
+                    <div><label>Output Power Level (dBm)<input type="number" id="outputPowerLevel" onInput={this.savePower} onBlur={ this.setPower.bind(this) } /></label></div>
+                    <div><label>Test Duration (sec)<input type="number" id="testDuration" onInput={this.saveDuration} onBlur={ this.setDuration.bind(this) } /></label></div>
                     <button className="btnOrder" onClick={ _ => {this.getIMDOrder(3)} }>Order 3</button>
                     <button className="btnOrder" onClick={ _ => {this.getIMDOrder(5)} }>Order 5</button>
                     <button className="btnOrder" onClick={ _ => {this.getIMDOrder(7)} }>Order 7</button>
@@ -51,15 +51,16 @@ class Pim extends React.Component {
     }
 
     getIMDOrder(val) {
-        connectMachine(':PIManalyzer:IMD:ORDer '+val)
+        debugger;
+        connectMachine(':PIManalyzer:IMD:ORDer '+val, 'Setting Order '+val, 5000)
         .then( data => {
-            return connectMachine(':PIManalyzer:FREQuency:F1?')
+            return connectMachine(':PIManalyzer:FREQuency:F1?', 'Getting F1', 2000)
         })
         .then( data => {
             this.setState(prevState => ({
                 f1: data.substr(0, 4)
             }));
-            return connectMachine(':PIManalyzer:FREQuency:F2?')
+            return connectMachine(':PIManalyzer:FREQuency:F2?', 'Getting F2', 2000)
         })
         .then( data => {
             this.setState(prevState => ({
@@ -70,42 +71,42 @@ class Pim extends React.Component {
 
     checkCurrentMode() {
         // var local = JSON.parse(localStorage.getItem('modes'));
-        connectMachine(':INSTrument:NSELect?', 'Checking current mode', 1000)
+        connectMachine(':INSTrument:NSELect?', 'Checking if mode is PIM Analyzer', 2000)
         .then( data => {
             if(!data.indexOf("46")) this.changingtopimanalyzerHandler();
         });
     }
 
     pimvstimeHandler(){
-    	connectMachine('SENSe:PIManalyzer:MODe PIM')
+    	connectMachine('SENSe:PIManalyzer:MODe PIM', 'Setting PIM vs Time')
     	.then( data => {
     		this.setResponse(data);
     	});
     }
 
     setPower() {
-        connectMachine(':PIManalyzer:OUTPut:POWer ' + localStorage.getItem('power'))
+        connectMachine(':PIManalyzer:OUTPut:POWer ' + localStorage.getItem('power'), 'Setting Power', 1000)
         .then( data => {
             this.setResponse(data);
         });
     }
 
     setDuration() {
-        connectMachine(':PIManalyzer:TEST:DURation ' + localStorage.getItem('duration'))
+        connectMachine(':PIManalyzer:TEST:DURation ' + localStorage.getItem('duration'), 'Setting Duration', 1000)
         .then( data => {
             this.setResponse(data);
         });
     }
 
     sweptpimHandler(){
-    	connectMachine(':PIManalyzer:MODe PIMSwp')
+    	connectMachine(':PIManalyzer:MODe PIMSwp', 'Setting Swept PIM')
     	.then( data => {
     		this.setResponse(data);
     	});
     }
 
     changingtopimanalyzerHandler() {
-        connectMachine(':INSTrument:NSELect 46', 'Changing to PIM Analyzer...', 3000)
+        connectMachine(':INSTrument:NSELect 46', 'Changing to PIM Analyzer...', 30000)
         .then( data => {
             this.setResponse(data);
         });

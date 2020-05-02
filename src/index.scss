@@ -295,6 +295,7 @@ html, body {
   font-size: 22px;
   color: black;
   display: inline-block;
+  box-sizing: border-box;
 }
 
 #autotest .pause {
@@ -369,9 +370,9 @@ html, body {
 .infoTable {
   text-align: left;
   border: 1px solid lightgray;
-  float: right;
-  margin-right: 5%;
-  width: 80%;
+  width: 100%;
+  min-width: 180px;
+  font-size: 12px;
 }
 
 .infoTable td:nth-child(1) {
@@ -433,6 +434,13 @@ html, body {
   font-size: 130%;
 }
 
+#autotesttable #operatorName {
+  height: 4px;
+  margin-right: 8px;
+  width: 200px;
+  margin-top: 1px;
+}
+
 @-o-keyframes fadeItGreen {
   0%   { background-color: #FFFFFF; }
   50%  { background-color: lightgreen; }
@@ -479,6 +487,8 @@ html, body {
     display: grid;
     grid-template-columns: 68% 30%;
     column-gap: 10px;
+
+
     button {
       display: inline-block;
       width: 95%;
@@ -487,7 +497,7 @@ html, body {
       width: 80%;
     }
     .btnOrder {
-      width: 30.6%;
+      width: 29%;
     }
     .orderFreq {
       display: grid;
@@ -502,21 +512,24 @@ html, body {
 
 #pim-page > div > div {
   border: 1px solid #cecece;
+  text-align: center;
 }
 
 #pim-page label input {
-  width: 40px;
+/*  width: 40px;
   height: 5px;
   border: 0;
-  font-weight: bold;
+  font-weight: bold;*/
   /* background-color: lightgrey; */
+  float: right;
 }
 
 #pim-page label {
   border: 1px solid #F0F0F0;
-  margin: 8px;
-  padding: 2px 0px 2px 8px;
-  display: inline-block;
+  margin: 5px;
+  padding: 5px;
+  line-height: 2.4;
+  display: block;
 }
 
 #pim-page main {

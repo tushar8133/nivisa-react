@@ -6,8 +6,10 @@ class AutotestTable extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            tableData: []
+            tableData: [],
+            operatorName: ''
         };
+        this.clearDataConfirmation = 0;
     }
 
     checkBackupData() {
@@ -38,10 +40,20 @@ class AutotestTable extends React.Component {
     }
 
     clearData() {
-        if (confirm("Are you sure!\nThis will delete all the entries")) {
+        this.clearDataConfirmation++;
+        let buttonText = document.getElementById("clearData");
+        if(this.clearDataConfirmation >= 2) {
             this.setState({
                 tableData: []
             })
+            buttonText.innerText = "Clear Data";
+            this.clearDataConfirmation = 0;
+        } else {
+            buttonText.innerText = "Are you sure!";
+            setTimeout( _ => {
+                buttonText.innerText = "Clear Data";
+                this.clearDataConfirmation = 0;
+            }, 2000);
         }
     }
 
@@ -67,9 +79,16 @@ class AutotestTable extends React.Component {
                         </tbody>
                     </table>
                 </div>
-                <button onClick={_ => this.clearData()}>Clear Data</button> &nbsp;
-                <button onClick={_ => this.exportData()}>Save Excel</button>
+                <input type="text" id="operatorName" placeholder="Enter Operator Name" onInput={ _ => this.saveOperatorName(_.target.value) } />  
+                <button onClick={_ => this.exportData()} disabled={!this.state.operatorName}>Save Excel</button>&nbsp;
+                <button id="clearData" onClick={_ => this.clearData()}>Clear Data</button>
             </main>);
+    }
+
+    saveOperatorName(name) {
+        this.setState({
+            operatorName: name
+        })
     }
 
     checkDBMValue(val) {
@@ -110,26 +129,17 @@ class AutotestTable extends React.Component {
     formatDate(type) {
         var dt = new Date();
         if(type === 'print') return (`${dt.getFullYear().toString().padStart(4, '0')}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')} ${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0')}`);
-        if(type === 'save') return (`${dt.getFullYear().toString().padStart(4, '0')}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')}  (${dt.getHours().toString().padStart(2, '0')}${dt.getMinutes().toString().padStart(2, '0')})`);
+        if(type === 'save') return (`${dt.getFullYear().toString().padStart(4, '0')}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')} (${dt.getHours().toString().padStart(2, '0')}${dt.getMinutes().toString().padStart(2, '0')})`);
     }
 
     exportData() {
-        var person = "OPERATOR NAME"
-        try {
-            var person = prompt('Please enter OPERATOR NAME');
-            if (!person) {
-                alert('OPERATOR NAME is required!');
-                return false;
-            }
-        } catch(e) {}
-        
         console.table(this.state.tableData);
         var data = [...this.state.tableData].reverse();
         var newData = data.map((obj, index) => {
             return Object.assign({ index: String(index + 1) }, obj)
         })
         // console.table(newData);
-        this.xlsxModule(person, newData);
+        this.xlsxModule(this.state.operatorName, newData);
     }
 
     xlsxModule(person, data) {
@@ -137,7 +147,7 @@ class AutotestTable extends React.Component {
         XLSX.utils.sheet_add_json(ws, data, { skipHeader: false, origin: 'A4' });
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws);
-        XLSX.writeFile(wb, `Anritsu Test -- ${this.formatDate('save')}.xlsx`);
+        XLSX.writeFile(wb, `Anritsu Test -- ${person} -- ${this.formatDate('save')}.xlsx`);
     }
 }
 
