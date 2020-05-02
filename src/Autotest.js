@@ -1,7 +1,7 @@
 import React from 'react';
 import AutotestTable from './AutotestTable';
 import AutotestInfo from './AutotestInfo';
-import connectMachine from './service';
+import connectMachine from './Service';
 
 class Autotest extends React.Component {
 
@@ -72,12 +72,12 @@ class Autotest extends React.Component {
         var power = this.getPower();
         var duration = this.getDuration();
 
-        connectMachine('INITiate:PIManalyzer:MEASure ON', 'RUNNING TEST...' , (this.getDuration() * 1000) )
+        connectMachine('INITiate:PIManalyzer:MEASure ON')
         .then( _ => {
-            return connectMachine(':PIManalyzer:MEASure:VALue?', 'Getting Ready', 4000);
+            return connectMachine(':PIManalyzer:MEASure:VALue?');
         })
         .then( _ => {
-            return connectMachine(':PIManalyzer:MEASure:VALue?', 'Getting Test Values', 1000);
+            return connectMachine(':PIManalyzer:MEASure:VALue?');
         })
         .then( data => {
             if(JSON.parse(localStorage.getItem('demo'))) data = `${Math.floor(Math.random()*(999-100+1)+100)}, ${Math.floor(Math.random()*(999-100+1)+100)}`;
@@ -126,7 +126,7 @@ class Autotest extends React.Component {
     }
 
     checkCalibrationStatus() {
-        connectMachine('CALibration:PIManalyzer:FULL?')
+        connectMachine(':CALibration:PIManalyzer:FULL?')
         .then( data => {
             if(data.indexOf("ON") > -1) {
                 document.getElementById("calibrationStatusON").className = "calibrationStatusON";

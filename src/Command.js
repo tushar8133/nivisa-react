@@ -1,5 +1,5 @@
 import React from 'react';
-import connectMachine from './service';
+import connectMachine from './Service';
 
 class Command extends React.Component {
     constructor(props) {
@@ -53,8 +53,8 @@ class Command extends React.Component {
         )
     }
 
-    sendCommand(cmd, sec, msg) {
-        connectMachine(cmd, sec, msg).then( data => {
+    sendCommand(cmd) {
+        connectMachine(cmd).then( data => {
             this.setResponse(data);
         });
     }

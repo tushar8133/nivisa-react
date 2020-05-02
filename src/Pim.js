@@ -1,5 +1,5 @@
 import React from 'react';
-import connectMachine from './service';
+import connectMachine from './Service';
 
 class Pim extends React.Component {
     constructor(props) {
@@ -51,18 +51,18 @@ class Pim extends React.Component {
     }
 
     getIMDOrder(val) {
-        connectMachine(':PIManalyzer:IMD:ORDer '+val, 'Setting Order '+val, 5000)
+        connectMachine(':PIManalyzer:IMD:ORDer '+val)
         .then( data => {
-            return connectMachine(':PIManalyzer:FREQuency:F1?', 'Getting Frequency', 5000)
+            return connectMachine(':PIManalyzer:FREQuency:F1?')
         })
         .then( data => {
-            return connectMachine(':PIManalyzer:FREQuency:F1?', 'Getting F1', 500)
+            return connectMachine(':PIManalyzer:FREQuency:F1?')
         })
         .then( data => {
             this.setState(prevState => ({
                 f1: data.substr(0, 3)
             }));
-            return connectMachine(':PIManalyzer:FREQuency:F2?', 'Getting F2', 500)
+            return connectMachine(':PIManalyzer:FREQuency:F2?')
         })
         .then( data => {
             this.setState(prevState => ({
@@ -72,9 +72,9 @@ class Pim extends React.Component {
     }
 
     checkCurrentMode() {
-        connectMachine(':INSTrument:NSELect?', 'Checking if mode is PIM Analyzer', 1000)
+        connectMachine(':INSTrument:NSELect?')
         .then( _ => {
-            return connectMachine(':INSTrument:NSELect?', 'Getting Ready', 1000)
+            return connectMachine(':INSTrument:NSELect?')
         })
         .then( data => {
             if(data != 46) this.changingtopimanalyzerHandler();
@@ -82,35 +82,35 @@ class Pim extends React.Component {
     }
 
     pimvstimeHandler(){
-    	connectMachine('SENSe:PIManalyzer:MODe PIM', 'Setting PIM vs Time')
+    	connectMachine('SENSe:PIManalyzer:MODe PIM')
     	.then( data => {
     		this.setResponse(data);
     	});
     }
 
     setPower() {
-        connectMachine(':PIManalyzer:OUTPut:POWer ' + localStorage.getItem('power'), 'Setting Power', 1000)
+        connectMachine(':PIManalyzer:OUTPut:POWer ' + localStorage.getItem('power'))
         .then( data => {
             this.setResponse(data);
         });
     }
 
     setDuration() {
-        connectMachine(':PIManalyzer:TEST:DURation ' + localStorage.getItem('duration'), 'Setting Duration', 1000)
+        connectMachine(':PIManalyzer:TEST:DURation ' + localStorage.getItem('duration'))
         .then( data => {
             this.setResponse(data);
         });
     }
 
     sweptpimHandler(){
-    	connectMachine(':PIManalyzer:MODe PIMSwp', 'Setting Swept PIM')
+    	connectMachine(':PIManalyzer:MODe PIMSwp')
     	.then( data => {
     		this.setResponse(data);
     	});
     }
 
     changingtopimanalyzerHandler() {
-        connectMachine(':INSTrument:NSELect 46', 'Changing to PIM Analyzer...', 30000)
+        connectMachine(':INSTrument:NSELect 46')
         .then( data => {
             this.setResponse(data);
         });

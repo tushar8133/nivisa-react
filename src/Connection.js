@@ -1,5 +1,5 @@
 import React from 'react';
-import connectMachine from './service';
+import connectMachine from './Service';
 
 class Connection extends React.Component {
     constructor(props) {
@@ -28,7 +28,7 @@ class Connection extends React.Component {
                 }
             
                 <div id='command-page'>
-                    <button onClick={_ => this.sendCommand('*IDN?', 'Getting Machine ID', 2000)}>*IDN?</button>
+                    <button onClick={_ => this.sendCommand('*IDN?')}>*IDN?</button>
                     <span className="spacer" />
                     <input type="text" id="custom-cmd" placeholder="SCPI command" />
                     <button onClick={_ => this.sendCommand(document.getElementById('custom-cmd').value)}>Send</button>
@@ -41,12 +41,12 @@ class Connection extends React.Component {
     }
 
     getDeviceList() {
-        connectMachine('GET_DEVICE_LIST', 'Getting connections', 1000)
+        connectMachine('GET_DEVICE_LIST')
         .then( data => {
             console.log("data here..", data)
             this.setState(state => ({ addresses: data }));
             this.selectDefaultOption(data[0]);
-            return connectMachine(':INSTrument:CATalog:FULL?', 'Getting machine all supported MODES', 3000)
+            return connectMachine(':INSTrument:CATalog:FULL?')
         })
         .then( data => {
             console.log(data);
@@ -63,8 +63,8 @@ class Connection extends React.Component {
         this.radioHandler(val);
     }
 
-    sendCommand(cmd, sec, msg) {
-        connectMachine(cmd, sec, msg).then( data => {
+    sendCommand(cmd) {
+        connectMachine(cmd).then( data => {
             this.setResponse(data);
         });
     }

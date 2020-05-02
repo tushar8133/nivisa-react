@@ -1,5 +1,5 @@
 import React from 'react';
-import connectMachine from './service';
+import connectMachine from './Service';
 
 class AutotestInfo extends React.Component {
 
