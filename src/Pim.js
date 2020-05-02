@@ -22,12 +22,12 @@ class Pim extends React.Component {
 
             <div className="grid">
                 <div>
-                    <div><label>dBm/dBc Cut-off<input type="number" id="dbcutoff" onInput={this.saveDBCutoff} /></label></div>
+                    <div><label>Pass/Fail Value (dBm)<input type="number" id="dbcutoff" onInput={this.saveDBCutoff} /></label></div>
                     <div><label>Output Power Level (dBm)<input type="number" id="outputPowerLevel" onInput={this.savePower} onBlur={ this.setPower.bind(this) } /></label></div>
                     <div><label>Test Duration (sec)<input type="number" id="testDuration" onInput={this.saveDuration} onBlur={ this.setDuration.bind(this) } /></label></div>
-                    <button className="btnOrder" onClick={ _ => {this.getIMDOrder(3)} }>Order 3</button>
-                    <button className="btnOrder" onClick={ _ => {this.getIMDOrder(5)} }>Order 5</button>
-                    <button className="btnOrder" onClick={ _ => {this.getIMDOrder(7)} }>Order 7</button>
+                    <button className="btnOrder" onClick={ _ => {this.getIMDOrder(3)} }>IMD Order 3</button>
+                    <button className="btnOrder" onClick={ _ => {this.getIMDOrder(5)} }>IMD Order 5</button>
+                    <button className="btnOrder" onClick={ _ => {this.getIMDOrder(7)} }>IMD Order 7</button>
 
                     <span className="orderFreq">
                         <div>Frequency F1: {this.state.f1 + " MHz"} </div>
