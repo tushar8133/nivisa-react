@@ -21,6 +21,8 @@ export default function connectMachine(cmd) {
 
 	progressBar(msg, sec);
 
+	if(cmd == "FAKE") cmd = '*IDN?';
+
 	document.getElementById('loader').style.display = 'block';
 	var socketObj = {
 		address: localStorage.getItem('address'),
