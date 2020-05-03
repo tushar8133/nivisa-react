@@ -4,8 +4,17 @@ import {cmdNames} from './Service-cmd';
 var socket = io("http://localhost:8472");
 var timer = null;
 
+export function flyingKite(cmd) {
+	var socketObj = {
+		address: localStorage.getItem('address'),
+		command: cmd
+	};
+	console.log('remote', socketObj)
+	socket.emit('comm', socketObj);
+}
 
-export default function connectMachine(cmd) {
+
+export function connectMachine(cmd) {
 
 	var sec = 0;
 	var msg = '';

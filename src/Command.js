@@ -1,5 +1,5 @@
 import React from 'react';
-import connectMachine from './Service';
+import {connectMachine} from './Service';
 
 class Command extends React.Component {
     constructor(props) {

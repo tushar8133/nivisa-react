@@ -1,7 +1,7 @@
 import React from 'react';
 import AutotestTable from './AutotestTable';
 import AutotestInfo from './AutotestInfo';
-import connectMachine from './Service';
+import {connectMachine} from './Service';
 
 class Autotest extends React.Component {
 
@@ -126,7 +126,9 @@ class Autotest extends React.Component {
     }
 
     checkCalibrationStatus() {
-        connectMachine(':CALibration:PIManalyzer:FULL?')
+        connectMachine('FAKE').then( _ => {
+            return connectMachine(':CALibration:PIManalyzer:FULL?')
+        })
         .then( data => {
             if(data.indexOf("ON") > -1) {
                 document.getElementById("calibrationStatusON").className = "calibrationStatusON";

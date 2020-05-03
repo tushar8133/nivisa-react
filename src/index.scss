@@ -12,6 +12,16 @@ html, body {
   /*font-size: 12px;*/
 }
 
+input[type="number"] {
+  -webkit-appearance: textfield;
+     -moz-appearance: textfield;
+          appearance: textfield;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none;
+}
+
 .loader-grid {
   display: grid;
   grid-template-columns: 100%;
@@ -128,7 +138,7 @@ html, body {
   width: 0px;
 }
 
-#header-page img {
+#header-page .logo {
   width: 150px;
   /*float: left;
   margin: 25px;*/
@@ -578,3 +588,63 @@ html, body {
 
 
 
+.dropdown {
+  display: inline-block;
+  float: right;
+  margin-top: 8px;
+  margin-right: 5px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  /*background-color: red;*/
+  /*border: 3px solid maroon;*/
+  box-shadow: -10px 10px 20px 0px rgba(0,0,0,0.50);
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+
+#remotePad {
+  width: 200px !important;
+  padding-bottom: 20px;
+  /*background-color: #E1EBEC !important;*/
+}
+
+#remotePad .keypad {
+    border: 0;
+    width: auto;
+}
+
+#remotePad .keypad_row {
+    border: 0;
+    padding: 0;
+}
+
+#remotePad .keypad_button {
+    min-height: 40px;
+    width: 50px;
+    font-size: 9pt;
+    margin: 1px;
+    opacity: 0.8;
+}
+
+#remotePad .keypad_separator {
+    height: 20px;
+}
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(/assets/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: local('Material Icons'),
+    local('MaterialIcons-Regular'),
+    url(/assets/MaterialIcons-Regular.woff2) format('woff2'),
+    url(/assets/MaterialIcons-Regular.woff) format('woff'),
+    url(/assets/MaterialIcons-Regular.ttf) format('truetype');
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import connectMachine from './Service';
+import {connectMachine} from './Service';
 
 class Pim extends React.Component {
     constructor(props) {
@@ -72,9 +72,9 @@ class Pim extends React.Component {
     }
 
     checkCurrentMode() {
-        connectMachine(':INSTrument:NSELect?')
+        connectMachine('FAKE')
         .then( _ => {
-            return connectMachine('FAKE')
+            return connectMachine(':INSTrument:NSELect?')
         })
         .then( data => {
             if(data != 46) this.changingtopimanalyzerHandler();
