@@ -12,116 +12,57 @@ html, body {
   /*font-size: 12px;*/
 }
 
+.loader-grid {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 100%;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  z-index: 10;
+}
+
+.loader-template {
+
+}
+
+.loader-bg {
+  position: fixed;
+  background-color: black;
+  opacity: 0.5;
+  width: 100%;
+  height: 100%;
+}
+
 .spacer {
   display: block;
   margin: 15px;
 }
 
 
-.overlay {
-  height: 100%;
-  width: 100%;
-  display: none;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-}
-
-.overlay-content {
-  opacity: 0.5;
-  background-color: black;
-  height: 100%;
-  width: 100%;
-  position: relative;
-  top: 0;
-  left: 0;
-  /*top: 25%;*/
-  /*width: 100%;*/
-  text-align: center;
-  /*margin-top: 30px;*/
-}
-
-#spinner img {
-  max-height: 100%;
-  max-width: 100%;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-  z-index: 3;
-  opacity: 1;
+#loader img {
   box-shadow: 0px 0px 20px 5px white;
   border-radius: 10px;
   filter: hue-rotate(165deg);
 }
 
-#modal-text {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1200;
-    margin-top: 80px;
-    color: white;
-    /*-webkit-font-smoothing: subpixel-antialiased;*/
-    /*-webkit-transform: translateZ(0) scale(1.0, 1.0);*/
-    /*text-shadow: 1px 1px 0px black;*/
+.bar-holder {
+  width: 190px;
+  background-color: purple;
+  margin: 15px auto;
+}
 
-  }
+#progressbar {
+  width: 0px;
+  border: 1px solid #00ffd0;
+}
 
-  .modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1100;
-  }
-
-  .modal img {
-    box-shadow: 0px 0px 20px 5px white;
-    border-radius: 10px;
-    filter: hue-rotate(165deg);
-  }
-
-  .modal p {
-    color: white;
-    border-radius: 10px;
-    margin: 10px 0 2px 0;
-    padding: 0;
-  }
-
-  .modal hr {
-    display: none;
-    float: left;
-    width: 0px;
-    z-index: 12000;
-    position: relative;
-    border: 1px solid #00ffd0;
-  }
-
-  #progressbar {
-    margin-top: 10px;
-    width: 1px;
-  }
-
-  #progressBarHolder {
-    height: 20px;
-    display: block;
-  }
-
-  .modal-overlay {
-  z-index: 1000;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: pink;
-  opacity: 0.5;
+#loading-text {
+  color: white;
+  display: inline-block;
   background-color: black;
+  padding: 0 7px;
 }
 
 .selected-tab {

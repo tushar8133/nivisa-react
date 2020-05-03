@@ -6,13 +6,20 @@
     <title>Anritsu GUI Tool</title>
   </head>
   <body>
-    <div id="spinner2">
-      <div class="modal" id="modal">
-        <img src="/cooper-loader.gif" />
-        <span id="progressBarHolder"><hr id="progressbar"></span>
+
+    <div id="loader">
+      <div class="loader-grid">
+        <div class="loader-template">
+          <div>
+            <img src="/cooper-loader.gif" />
+            <div class="bar-holder">
+              <div id="progressbar"></div>
+            </div>
+          </div>
+          <span id="loading-text"></span>
+        </div>
       </div>
-      <div id="modal-text"><span id="loading-text"></span></div>
-      <div class="modal-overlay" id="modal-overlay"></div>
+      <div class="loader-bg"></div>
     </div>
 
     <div id="root"></div>

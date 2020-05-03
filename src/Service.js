@@ -21,7 +21,7 @@ export default function connectMachine(cmd) {
 
 	progressBar(msg, sec);
 
-	document.getElementById('spinner2').style.display = 'block';
+	document.getElementById('loader').style.display = 'block';
 	var socketObj = {
 		address: localStorage.getItem('address'),
 		command: cmd
@@ -47,7 +47,7 @@ export default function connectMachine(cmd) {
 		Promise.all([p1, p2])
 		.then(function(values) {
 			if(timer) clearInterval(timer);
-			document.getElementById('spinner2').style.display = 'none';
+			document.getElementById('loader').style.display = 'none';
 			timer = null;
 			resolve(values[0]);
 		});
@@ -58,10 +58,8 @@ export default function connectMachine(cmd) {
 function progressBar(msg, sec) {
 	if(timer) return;
 	document.getElementById("loading-text").innerHTML = msg;
-	var holder = document.getElementById("progressBarHolder");
 	var bar = document.getElementById("progressbar");
 	bar.style.width = '0px';
-	bar.style.display = 'block';
 	var start = new Date().getTime();
 	var end = start + sec;
 	var counter = 0;
@@ -73,7 +71,6 @@ function progressBar(msg, sec) {
 		bar.style.width = (val2 - 5) +'%'
 		if(val2 > 100) {
 			bar.style.width = '0px';
-			bar.style.display = 'none';
 			clearInterval(timer);
 		}
 	}, 10)
