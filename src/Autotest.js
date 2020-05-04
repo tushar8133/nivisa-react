@@ -32,7 +32,7 @@ class Autotest extends React.Component {
                 </tr>
                 </tbody>
             </table>
-            <AutotestTable addon={this.state.newData} />
+            <AutotestTable addon={this.state.newData} cursor={ {resetCursor: this.resetCursor, stopCursor: this.stopCursor } } />
             <br />
         </main>);
     }
@@ -154,6 +154,7 @@ class Autotest extends React.Component {
     }
 
     stopCursor() {
+        console.log("stopped")
         clearInterval(this.cursorTimer);
     }
 

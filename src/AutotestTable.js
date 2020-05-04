@@ -10,6 +10,7 @@ class AutotestTable extends React.Component {
             operatorName: ''
         };
         this.clearDataConfirmation = 0;
+        console.log(props)
     }
 
     checkBackupData() {
@@ -79,7 +80,7 @@ class AutotestTable extends React.Component {
                         </tbody>
                     </table>
                 </div>
-                <input type="text" id="operatorName" placeholder="Enter Operator Name" onInput={ _ => this.saveOperatorName(_.target.value.trim()) } />  
+                <input type="text" id="operatorName" placeholder="Enter Operator Name" onInput={ _ => this.saveOperatorName(_.target.value.trim()) } onFocus={ _ => {this.props.cursor.stopCursor()} }/>  
                 <button onClick={_ => this.exportData()} disabled={!this.state.operatorName}>Save Excel</button>&nbsp;
                 <button id="clearData" onClick={_ => this.clearData()}>Clear Data</button>
             </main>);
