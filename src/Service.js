@@ -20,10 +20,13 @@ export function connectMachine(cmd) {
 	var msg = '';
 	cmdNames.forEach( (obj) => {
 		if(cmd.indexOf(obj.id) > -1) {
-			sec = Number(obj.delay) * 1000;
+			sec = obj.delay;
 			msg = obj.desc;
 		}
 	})
+
+	if(sec == '-1') sec = localStorage.getItem('duration');
+	sec = Number(sec) * 1000;
 
 	if(JSON.parse(localStorage.getItem("demo"))) sec = 0;
 	if(timer) return;

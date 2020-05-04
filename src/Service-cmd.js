@@ -62,7 +62,7 @@ export const cmdNames = [
 	{
 		id: 'INITiate:PIManalyzer:MEASure ON',
 		desc: 'Start Measurement',
-		delay: '0.5'
+		delay: '-1'
 	},
 	{
 		id: 'PIManalyzer:MEASure:VALue?',
