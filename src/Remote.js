@@ -12,7 +12,7 @@ class Remote extends React.Component {
 	render() {
 		return (
 			<div className="dropdown">
-				<div className="dropbtn"><span className="material-icons">apps</span></div>
+				<div className="dropbtn"><img src="/remote_icon.png" /></div>
 				<section className="dropdown-content">
 
 					<table id="remotePad" className="keypad">

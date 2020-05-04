@@ -49,7 +49,7 @@ button {
 .loader-bg {
   position: fixed;
   background-color: black;
-  opacity: 0.5;
+  opacity: 0.7;
   width: 100%;
   height: 100%;
   z-index: 10;
@@ -602,8 +602,8 @@ button {
 .dropdown {
   display: inline-block;
   float: right;
-  margin-top: 8px;
-  margin-right: 5px;
+  margin-top: 3px;
+  /*opacity: 0.4;*/
 }
 
 .dropdown-content {
@@ -623,7 +623,7 @@ button {
 #remotePad {
   width: 200px !important;
   padding-bottom: 20px;
-  /*background-color: #E1EBEC !important;*/
+  background-color: skyblue !important;
 }
 
 #remotePad .keypad {
@@ -646,16 +646,4 @@ button {
 
 #remotePad .keypad_separator {
     height: 20px;
-}
-
-@font-face {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: 400;
-  src: url(/assets/MaterialIcons-Regular.eot); /* For IE6-8 */
-  src: local('Material Icons'),
-    local('MaterialIcons-Regular'),
-    url(/assets/MaterialIcons-Regular.woff2) format('woff2'),
-    url(/assets/MaterialIcons-Regular.woff) format('woff'),
-    url(/assets/MaterialIcons-Regular.ttf) format('truetype');
 }
