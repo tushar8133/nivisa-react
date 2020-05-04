@@ -12,6 +12,7 @@ class Autotest extends React.Component {
             auto: true
         };
         this.debounceTimer;
+        this.cursorTimer = null;
     }
 
     render() {
@@ -23,7 +24,7 @@ class Autotest extends React.Component {
                         <button onClick={this.pause.bind(this)} className="pause"><div>AUTO</div></button>
                     </td>
                     <td className="autoTestCol2">
-                        <input type="text" id="scanner" spellCheck="false" placeholder="Place scanner here" onInput={this.waitForQRCode.bind(this)} className="backgroundAnimatedGreen" autoComplete="off" />
+                        <input type="text" id="scanner" spellCheck="false" placeholder="Place scanner here" onInput={this.waitForQRCode.bind(this)} autoComplete="off" />
                     </td>
                     <td className="autoTestCol3">
                         <AutotestInfo />
@@ -45,7 +46,6 @@ class Autotest extends React.Component {
             this.sendCommandToDevice();
             document.querySelector('.pause > div').innerHTML = "AUTO";
             document.getElementById("scanner").placeholder = "Place scanner here";
-            document.getElementById("scanner").focus();
             document.getElementById("scanner").className = (document.getElementById("calibrationStatusON").className.indexOf("ON") > -1)? "backgroundAnimatedGreen" : "backgroundAnimatedRed";
 
         } else {
@@ -84,7 +84,6 @@ class Autotest extends React.Component {
             this.formatFinalData(qrcode, data, power, duration);
             elem.disabled = false;
             elem.value = '';
-            elem.focus();
         });
     }
 
@@ -143,8 +142,28 @@ class Autotest extends React.Component {
         });
     }
 
+    resetCursor() {
+        try {
+            if(this.cursorTimer) return
+            this.cursorTimer = setInterval( _ => {
+                document.getElementById("scanner").focus();
+            }, 200);
+        } catch(e) {
+            clearInterval(this.cursorTimer);
+        }
+    }
+
+    stopCursor() {
+        clearInterval(this.cursorTimer);
+    }
+
+    componentWillUnmount() {
+        this.stopCursor();
+    }
+
     componentDidMount() {
         this.checkCalibrationStatus();
+        this.resetCursor();
     }
 
 }
