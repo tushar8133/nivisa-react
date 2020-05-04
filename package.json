@@ -6,7 +6,8 @@
   "main": "./src/index.js",
   "scripts": {
     "start": "webpack",
-    "serve": "webpack-dev-server"
+    "serve": "webpack-dev-server",
+    "build": "webpack --production"
   },
   "dependencies": {
     "react": "^16.13.1",

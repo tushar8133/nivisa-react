@@ -12,6 +12,10 @@ html, body {
   /*font-size: 12px;*/
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 input[type="number"] {
   -webkit-appearance: textfield;
      -moz-appearance: textfield;
