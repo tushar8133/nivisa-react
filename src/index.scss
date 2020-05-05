@@ -650,3 +650,23 @@ button {
 #remotePad .keypad_separator {
     height: 20px;
 }
+
+.rf-flasher {
+  font-size: 300%;
+  font-weight: bold;
+  /*padding: 30px;*/
+  color: red;
+  animation: blinkingText 1.0s infinite;
+}
+
+@keyframes blinkingText{
+    0%{
+      color: white;
+    }
+    50%{
+      color: red;
+    }
+    100%{
+      color: white;
+    }
+}

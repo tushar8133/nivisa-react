@@ -61,7 +61,7 @@ export const cmdNames = [
 	},
 	{
 		id: 'INITiate:PIManalyzer:MEASure ON',
-		desc: 'Start Measurement',
+		desc: '<span class="rf-flasher">RF ON</span>',
 		delay: '-1'
 	},
 	{
