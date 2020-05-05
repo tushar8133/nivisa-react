@@ -80,10 +80,19 @@ class AutotestTable extends React.Component {
                         </tbody>
                     </table>
                 </div>
-                <input type="text" id="operatorName" placeholder="Enter Operator Name" onInput={ _ => this.saveOperatorName(_.target.value.trim()) } onFocus={ _ => {this.props.cursor.stopCursor()} }/>  
+                <input type="text" id="operatorName" placeholder="Enter Operator Name" onInput={ _ => this.saveOperatorName(_.target.value.trim()) } onFocus={ _ => this.operatorFocus()  } onBlur={ _ => this.operatorBlur()  }/>
                 <button onClick={_ => this.exportData()} disabled={!this.state.operatorName}>Save Excel</button>&nbsp;
                 <button id="clearData" onClick={_ => this.clearData()}>Clear Data</button>
             </main>);
+    }
+
+    operatorFocus() {
+        this.props.cursor.that.stopCursor();
+    }
+
+    operatorBlur() {
+        this.props.cursor.that.cursorTimer = null;
+        this.props.cursor.that.resetCursor();
     }
 
     saveOperatorName(name) {
