@@ -87,12 +87,12 @@ class AutotestTable extends React.Component {
     }
 
     operatorFocus() {
-        this.props.cursor.that.stopCursor();
+        this.props.that.stopCursor();
     }
 
     operatorBlur() {
-        this.props.cursor.that.cursorTimer = null;
-        this.props.cursor.that.resetCursor();
+        this.props.that.cursorTimer = null;
+        this.props.that.resetCursor();
     }
 
     saveOperatorName(name) {
@@ -125,6 +125,10 @@ class AutotestTable extends React.Component {
         duplicateState.splice(index, 1);
         this.setState({
             tableData: duplicateState
+        })
+
+        this.props.that.setState({
+            newData: {}
         })
     }
 

@@ -32,7 +32,7 @@ class Autotest extends React.Component {
                 </tr>
                 </tbody>
             </table>
-            <AutotestTable addon={this.state.newData} cursor={ {that: this} } />
+            <AutotestTable addon={this.state.newData} that={this} />
             <br />
         </main>);
     }
