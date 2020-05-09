@@ -35,8 +35,6 @@ class AutotestTable extends React.Component {
     }
 
     componentDidUpdate() {
-        // var scrollDiv = document.querySelector('#autotesttable > div');
-        // scrollDiv.scrollTop = scrollDiv.scrollHeight;
         localStorage.setItem('table', JSON.stringify(this.state.tableData));
     }
 
@@ -91,7 +89,7 @@ class AutotestTable extends React.Component {
     }
 
     operatorBlur() {
-        this.props.that.cursorTimer = null;
+        this.props.that.cursorTimer1 = null;
         this.props.that.resetCursor();
     }
 

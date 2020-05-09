@@ -11,8 +11,8 @@ class Autotest extends React.Component {
             newData: {},
             auto: true
         };
-        this.debounceTimer;
-        this.cursorTimer = null;
+        this.debounceTimer1;
+        this.cursorTimer1 = null;
     }
 
     render() {
@@ -57,8 +57,8 @@ class Autotest extends React.Component {
 
     waitForQRCode() {
         if(!this.state.auto) return;
-        clearTimeout(this.debounceTimer);
-        this.debounceTimer = setTimeout( _ => {
+        clearTimeout(this.debounceTimer1);
+        this.debounceTimer1 = setTimeout( _ => {
             this.sendCommandToDevice();
         }, 200);
     }
@@ -144,17 +144,17 @@ class Autotest extends React.Component {
 
     resetCursor() {
         try {
-            if(this.cursorTimer) return
-            this.cursorTimer = setInterval( _ => {
+            if(this.cursorTimer1) return
+            this.cursorTimer1 = setInterval( _ => {
                 document.getElementById("scanner").focus();
             }, 200);
         } catch(e) {
-            clearInterval(this.cursorTimer);
+            clearInterval(this.cursorTimer1);
         }
     }
 
     stopCursor() {
-        clearInterval(this.cursorTimer);
+        clearInterval(this.cursorTimer1);
     }
 
     componentWillUnmount() {
