@@ -4,10 +4,23 @@ iframe {
     -webkit-transform-origin: -50px 0px;
     /*zoom: 2;*/
 }
+.zoomText {
+    font-family: "Verdana";
+    font-size: 11px;
+    font-size: 10px;
+    color: gray;
+    border: 1px solid lightgray;
+    padding: 1px;
+    margin: 0;
+    height: 22px;
+    display: inline-block;
+}
 </style>
 <p style="padding: 2px; margin: 2px; float: right;">
-    <button onclick="setZoom(false)">-</button>
+    <span class="zoomText">
+    <button onclick="setZoom(false)">-</button> Zoom <span id="zoomText"></span>
     <button onclick="setZoom(true)">+</button>
+    </span>
     <input type="text" id="ipaddress" value="" placeholder="Enter IP Address (e.g. '10.0.0.7')" style="width: 200px;" />
     <button onclick="setAddress()">Connect</button>
 </p>
@@ -16,14 +29,17 @@ iframe {
 var zoomLevel = localStorage.getItem("zoomLevel")? Number(localStorage.getItem("zoomLevel")) : 0.75;
 
 function setZoom(val) {
+    debugger;
     if (val) {
-        zoomLevel += 0.01;
+        zoomLevel = Number(zoomLevel) + 0.01;
     } else {
-        zoomLevel -= 0.01;
+        zoomLevel = Number(zoomLevel) - 0.01;
     }
+    zoomLevel = zoomLevel.toFixed(2);
     var elem = document.querySelector("iframe");
     elem.style.transform = "scale(" + zoomLevel + ")";
     localStorage.setItem("zoomLevel", zoomLevel);
+    document.getElementById("zoomText").innerHTML = zoomLevel;
 }
 
 function setAddress() {
@@ -48,6 +64,7 @@ function setAddress() {
     elem.src = "http://" + ip + "/Remote";
     document.getElementById("iFrameHolder").innerHTML = "";
     document.getElementById("iFrameHolder").appendChild(elem);
+    document.getElementById("zoomText").innerHTML = zoomLevel;
 }
 
 function init() {
