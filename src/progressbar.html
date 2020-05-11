@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		html, body {
+		   margin: 0;
+		   padding: 0;
+		   box-sizing: border-box;
+		   text-align: center;
+		   height: 100%;
+		   user-select: none;
+		}
+		 * {
+		   font-family: "Consolas";
+		   font-size: 96%;
+		   -webkit-user-drag: none;
+		}
+		 .hidden {
+		   visibility: hidden;
+		}
+		 .loader-grid {
+		   display: grid;
+		   grid-template-columns: 100%;
+		   grid-template-rows: 100%;
+		   position: fixed;
+		   width: 100%;
+		   height: 100%;
+		   align-items: center;
+		   z-index: 11;
+		}
+		 .loader-bg {
+		   position: fixed;
+		   background-color: black;
+		   opacity: 0.5;
+		   width: 100%;
+		   height: 100%;
+		   z-index: 10;
+		}
+		 #loader img {
+		   box-shadow: 0px 0px 20px 5px white;
+		   border-radius: 10px;
+		   filter: hue-rotate(165deg);
+		   user-select: none;
+		   -webkit-user-drag: none;
+		}
+		 .bar-holder {
+		   width: 190px;
+		   background-color: purple;
+		   margin: 15px auto;
+		}
+		 #progressbar {
+		   width: 0px;
+		   border: 1px solid #00ffd0;
+		}
+		 #loading-text {
+		   color: white;
+		   display: inline-block;
+		   background-color: black;
+		   padding: 0 7px;
+		}
+	</style>
+</head>
+<body>
+
+	<div id="loader">
+	  <div class="loader-grid">
+	    <div class="loader-template">
+	      <div>
+	        <img src="../assets/cooper-loader.gif" />
+	        <div class="bar-holder">
+	          <div id="progressbar"></div>
+	        </div>
+	      </div>
+	      <span id="loading-text"></span>
+	    </div>
+	  </div>
+	  <div class="loader-bg"></div>
+	</div>
+
+
+
+
+
+<script type="text/javascript">
+
+	const RAW_DATA = [
+		{
+			id: 'FAKE0',
+			desc: 'Please wait',
+			delay: '5'
+		},
+		{
+			id: 'FAKE1',
+			desc: 'FAKE1...',
+			delay: '1'
+		},
+		{
+			id: 'FAKE2',
+			desc: 'FAKE2...',
+			delay: '2'
+		},
+		{
+			id: 'FAKE3',
+			desc: 'FAKE3...',
+			delay: '3'
+		},
+		{
+			id: 'FAKE4',
+			desc: 'FAKE4...',
+			delay: '4'
+		},
+		{
+			id: 'FAKE5',
+			desc: 'FAKE5...',
+			delay: '5'
+		}
+	]
+
+	class CmdDataService {
+
+		constructor(cmds){
+			let selectedCmdsRawData = this.processSelectiveCmdsData(cmds);
+			console.log(selectedCmdsRawData)
+			let {eachDuration, eachMsgs, eachCmd} = this.processEachData(selectedCmdsRawData);
+			this.eachDuration = eachDuration;
+			this.eachMsgs = eachMsgs;
+			this.eachCmd = eachCmd;
+			this.totalDuration = this.processTotalDuration(eachDuration);
+		}
+
+		processSelectiveCmdsData(cmdNamesOnly) {
+			let data = [];
+			cmdNamesOnly.forEach( outerCmd => {
+				RAW_DATA.forEach( innerCmd => {
+					if(outerCmd.indexOf(innerCmd.id) > -1) {
+						data.push(innerCmd);
+					}
+				})
+			})
+			return data;
+		}
+		
+		processEachData(selectiveCmdsRawData) {
+			let data = { eachDuration: [], eachMsgs: [], eachCmd: [] };
+			selectiveCmdsRawData.forEach( obj => {
+				let sec = obj.delay;
+				if(sec == '-1') sec = localStorage.getItem('duration');
+				sec = Number(sec) * 1000;
+				data.eachDuration.push(sec);
+				data.eachMsgs.push(obj.desc);
+				data.eachCmd.push(obj.id);
+			})
+			return data;
+		}
+
+		processTotalDuration(eachDurationArray) {
+			let total = eachDurationArray.reduce( (total, curr) => {
+				return total += curr;
+			})
+			return total;
+		}
+
+	}
+
+	timer = null;
+
+    rocket(['FAKE4', 'FAKE5']) // .then( _ => console.log(_));
+
+    function contra(cmd, sec) {
+    	var socketObj = {
+    		address: localStorage.getItem('address'),
+    		command: cmd
+    	};
+
+    	// socket.emit('comm', socketObj);
+    	console.log(socketObj)
+    	
+    	var p1 = new Promise((resolve, reject) => {
+    		// socket.on('comm', function(resp) {
+    		// 	resolve(JSON.parse(resp));
+    		// });
+    		setTimeout( _ => {
+    			resolve("mock server response");
+    		}, 2000)
+    	});
+
+
+    	if(cmd.indexOf('?') > -1) sec = 0;
+    	var p2 = new Promise((resolve, reject) => {
+    		setTimeout( _ => {
+    			resolve('default delay');
+    		}, sec);
+    	});
+
+    	return new Promise( (resolve, reject) => {
+    		Promise.all([p1, p2])
+    		.then(function(values) {
+    			resolve(values[0]);
+    		});
+    	})
+    }
+
+
+
+	async function rocket(cmds) {
+		// debugger;
+		let final = [];
+		progressBarToggle(true);
+
+		var ccd = new CmdDataService(cmds);
+		var barMove = progressBarGenerator(ccd.eachDuration);
+		for (var i = 0; i < ccd.eachCmd.length; i++) {
+			progressBarMsgs(ccd.eachMsgs[i]);
+			// progressBarMove(ccd.eachDuration[i], ccd.totalDuration);
+			barMove.next();
+			var currentCmdResult = await contra(ccd.eachCmd[i], ccd.eachDuration[i]);
+			console.log(currentCmdResult)
+			final.push(currentCmdResult);
+		}
+
+		progressBarToggle(false);
+		return final;
+	}
+
+	function *progressBarGenerator(eachDuration) {
+		var i = -1; i++;
+		var totalDuration = eachDuration.reduce( (total, curr) => total += curr);
+		
+		while(i < eachDuration.length) {
+			yield eachDuration[i];
+		}
+	}
+
+	function progressBarMsgs(msg) {
+		var laoder = document.getElementById("loading-text");
+		laoder.innerHTML = msg;
+	}
+
+
+	function progressBarMove(sec, totalDuration) {
+		var quota = (sec/totalDuration) * 100;
+		var bar = document.getElementById("progressbar");
+		var finish = (new Date().getTime()) + sec;
+		timer = setInterval( _ => {
+			var current = new Date().getTime();
+			var remaining = finish - current;
+			var progress = 100 - (remaining/sec) * 100;
+			var quotaProgress = progress * (quota/100);
+			console.log(quotaProgress)
+			bar.style.width = parseInt(bar.style.width) + quotaProgress + '%';
+			if(progress > 100) {
+				progressBarReset()
+			}
+		}, 100);
+	}
+
+	function progressBarReset() {
+		clearInterval(timer);
+		timer = null;
+	}
+
+	function progressBarToggle(status) {
+		document.getElementById("progressbar").style.width = '0px'
+		if(status === true && timer === null) {
+			document.getElementById('loader').style.display = 'block';
+		}
+
+		if(status === false) {
+			document.getElementById('loader').style.display = 'none';
+			progressBarReset()
+		}
+	}
+
+	function progressBarStart() {
+		document.getElementById("progressbar").style.width = '0px'
+		document.getElementById('loader').style.display = 'block';
+	}
+
+	function progressBarStop(sec) {
+		document.getElementById("progressbar").style.width = '0px'
+		document.getElementById('loader').style.display = 'none';
+		clearInterval(timer);
+		timer = null;
+	}
+
+
+
+	function progressBar(msg, sec) {
+		if(timer) return;
+		document.getElementById("loading-text").innerHTML = msg;
+		var bar = document.getElementById("progressbar");
+		bar.style.width = '0px';
+		var start = new Date().getTime();
+		var end = start + sec;
+		var counter = 0;
+		bar.style.width = '0px';
+		timer = setInterval( _ => {
+			var remaining = (new Date().getTime()) - end;
+			var current = (remaining + sec);
+			var val2 = current * (100 / sec);
+			bar.style.width = (val2 - 5) +'%'
+			if(val2 > 100) {
+				bar.style.width = '0px';
+				document.getElementById('loader').style.display = 'none';
+				clearInterval(timer);
+				timer = null;
+			}
+		}, 10)
+	};
+
+
+
+
+
+	
+
+	
+</script>
+</body>
+</html>
