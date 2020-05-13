@@ -65,15 +65,15 @@
 
 	<div id="loader">
 	  <div class="loader-grid">
-	    <div class="loader-template">
-	      <div>
-	        <img src="../assets/cooper-loader.gif" />
-	        <div class="bar-holder">
-	          <div id="progressbar"></div>
-	        </div>
-	      </div>
-	      <span id="loading-text"></span>
-	    </div>
+		<div class="loader-template">
+		  <div>
+			<img src="../assets/cooper-loader.gif" />
+			<div class="bar-holder">
+			  <div id="progressbar"></div>
+			</div>
+		  </div>
+		  <span id="loading-text"></span>
+		</div>
 	  </div>
 	  <div class="loader-bg"></div>
 	</div>
@@ -121,7 +121,7 @@
 
 		constructor(cmds){
 			let selectedCmdsRawData = this.processSelectiveCmdsData(cmds);
-			console.log(selectedCmdsRawData)
+			// console.log(selectedCmdsRawData)
 			let {eachDuration, eachMsgs, eachCmd} = this.processEachData(selectedCmdsRawData);
 			this.eachDuration = eachDuration;
 			this.eachMsgs = eachMsgs;
@@ -133,7 +133,7 @@
 			let data = [];
 			cmdNamesOnly.forEach( outerCmd => {
 				RAW_DATA.forEach( innerCmd => {
-					if(outerCmd.indexOf(innerCmd.id) > -1) {
+					if(outerCmd == innerCmd.id) {
 						data.push(innerCmd);
 					}
 				})
@@ -165,41 +165,40 @@
 
 	timer = null;
 
-    rocket(['FAKE4', 'FAKE5']) // .then( _ => console.log(_));
 
-    function contra(cmd, sec) {
-    	var socketObj = {
-    		address: localStorage.getItem('address'),
-    		command: cmd
-    	};
+	function contra(cmd, sec) {
+		var socketObj = {
+			address: localStorage.getItem('address'),
+			command: cmd
+		};
 
-    	// socket.emit('comm', socketObj);
-    	console.log(socketObj)
-    	
-    	var p1 = new Promise((resolve, reject) => {
-    		// socket.on('comm', function(resp) {
-    		// 	resolve(JSON.parse(resp));
-    		// });
-    		setTimeout( _ => {
-    			resolve("mock server response");
-    		}, 2000)
-    	});
+		// socket.emit('comm', socketObj);
+		// console.log(socketObj)
+		
+		var p1 = new Promise((resolve, reject) => {
+			// socket.on('comm', function(resp) {
+			// 	resolve(JSON.parse(resp));
+			// });
+			setTimeout( _ => {
+				resolve("mock server response");
+			}, 2000)
+		});
 
 
-    	if(cmd.indexOf('?') > -1) sec = 0;
-    	var p2 = new Promise((resolve, reject) => {
-    		setTimeout( _ => {
-    			resolve('default delay');
-    		}, sec);
-    	});
+		if(cmd.indexOf('?') > -1) sec = 0;
+		var p2 = new Promise((resolve, reject) => {
+			setTimeout( _ => {
+				resolve('default delay');
+			}, sec);
+		});
 
-    	return new Promise( (resolve, reject) => {
-    		Promise.all([p1, p2])
-    		.then(function(values) {
-    			resolve(values[0]);
-    		});
-    	})
-    }
+		return new Promise( (resolve, reject) => {
+			Promise.all([p1, p2])
+			.then(function(values) {
+				resolve(values[0]);
+			});
+		})
+	}
 
 
 
@@ -207,20 +206,56 @@
 		// debugger;
 		let final = [];
 		progressBarToggle(true);
+		setInterval(_ => {
+			console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+			console.log("")	
+		}, 1000)
 
 		var ccd = new CmdDataService(cmds);
 		var barMove = progressBarGenerator(ccd.eachDuration);
 		for (var i = 0; i < ccd.eachCmd.length; i++) {
 			progressBarMsgs(ccd.eachMsgs[i]);
-			// progressBarMove(ccd.eachDuration[i], ccd.totalDuration);
-			barMove.next();
+			progressBarMove(ccd.eachDuration, i);
+			// barMove.next();
 			var currentCmdResult = await contra(ccd.eachCmd[i], ccd.eachDuration[i]);
-			console.log(currentCmdResult)
+			// console.log(currentCmdResult)
 			final.push(currentCmdResult);
+			clearInterval(timer)
 		}
-
+		// progressBarReset();
 		progressBarToggle(false);
 		return final;
+	}
+
+	rocket(['FAKE2', 'FAKE3', 'FAKE4']) // .then( _ => console.log(_));
+
+	function progressBarMove(eachDuration, round) {
+		var roundDuration = eachDuration[round];
+		var totalDuration = eachDuration.reduce( (total, curr) => total += curr);
+		var pastDuration = ((past,all,round)=>{
+			all.forEach((val,index)=>{
+				if (round > index) {
+					past += val;
+				}
+			});
+			return past;
+		})(0, eachDuration, round);
+		
+		// console.log(roundDuration, totalDuration, pastDuration)
+		// return;
+		var bar = document.getElementById("progressbar");
+		var finish = (new Date().getTime()) + roundDuration;
+		timer = setInterval( _ => {
+			var current = new Date().getTime();
+			var remaining = finish - current;
+			var currProgress = Math.round(100 - (remaining/roundDuration) * 100);
+			var pastBar = Math.round(pastDuration/totalDuration * 100);
+			var currBar = Math.round(roundDuration/totalDuration * currProgress);
+
+			// debugger;
+			// console.log(pastBar + currBar)
+			bar.style.width = pastBar + currBar + '%';
+		}, 100);
 	}
 
 	function *progressBarGenerator(eachDuration) {
@@ -238,22 +273,7 @@
 	}
 
 
-	function progressBarMove(sec, totalDuration) {
-		var quota = (sec/totalDuration) * 100;
-		var bar = document.getElementById("progressbar");
-		var finish = (new Date().getTime()) + sec;
-		timer = setInterval( _ => {
-			var current = new Date().getTime();
-			var remaining = finish - current;
-			var progress = 100 - (remaining/sec) * 100;
-			var quotaProgress = progress * (quota/100);
-			console.log(quotaProgress)
-			bar.style.width = parseInt(bar.style.width) + quotaProgress + '%';
-			if(progress > 100) {
-				progressBarReset()
-			}
-		}, 100);
-	}
+	
 
 	function progressBarReset() {
 		clearInterval(timer);
