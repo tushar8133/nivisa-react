@@ -121,7 +121,6 @@
 
 		constructor(cmds){
 			let selectedCmdsRawData = this.processSelectiveCmdsData(cmds);
-			// console.log(selectedCmdsRawData)
 			let {eachDuration, eachMsgs, eachCmd} = this.processEachData(selectedCmdsRawData);
 			this.eachDuration = eachDuration;
 			this.eachMsgs = eachMsgs;
@@ -173,7 +172,6 @@
 		};
 
 		// socket.emit('comm', socketObj);
-		// console.log(socketObj)
 		
 		var p1 = new Promise((resolve, reject) => {
 			// socket.on('comm', function(resp) {
@@ -186,6 +184,7 @@
 
 
 		if(cmd.indexOf('?') > -1) sec = 0;
+		if(cmd == "FAKE3") sec = 5000;
 		var p2 = new Promise((resolve, reject) => {
 			setTimeout( _ => {
 				resolve('default delay');
@@ -203,93 +202,48 @@
 
 
 	async function rocket(cmds) {
-		// debugger;
 		let final = [];
-		progressBarToggle(true);
+		progressBarStart(true);
 		setInterval(_ => {
-			console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-			console.log("")	
 		}, 1000)
 
 		var ccd = new CmdDataService(cmds);
-		var barMove = progressBarGenerator(ccd.eachDuration);
 		for (var i = 0; i < ccd.eachCmd.length; i++) {
 			progressBarMsgs(ccd.eachMsgs[i]);
 			progressBarMove(ccd.eachDuration, i);
-			// barMove.next();
 			var currentCmdResult = await contra(ccd.eachCmd[i], ccd.eachDuration[i]);
-			// console.log(currentCmdResult)
 			final.push(currentCmdResult);
 			clearInterval(timer)
 		}
-		// progressBarReset();
-		progressBarToggle(false);
+		progressBarReset();
+		progressBarStop(false);
 		return final;
 	}
 
-	rocket(['FAKE2', 'FAKE3', 'FAKE4']) // .then( _ => console.log(_));
+	rocket(['FAKE1','FAKE2','FAKE3','FAKE4','FAKE5']) // .then( _ => console.log(_));
 
 	function progressBarMove(eachDuration, round) {
 		var roundDuration = eachDuration[round];
 		var totalDuration = eachDuration.reduce( (total, curr) => total += curr);
-		var pastDuration = ((past,all,round)=>{
-			all.forEach((val,index)=>{
-				if (round > index) {
-					past += val;
-				}
-			});
-			return past;
-		})(0, eachDuration, round);
+		var pastDuration = ( (past,all,round) => { all.forEach( (val,index) => {if(round > index) past += val}); return past; })(0, eachDuration, round);
 		
-		// console.log(roundDuration, totalDuration, pastDuration)
-		// return;
 		var bar = document.getElementById("progressbar");
-		var finish = (new Date().getTime()) + roundDuration;
+		var finish = Date.now() + roundDuration;
 		timer = setInterval( _ => {
-			var current = new Date().getTime();
+			var current = Date.now();
 			var remaining = finish - current;
-			var currProgress = Math.round(100 - (remaining/roundDuration) * 100);
-			var pastBar = Math.round(pastDuration/totalDuration * 100);
-			var currBar = Math.round(roundDuration/totalDuration * currProgress);
-
-			// debugger;
-			// console.log(pastBar + currBar)
-			bar.style.width = pastBar + currBar + '%';
+			var currProgress = (100 - (remaining/roundDuration) * 100).toFixed(2);
+			var pastBar = (pastDuration/totalDuration * 100).toFixed(2);
+			var currBar = (roundDuration/totalDuration * currProgress).toFixed(2);
+			var final = Number(pastBar) + Number(currBar);
+			if(currProgress > 100) progressBarReset();
+			bar.style.width = final + '%';
 		}, 100);
 	}
 
-	function *progressBarGenerator(eachDuration) {
-		var i = -1; i++;
-		var totalDuration = eachDuration.reduce( (total, curr) => total += curr);
-		
-		while(i < eachDuration.length) {
-			yield eachDuration[i];
-		}
-	}
-
 	function progressBarMsgs(msg) {
-		var laoder = document.getElementById("loading-text");
-		laoder.innerHTML = msg;
-	}
-
-
-	
-
-	function progressBarReset() {
-		clearInterval(timer);
-		timer = null;
-	}
-
-	function progressBarToggle(status) {
-		document.getElementById("progressbar").style.width = '0px'
-		if(status === true && timer === null) {
-			document.getElementById('loader').style.display = 'block';
-		}
-
-		if(status === false) {
-			document.getElementById('loader').style.display = 'none';
-			progressBarReset()
-		}
+		var loader = document.getElementById("loading-text");
+		loader.innerHTML = msg;
 	}
 
 	function progressBarStart() {
@@ -297,39 +251,15 @@
 		document.getElementById('loader').style.display = 'block';
 	}
 
-	function progressBarStop(sec) {
+	function progressBarStop() {
 		document.getElementById("progressbar").style.width = '0px'
 		document.getElementById('loader').style.display = 'none';
+	}
+
+	function progressBarReset() {
 		clearInterval(timer);
 		timer = null;
 	}
-
-
-
-	function progressBar(msg, sec) {
-		if(timer) return;
-		document.getElementById("loading-text").innerHTML = msg;
-		var bar = document.getElementById("progressbar");
-		bar.style.width = '0px';
-		var start = new Date().getTime();
-		var end = start + sec;
-		var counter = 0;
-		bar.style.width = '0px';
-		timer = setInterval( _ => {
-			var remaining = (new Date().getTime()) - end;
-			var current = (remaining + sec);
-			var val2 = current * (100 / sec);
-			bar.style.width = (val2 - 5) +'%'
-			if(val2 > 100) {
-				bar.style.width = '0px';
-				document.getElementById('loader').style.display = 'none';
-				clearInterval(timer);
-				timer = null;
-			}
-		}, 10)
-	};
-
-
 
 
 
