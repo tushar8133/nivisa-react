@@ -5,6 +5,8 @@ export class Rocket {
 
 	static fire(cmd, sec) {
 		if(cmd == "WAIT") cmd = '*IDN?';
+		if(cmd == ":PIManalyzer:OUTPut:POWer") cmd += " "+localStorage.getItem('power');
+		if(cmd == ":PIManalyzer:TEST:DURation") cmd += " "+localStorage.getItem('duration');
 		if(JSON.parse(localStorage.getItem('demo'))) sec = 500;
 		let returnExpected  = (cmd.slice(-1) == '?')? true : false;
 		let defaulttimer = returnExpected? 0 : sec;

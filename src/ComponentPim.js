@@ -71,21 +71,21 @@ export class Pim extends React.Component {
     }
 
     pimvstimeHandler(){
-    	Contra.start(['SENSe:PIManalyzer:MODe PIM'])
+    	Contra.start([':PIManalyzer:MODe PIM'])
     	.then( data => {
     		this.setResponse(data);
     	});
     }
 
     setPower() {
-        Contra.start([':PIManalyzer:OUTPut:POWer ' + localStorage.getItem('power')])
+        Contra.start([':PIManalyzer:OUTPut:POWer'])
         .then( data => {
             this.setResponse(data);
         });
     }
 
     setDuration() {
-        Contra.start([':PIManalyzer:TEST:DURation ' + localStorage.getItem('duration')])
+        Contra.start([':PIManalyzer:TEST:DURation'])
         .then( data => {
             this.setResponse(data);
         });
