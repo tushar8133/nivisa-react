@@ -21,12 +21,13 @@ export class ScannerTable extends React.Component {
         } catch(e) {}
     }
 
-    componentWillReceiveProps(props) {
-
+    static getDerivedStateFromProps(props, state) {
         if(props.addon && props.addon.qrcode) {
-            var finalData = this.checkDuplicate(this.state.tableData, props.addon);
-            this.setState({ tableData: finalData });
+            return {
+                tableData: ScannerTable.checkDuplicate(state.tableData, props.addon)
+            }
         }
+        return null;
     }
 
     componentDidMount() {
@@ -41,6 +42,9 @@ export class ScannerTable extends React.Component {
         this.clearDataConfirmation++;
         let buttonText = document.getElementById("clearData");
         if(this.clearDataConfirmation >= 2) {
+            this.props.that.setState({
+                newData: {}
+            })
             this.setState({
                 tableData: []
             })
@@ -128,7 +132,7 @@ export class ScannerTable extends React.Component {
         })
     }
 
-    checkDuplicate(oldData, newData) {
+    static checkDuplicate(oldData, newData) {
         var unique = oldData.filter((val, index) => {
             return (val.qrcode !== newData.qrcode);
         });

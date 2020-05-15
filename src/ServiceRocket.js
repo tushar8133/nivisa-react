@@ -12,6 +12,7 @@ export class Rocket {
 
 		if(cmd == "FAKE") cmd = '*IDN?';
 		if(cmd == "FAKE3") sec = 5000;
+		if(JSON.parse(localStorage.getItem('demo'))) sec = 500;
 
 		socket.emit('comm', socketObj);
 		
@@ -23,7 +24,6 @@ export class Rocket {
 			// 	resolve("mock server response");
 			// }, 1000)
 		});
-
 
 		// if(cmd.indexOf('?') > -1) sec = 1000;
 		var p2 = new Promise((resolve, reject) => {
@@ -39,6 +39,4 @@ export class Rocket {
 			});
 		})
 	}
-
-
 }
