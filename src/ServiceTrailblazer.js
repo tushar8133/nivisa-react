@@ -17,6 +17,7 @@ export class Trailblazer {
 		cmdNamesOnly.forEach( outerCmd => {
 			LEGO.forEach( innerCmd => {
 				if(outerCmd.indexOf(innerCmd.id) > -1) {
+					innerCmd.id = outerCmd;
 					data.push(innerCmd);
 				}
 			})
