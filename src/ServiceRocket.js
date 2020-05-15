@@ -1,41 +1,57 @@
 import io from 'socket.io-client';
 
-let retryTimeout = false;
-
 export class Rocket {
 	constructor() {}
 
-	static async fire(cmd, sec) {
-		let socket = io("http://localhost:8472");
-		let retryCount = 0;
-		let retryLimit = 3;
-		let finalData = "";
-
+	static fire(cmd, sec) {
 		if(cmd == "FAKE") cmd = '*IDN?';
 		if(JSON.parse(localStorage.getItem('demo'))) sec = 500;
-
-		if(cmd.indexOf("?") > -1) {
-			// retryTimer();
-			while(retryCount < retryLimit) {
-				let result = await ignite(socket, cmd);
-				if(result) {
-					finalData = result;
-					break;
-				} else {
-					retryCount++;
-				}
-			}
-		} else {
-			finalData = await ignite(socket, cmd);
-		}
-
-		return finalData;
+		let returnExpected  = (cmd.slice(-1) == '?')? true : false;
+		let defaulttimer = returnExpected? 0 : sec;
+		let p1 = defaultTimer(defaulttimer);
+		let p2 = spark(cmd, returnExpected);
+		return new Promise( (resolve, reject) => {
+			Promise.all([p1, p2])
+			.then(function(values) {
+				resolve(values[1]);
+			});
+		})
 	}
-
 }
 
-function ignite(socket, cmd) {
-	var socketObj = {
+function defaultTimer(sec) {
+	return new Promise((resolve, reject) => {
+		setTimeout( _ => {
+			resolve(true);
+		}, sec);
+	});
+}
+
+async function spark(cmd, returnExpected) {
+	let retryCount = 0;
+	let retryLimit = 3;
+	let finalData = "";
+
+	if(returnExpected) {
+		while(retryCount < retryLimit) {
+			let result = await ignite(cmd);
+			if(result) {
+				finalData = result;
+				break;
+			} else {
+				retryCount++;
+			}
+		}
+	} else {
+		finalData = await ignite(cmd);
+	}
+
+	return finalData;
+}
+
+function ignite(cmd) {
+	let socket = io("http://localhost:8472");
+	let socketObj = {
 		address: localStorage.getItem('address'),
 		command: cmd
 	};
@@ -47,9 +63,3 @@ function ignite(socket, cmd) {
 	});
 }
 
-function retryTimer() {
-	retryTimeout = false;
-	setTimeout( _ => {
-		retryTimeout = true;
-	}, 15000)
-}
