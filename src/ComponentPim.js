@@ -45,7 +45,6 @@ export class Pim extends React.Component {
 
 	            <br />
                 <span className="spacer" />
-                {/*<textarea id="textarea"></textarea>*/}
             </main>
         )
     }
@@ -67,7 +66,7 @@ export class Pim extends React.Component {
     checkCurrentMode() {
         Contra.start(['WAIT',':INSTrument:NSELect?'])
         .then( data => {
-            if(data[0] != 46) this.changingtopimanalyzerHandler();
+            if(data[1] != 46) this.changingtopimanalyzerHandler();
         });
     }
 
