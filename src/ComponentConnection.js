@@ -1,7 +1,7 @@
 import React from 'react';
-import {connectMachine} from './Service';
+import {Contra} from './ServiceContra';
 
-class Connection extends React.Component {
+export class Connection extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -13,6 +13,8 @@ class Connection extends React.Component {
 
     componentDidMount() {
         this.getDeviceList();
+        // Contra.start(['FAKE1', 'FAKE2', 'FAKE3', 'FAKE4', 'FAKE5']);
+        // Contra.start([':PIManalyzer:IMD:ORDer 3', 'FAKE',':PIManalyzer:FREQuency:F1?',':PIManalyzer:FREQuency:F2?']).then( data => console.log(">>",data))
     }
 
     render() {
@@ -41,16 +43,11 @@ class Connection extends React.Component {
     }
 
     getDeviceList() {
-        connectMachine('GET_DEVICE_LIST')
+        Contra.start(['GET_DEVICE_LIST', ':INSTrument:CATalog:FULL?'])
         .then( data => {
-            console.log("data here..", data)
-            this.setState(state => ({ addresses: data }));
-            this.selectDefaultOption(data[0]);
-            return connectMachine(':INSTrument:CATalog:FULL?')
-        })
-        .then( data => {
-            console.log(data);
-            localStorage.setItem("modes", JSON.stringify(data));
+            this.setState(state => ({ addresses: data[0] }));
+            this.selectDefaultOption(data[0][0]);
+            localStorage.setItem("modes", JSON.stringify(data[1]));
         })
     }
 
@@ -64,7 +61,7 @@ class Connection extends React.Component {
     }
 
     sendCommand(cmd) {
-        connectMachine(cmd).then( data => {
+        Contra.start([cmd]).then( data => {
             this.setResponse(data);
         });
     }
@@ -73,5 +70,3 @@ class Connection extends React.Component {
         document.getElementById('textarea').value = String(resp);
     }
 }
-
-export default Connection;

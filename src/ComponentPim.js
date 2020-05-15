@@ -1,7 +1,7 @@
 import React from 'react';
-import {connectMachine} from './Service';
+import {Contra} from './ServiceContra';
 
-class Pim extends React.Component {
+export class Pim extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -51,88 +51,76 @@ class Pim extends React.Component {
     }
 
     getIMDOrder(val) {
-        connectMachine(':PIManalyzer:IMD:ORDer '+val)
+        Contra.start([':PIManalyzer:IMD:ORDer '+val, 'FAKE',':PIManalyzer:FREQuency:F1?',':PIManalyzer:FREQuency:F2?'])
         .then( data => {
-            return connectMachine('FAKE')
-        })
-        .then( data => {
-            return connectMachine(':PIManalyzer:FREQuency:F1?')
-        })
-        .then( data => {
+            
             this.setState(prevState => ({
-                f1: data.substr(0, 3)
+                f1: data[2].substr(0, 3)
             }));
-            return connectMachine(':PIManalyzer:FREQuency:F2?')
-        })
-        .then( data => {
+
             this.setState(prevState => ({
-                f2: data.substr(0, 3)
+                f2: data[3].substr(0, 3)
             }));
-        });
+        })
     }
 
     checkCurrentMode() {
-        connectMachine('FAKE')
-        .then( _ => {
-            return connectMachine(':INSTrument:NSELect?')
-        })
+        Contra.start(['FAKE',':INSTrument:NSELect?'])
         .then( data => {
-            if(data != 46) this.changingtopimanalyzerHandler();
+            if(data[0] != 46) this.changingtopimanalyzerHandler();
         });
     }
 
     pimvstimeHandler(){
-    	connectMachine('SENSe:PIManalyzer:MODe PIM')
+    	Contra.start(['SENSe:PIManalyzer:MODe PIM'])
     	.then( data => {
     		this.setResponse(data);
     	});
     }
 
     setPower() {
-        connectMachine(':PIManalyzer:OUTPut:POWer ' + localStorage.getItem('power'))
+        Contra.start([':PIManalyzer:OUTPut:POWer ' + localStorage.getItem('power')])
         .then( data => {
             this.setResponse(data);
         });
     }
 
     setDuration() {
-        connectMachine(':PIManalyzer:TEST:DURation ' + localStorage.getItem('duration'))
+        Contra.start([':PIManalyzer:TEST:DURation ' + localStorage.getItem('duration')])
         .then( data => {
             this.setResponse(data);
         });
     }
 
     sweptpimHandler(){
-    	connectMachine(':PIManalyzer:MODe PIMSwp')
+    	Contra.start([':PIManalyzer:MODe PIMSwp'])
     	.then( data => {
     		this.setResponse(data);
     	});
     }
 
     changingtopimanalyzerHandler() {
-        connectMachine(':INSTrument:NSELect 46')
+        Contra.start([':INSTrument:NSELect 46'])
         .then( data => {
             this.setResponse(data);
         });
     }
 
     dtpHandler(){
-    	connectMachine(':PIManalyzer:MODe DTP')
+    	Contra.start([':PIManalyzer:MODe DTP'])
     	.then( data => {
     		this.setResponse(data);
     	});
     }
 
     noiseFloor(){
-        connectMachine(':PIManalyzer:MODe SPECTRUM_VIEW')
+        Contra.start([':PIManalyzer:MODe SPECTRUM_VIEW'])
         .then( data => {
             this.setResponse(data);
         });
     }
 
     setResponse(resp) {
-        console.log(resp)
-        // document.getElementById('textarea').value = String(resp);
     }
 
     getDBCutoff() {
@@ -190,5 +178,3 @@ class Pim extends React.Component {
 	}
     
 }
-
-export default Pim;

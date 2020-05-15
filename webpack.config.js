@@ -3,7 +3,6 @@ const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin').CleanWebpackPlugin;
 
 module.exports = {
 	devServer: {
@@ -21,10 +20,6 @@ module.exports = {
             "./src/index.js"
         ]
 	},
-	output: {
-		path: path.resolve(__dirname, "dist"), // __dirname or process.cwd (current working directory),
-		filename: "[name]-bundle.js"
-	},
 	module: {
 		rules: [{
 			test: /\.(js|jsx)$/,
@@ -41,7 +36,6 @@ module.exports = {
 		}]
 	},
 	plugins: [
-		new CleanWebpackPlugin(),
 		new MiniCssExtractPlugin(),
 		new HtmlWebpackPlugin({
 			template: "./src/template.html"

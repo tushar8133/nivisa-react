@@ -1,7 +1,7 @@
 import React from 'react';
 import XLSX from 'xlsx';
 
-class AutotestTable extends React.Component {
+export class ScannerTable extends React.Component {
 
     constructor(props) {
         super(props);
@@ -10,7 +10,6 @@ class AutotestTable extends React.Component {
             operatorName: ''
         };
         this.clearDataConfirmation = 0;
-        console.log(props)
     }
 
     checkBackupData() {
@@ -58,7 +57,7 @@ class AutotestTable extends React.Component {
 
     render() {
         return (
-            <main id="autotesttable" align="center">
+            <main id="ScannerTable" align="center">
                 <div>
                     <table id="data-table" border="1">
                         <thead>
@@ -118,7 +117,6 @@ class AutotestTable extends React.Component {
     }
 
     deleteRow(index) {
-        console.log(index);
         var duplicateState = [...this.state.tableData];
         duplicateState.splice(index, 1);
         this.setState({
@@ -145,7 +143,7 @@ class AutotestTable extends React.Component {
     }
 
     exportData() {
-        console.table(this.state.tableData);
+        // console.table(this.state.tableData);
         var data = [...this.state.tableData].reverse();
         var newData = data.map((obj, index) => {
             return Object.assign({ index: String(index + 1) }, obj)
@@ -162,5 +160,3 @@ class AutotestTable extends React.Component {
         XLSX.writeFile(wb, `Anritsu Test -- ${person} -- ${this.formatDate('save')}.xlsx`);
     }
 }
-
-export default AutotestTable;

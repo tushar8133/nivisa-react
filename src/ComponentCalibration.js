@@ -1,7 +1,7 @@
 import React from 'react';
-import {connectMachine} from './Service';
+import { Contra } from './ServiceContra';
 
-class Command extends React.Component {
+export class Calibration extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -28,7 +28,7 @@ class Command extends React.Component {
                             <li>Connect a PIM standard onto the test port of the PIM Master or at the end of the PIM test cable.</li>
                             <li>Connect a Low PIM Termination onto the PIM standard and Hit the Enter on instrument</li>
                         </ol>
-                        <img src="/step1.jpg" />
+                        <img src="./assets/step1.jpg" />
                     </div>
                     <div>
                         <p>STEP 2</p>
@@ -37,7 +37,7 @@ class Command extends React.Component {
                             <li>Connect only the Low PIM Termination. and Hit the Enter on Instrument.</li>
                         </ol>
                         <span>
-                            <img src="/step2.jpg" />
+                            <img src="./assets/step2.jpg" />
                         </span>
                     </div>
                     <div>
@@ -45,7 +45,7 @@ class Command extends React.Component {
                         <ol>
                             <li>When prompted, remove all components from the test port leaving nothing connected at the point of calibration (Open circuit) and Hit the Enter on Instrument</li>
                         </ol>
-                        <img src="/step3.jpg" />
+                        <img src="./assets/step3.jpg" />
                     </div>
                 </div>
                 
@@ -54,16 +54,14 @@ class Command extends React.Component {
     }
 
     sendCommand(cmd) {
-        connectMachine(cmd).then( data => {
-            this.setResponse(data);
+        Contra.start([cmd]).then(data => {
+            this.setResponse(data[0]);
         });
     }
+
+    setResponse(resp) {}
 
     calibrate() {
-        connectMachine(':CALibration:PIManalyzer:FULL ON').then( data => {
-            console.log(data);
-        });
+        Contra.start([':CALibration:PIManalyzer:FULL ON']).then(data => {});
     }
 }
-
-export default Command;

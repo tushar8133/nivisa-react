@@ -1,11 +1,10 @@
 import React from 'react';
-import {connectMachine} from './Service';
+import {Contra} from './ServiceContra';
 
-class AutotestInfo extends React.Component {
+export class ScannerInfo extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log(props)
     }
 
     render() {
@@ -41,5 +40,3 @@ class AutotestInfo extends React.Component {
     }
 
 }
-
-export default AutotestInfo;

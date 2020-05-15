@@ -1,18 +1,14 @@
 import React from 'react';
-import {
-	NavLink as Link
-} from "react-router-dom";
-import {
-	connectMachine,
-	flyingKite
-} from './Service';
+import { NavLink as Link } from "react-router-dom";
+import { Contra } from './ServiceContra';
+import { Kite } from './ServiceKite';
 
-class Remote extends React.Component {
+export class Remote extends React.Component {
 
 	render() {
 		return (
 			<div className="dropdown">
-				<div className="dropbtn"><img src="/remote_icon.png" /></div>
+				<div className="dropbtn"><img src="./assets/remote_icon.png" /></div>
 				<section className="dropdown-content">
 
 					<table id="remotePad" className="keypad">
@@ -77,9 +73,7 @@ class Remote extends React.Component {
 	}
 
 	popupRemote(code) {
-		flyingKite('BASe:KEYpress ' + code);
+		Kite('BASe:KEYpress ' + code);
 	}
 
 }
-
-export default Remote;

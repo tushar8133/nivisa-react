@@ -1,9 +1,9 @@
 import React from 'react';
-import AutotestTable from './AutotestTable';
-import AutotestInfo from './AutotestInfo';
-import {connectMachine} from './Service';
+import {ScannerTable} from './ComponentScannerTable';
+import {ScannerInfo} from './ComponentScannerInfo';
+import {Contra} from './ServiceContra';
 
-class Autotest extends React.Component {
+export class Scanner extends React.Component {
 
     constructor(props) {
         super(props);
@@ -24,15 +24,15 @@ class Autotest extends React.Component {
                         <button onClick={this.pause.bind(this)} className="pause"><div>AUTO</div></button>
                     </td>
                     <td className="autoTestCol2">
-                        <input type="text" id="scanner" spellCheck="false" placeholder="Place scanner here" onInput={this.waitForQRCode.bind(this)} autoComplete="off" />
+                        <input type="text" id="scanner" spellCheck="false" placeholder="waiting for scanner..." onInput={this.waitForQRCode.bind(this)} autoComplete="off" />
                     </td>
                     <td className="autoTestCol3">
-                        <AutotestInfo />
+                        <ScannerInfo />
                     </td>
                 </tr>
                 </tbody>
             </table>
-            <AutotestTable addon={this.state.newData} that={this} />
+            <ScannerTable addon={this.state.newData} that={this} />
             <br />
         </main>);
     }
@@ -45,13 +45,13 @@ class Autotest extends React.Component {
         if(!this.state.auto){
             this.sendCommandToDevice();
             document.querySelector('.pause > div').innerHTML = "AUTO";
-            document.getElementById("scanner").placeholder = "Place scanner here";
+            document.getElementById("scanner").placeholder = "waiting for scanner...";
             document.getElementById("scanner").className = (document.getElementById("calibrationStatusON").className.indexOf("ON") > -1)? "backgroundAnimatedGreen" : "backgroundAnimatedRed";
 
         } else {
             document.querySelector('.pause > div').innerHTML = "TEST";
             document.getElementById("scanner").className = "backgroundAnimatedOrange";
-            document.getElementById("scanner").placeholder = "Enter Serial No. manually";
+            document.getElementById("scanner").placeholder = "Enter Serial No. Manually";
         }
     }
 
@@ -72,13 +72,7 @@ class Autotest extends React.Component {
         var power = this.getPower();
         var duration = this.getDuration();
 
-        connectMachine('INITiate:PIManalyzer:MEASure ON')
-        .then( _ => {
-            return connectMachine('FAKE')
-        })
-        .then( _ => {
-            return connectMachine(':PIManalyzer:MEASure:VALue?');
-        })
+        Contra.start(['INITiate:PIManalyzer:MEASure ON','FAKE',':PIManalyzer:MEASure:VALue?'])
         .then( data => {
             if(JSON.parse(localStorage.getItem('demo'))) data = `${Math.floor(Math.random()*(999-100+1)+100)}, ${Math.floor(Math.random()*(999-100+1)+100)}`;
             this.formatFinalData(qrcode, data, power, duration);
@@ -125,16 +119,14 @@ class Autotest extends React.Component {
     }
 
     checkCalibrationStatus() {
-        connectMachine('FAKE').then( _ => {
-            return connectMachine(':CALibration:PIManalyzer:FULL?')
-        })
+        Contra.start(['FAKE',':CALibration:PIManalyzer:FULL?'])
         .then( data => {
-            if(data.indexOf("ON") > -1) {
+            if(data[1].indexOf("ON") > -1) {
                 document.getElementById("calibrationStatusON").className = "calibrationStatusON";
                 document.getElementById("calibrationStatusOFF").className = "";
                 document.getElementById("scanner").className = "backgroundAnimatedGreen";
             }
-            if(data.indexOf("OFF") > -1) {
+            if(data[1].indexOf("OFF") > -1) {
                 document.getElementById("calibrationStatusOFF").className = "calibrationStatusOFF";
                 document.getElementById("calibrationStatusON").className = "";
                 document.getElementById("scanner").className = "backgroundAnimatedRed";
@@ -167,5 +159,3 @@ class Autotest extends React.Component {
     }
 
 }
-
-export default Autotest;

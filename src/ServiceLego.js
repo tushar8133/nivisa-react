@@ -1,4 +1,9 @@
-export const cmdNames = [
+export const LEGO = [
+	{
+		id: 'GET_DEVICE_LIST',
+		desc: 'Getting device connections',
+		delay: '2'
+	},
 	{
 		id: '*IDN?',
 		desc: 'Checking device name',
@@ -96,7 +101,32 @@ export const cmdNames = [
 	},
 	{
 		id: 'FAKE',
-		desc: 'Please wait',
+		desc: 'Please wait...',
+		delay: '1'
+	},
+	{
+		id: 'FAKE1',
+		desc: 'FAKE1...',
+		delay: '1'
+	},
+	{
+		id: 'FAKE2',
+		desc: 'FAKE2...',
+		delay: '2'
+	},
+	{
+		id: 'FAKE3',
+		desc: 'FAKE3...',
+		delay: '3'
+	},
+	{
+		id: 'FAKE4',
+		desc: 'FAKE4...',
+		delay: '4'
+	},
+	{
+		id: 'FAKE5',
+		desc: 'FAKE5...',
 		delay: '5'
 	}
 ]
