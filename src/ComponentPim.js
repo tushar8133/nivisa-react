@@ -51,7 +51,7 @@ export class Pim extends React.Component {
     }
 
     getIMDOrder(val) {
-        Contra.start([':PIManalyzer:IMD:ORDer '+val, 'FAKE',':PIManalyzer:FREQuency:F1?',':PIManalyzer:FREQuency:F2?'])
+        Contra.start([':PIManalyzer:IMD:ORDer '+val, 'WAIT',':PIManalyzer:FREQuency:F1?',':PIManalyzer:FREQuency:F2?'])
         .then( data => {
             
             this.setState(prevState => ({
@@ -65,7 +65,7 @@ export class Pim extends React.Component {
     }
 
     checkCurrentMode() {
-        Contra.start(['FAKE',':INSTrument:NSELect?'])
+        Contra.start(['WAIT',':INSTrument:NSELect?'])
         .then( data => {
             if(data[0] != 46) this.changingtopimanalyzerHandler();
         });

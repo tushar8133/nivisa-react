@@ -100,7 +100,7 @@ export const LEGO = [
 		delay: '3'
 	},
 	{
-		id: 'FAKE',
+		id: 'WAIT',
 		desc: 'Please wait...',
 		delay: '1'
 	},

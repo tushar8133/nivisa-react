@@ -4,7 +4,7 @@ export class Rocket {
 	constructor() {}
 
 	static fire(cmd, sec) {
-		if(cmd == "FAKE") cmd = '*IDN?';
+		if(cmd == "WAIT") cmd = '*IDN?';
 		if(JSON.parse(localStorage.getItem('demo'))) sec = 500;
 		let returnExpected  = (cmd.slice(-1) == '?')? true : false;
 		let defaulttimer = returnExpected? 0 : sec;

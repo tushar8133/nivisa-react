@@ -72,7 +72,7 @@ export class Scanner extends React.Component {
         var power = this.getPower();
         var duration = this.getDuration();
 
-        Contra.start(['INITiate:PIManalyzer:MEASure ON','FAKE',':PIManalyzer:MEASure:VALue?'])
+        Contra.start(['INITiate:PIManalyzer:MEASure ON','WAIT',':PIManalyzer:MEASure:VALue?'])
         .then( data => {
             this.formatFinalData(qrcode, data, power, duration);
             elem.disabled = false;
@@ -116,7 +116,7 @@ export class Scanner extends React.Component {
     }
 
     checkCalibrationStatus() {
-        Contra.start(['FAKE',':CALibration:PIManalyzer:FULL?'])
+        Contra.start(['WAIT',':CALibration:PIManalyzer:FULL?'])
         .then( data => {
             if(data[1].indexOf("ON") > -1) {
                 document.getElementById("calibrationStatusON").className = "calibrationStatusON";
