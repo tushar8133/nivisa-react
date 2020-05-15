@@ -29,7 +29,7 @@ function defaultTimer(sec) {
 
 async function spark(cmd, returnExpected) {
 	let retryCount = 0;
-	let retryLimit = 3;
+	let retryLimit = 5;
 	let finalData = "";
 
 	if(returnExpected) {
