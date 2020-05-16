@@ -27,26 +27,26 @@ export const LEGO = [
 	{
 		id: ':PIManalyzer:MODe PIM',
 		desc: 'Setting PIM vs Time Measurement',
-		delay: '2'
+		delay: '10'
 	},
 	{
 		id: ':PIManalyzer:MODe SPECTRUM_VIEW',
 		desc: 'Setting Noise Floor',
-		delay: '2'
+		delay: '10'
 	},
 	{
 		id: ':PIManalyzer:MODe DTP',
 		desc: 'Setting Distance to PIM',
-		delay: '2'
+		delay: '10'
 	},
 	{
 		id: ':PIManalyzer:MODe PIMSwp',
 		desc: 'Setting Swept PIM',
-		delay: '2'
+		delay: '10'
 	},
 	{
 		id: ':CALibration:PIManalyzer:FULL ON',
-		desc: 'Starting  Calibration',
+		desc: 'Starting Calibration',
 		delay: '8'
 	},
 	{
