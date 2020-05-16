@@ -1,5 +1,6 @@
 import React from 'react';
 import {Contra} from './ServiceContra';
+import {Rocket} from './ServiceRocket';
 
 export class Connection extends React.Component {
     constructor(props) {
@@ -33,7 +34,7 @@ export class Connection extends React.Component {
                     <button onClick={_ => this.sendCommand('*IDN?')}>*IDN?</button>
                     <span className="spacer" />
                     <input type="text" id="custom-cmd" placeholder="SCPI command" />
-                    <button onClick={_ => this.sendCommand(document.getElementById('custom-cmd').value)}>Send</button>
+                    <button onClick={ this.customSCPI }>Send</button>
                     <span className="spacer" />
                     <textarea id="textarea" rows="10" cols="60"></textarea>
                 </div>
@@ -64,6 +65,13 @@ export class Connection extends React.Component {
         Contra.start([cmd]).then( data => {
             this.setResponse(data);
         });
+    }
+
+    customSCPI() {
+        let cmd = document.getElementById("custom-cmd").value.trim();
+        Rocket.ignite(cmd).then(data => {
+           document.getElementById('textarea').value = data;
+        })
     }
 
     setResponse(resp) {
