@@ -27,6 +27,10 @@ module.exports = {
 	plugins: [
 		new CleanWebpackPlugin(),
 		new HtmlWebpackPlugin({template: "./src/template.html"}),
-		new CopyWebpackPlugin([{from:'assets',to:'assets'}])
+		new CopyWebpackPlugin([
+			{from:'assets',to:'assets'},
+			{from:'parent.html',to:''},
+			{from:'tcpip.html',to:''}
+		])
 	]
 }
