@@ -224,6 +224,9 @@ html, body {
 }
  #autotest #scanner::-webkit-input-placeholder {
    font-style: italic;
+   font-size: 16px;
+   color: #999;
+   letter-spacing: 3px;
 }
  #autotest .pause {
    width: 25px;

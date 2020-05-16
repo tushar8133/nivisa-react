@@ -24,7 +24,7 @@ export class Scanner extends React.Component {
                         <button onClick={this.pause.bind(this)} className="pause"><div>AUTO</div></button>
                     </td>
                     <td className="autoTestCol2">
-                        <input type="text" id="scanner" spellCheck="false" placeholder="Auto Scan MODE" onInput={this.waitForQRCode.bind(this)} autoComplete="off" />
+                        <input type="text" id="scanner" spellCheck="false" placeholder="AUTO SCAN MODE" onInput={this.waitForQRCode.bind(this)} autoComplete="off" />
                     </td>
                     <td className="autoTestCol3">
                         <ScannerInfo />
@@ -45,13 +45,13 @@ export class Scanner extends React.Component {
         if(!this.state.auto){
             this.sendCommandToDevice();
             document.querySelector('.pause > div').innerHTML = "AUTO";
-            document.getElementById("scanner").placeholder = "Auto Scan MODE";
+            document.getElementById("scanner").placeholder = "AUTO SCAN MODE";
             document.getElementById("scanner").className = (document.getElementById("calibrationStatusON").className.indexOf("ON") > -1)? "backgroundAnimatedGreen" : "backgroundAnimatedRed";
 
         } else {
             document.querySelector('.pause > div').innerHTML = "TEST";
             document.getElementById("scanner").className = "backgroundAnimatedOrange";
-            document.getElementById("scanner").placeholder = "enter serial no. manually";
+            document.getElementById("scanner").placeholder = "MANUAL MODE";
         }
     }
 
