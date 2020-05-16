@@ -74,21 +74,18 @@ export class Scanner extends React.Component {
 
         Contra.start(['INITiate:PIManalyzer:MEASure ON','WAIT',':PIManalyzer:MEASure:VALue?'])
         .then( data => {
-            this.formatFinalData(qrcode, data, power, duration);
+            this.formatFinalData(qrcode, data[2], power, duration);
             elem.disabled = false;
             elem.value = '';
         });
     }
 
     formatFinalData(qrcode, peakData, power, duration) {
-        // TODO: check this String method requirement.
-        var peakDataArr = this.formatPeakData(String(peakData));
+        var peakDataArr = this.formatPeakData(peakData);
         var dBc = peakDataArr[0];
         var dBm = peakDataArr[1];
         var timestamp = this.formatDate();
-
         var currentData = { qrcode, power, duration, dBc, dBm, timestamp };
-
         this.setState(prevState => ({
             newData: currentData
         }));
