@@ -26,11 +26,14 @@ module.exports = {
 	},
 	plugins: [
 		new CleanWebpackPlugin(),
-		new HtmlWebpackPlugin({template: "./src/template.html"}),
+		new HtmlWebpackPlugin({
+			template: "./src/template.html",
+			filename: 'child1.html'
+		}),
 		new CopyWebpackPlugin([
 			{from:'assets',to:'assets'},
-			{from:'parent.html',to:''},
-			{from:'tcpip.html',to:''}
+			{from:'index.html',to:''},
+			{from:'child2.html',to:''}
 		])
 	]
 }
