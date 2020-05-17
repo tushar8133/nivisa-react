@@ -1,7 +1,7 @@
 import io from 'socket.io-client';
 import { Galaxy } from './ServiceGalaxy';
 
-let RETRY_TIMES = 5;
+let RETRY_TIMES = 10;
 let RETRY_PAUSE = 1000;
 let RETRY_COUNT = 0;
 
