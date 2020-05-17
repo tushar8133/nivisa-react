@@ -26,7 +26,7 @@ export class Galaxy {
 		}, 100);
 	}
 
-	progressBarMsgs(msg) {
+	progressBarMsg(msg) {
 		var loader = document.getElementById("loading-text");
 		loader.innerHTML = msg;
 	}

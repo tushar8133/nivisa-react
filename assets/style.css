@@ -72,8 +72,19 @@ html, body {
    font-size: 8px;
    color: #666;
 }
- .selected-tab {
+#loader #rfAbort {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 11px 13px;
+  margin: 10px;
+  background-color: crimson;
+  color: black;
+}
+.selected-tab {
    background-color: black;
+}
 }
  .navLink > button {
    background-color: lightgreen;
