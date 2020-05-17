@@ -2,17 +2,17 @@ export const LEGO = [
 	{
 		id: 'GET_DEVICE_LIST',
 		desc: 'Getting device connections',
-		delay: '2'
+		delay: '3'
 	},
 	{
 		id: '*IDN?',
 		desc: 'Checking device name',
-		delay: '2'
+		delay: '10'
 	},
 	{
 		id: ':INSTrument:CATalog:FULL?',
-		desc: 'Checking all modes',
-		delay: '0.5'
+		desc: 'Checking all supported modes',
+		delay: '10'
 	},
 	{
 		id: ':INSTrument:NSELect 46',
@@ -22,7 +22,7 @@ export const LEGO = [
 	{
 		id: ':INSTrument:NSELect?',
 		desc: 'Checking current mode',
-		delay: '3'
+		delay: '10'
 	},
 	{
 		id: ':PIManalyzer:MODe PIM',
@@ -47,22 +47,22 @@ export const LEGO = [
 	{
 		id: ':CALibration:PIManalyzer:FULL ON',
 		desc: 'Starting Calibration',
-		delay: '8'
+		delay: '10'
 	},
 	{
 		id: ':CALibration:PIManalyzer:FULL?',
 		desc: 'Checking Calibration',
-		delay: '8'
+		delay: '10'
 	},
 	{
 		id: ':PIManalyzer:OUTPut:POWer',
 		desc: 'Setting Power',
-		delay: '0.5'
+		delay: '1'
 	},
 	{
 		id: ':PIManalyzer:TEST:DURation',
 		desc: 'Setting Duration',
-		delay: '0.5'
+		delay: '1'
 	},
 	{
 		id: 'INITiate:PIManalyzer:MEASure ON',
@@ -70,19 +70,24 @@ export const LEGO = [
 		delay: '-1'
 	},
 	{
+		id: ':PIManalyzer:MEASure:STATus?',
+		desc: 'Checking RF Status',
+		delay: '10'
+	},
+	{
 		id: ':PIManalyzer:MEASure:VALue?',
 		desc: 'Checking Measured Values',
-		delay: '4'
+		delay: '10'
 	},
 	{
 		id: ':PIManalyzer:FREQuency:F1?',
 		desc: 'Checking Frequency Tone 1',
-		delay: '3'
+		delay: '10'
 	},
 	{
 		id: ':PIManalyzer:FREQuency:F2?',
 		desc: 'Checking Frequency Tone 2',
-		delay: '3'
+		delay: '10'
 	},
 	{
 		id: ':PIManalyzer:IMD:ORDer 3',
@@ -102,7 +107,7 @@ export const LEGO = [
 	{
 		id: 'WAIT',
 		desc: 'Please wait...',
-		delay: '5'
+		delay: '10'
 	},
 	{
 		id: 'FAKE1',

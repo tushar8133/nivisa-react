@@ -72,12 +72,12 @@ export class Scanner extends React.Component {
         var power = this.getPower();
         var duration = this.getDuration();
 
-        Contra.start(['INITiate:PIManalyzer:MEASure ON','WAIT',':PIManalyzer:MEASure:VALue?'])
+        Contra.start(['INITiate:PIManalyzer:MEASure ON',':PIManalyzer:MEASure:STATus?',':PIManalyzer:MEASure:VALue?'])
         .then( data => {
-            this.formatFinalData(qrcode, data[2], power, duration);
             elem.disabled = false;
             elem.value = '';
-        });
+            if(data[2]) this.formatFinalData(qrcode, data[2], power, duration);
+        })
     }
 
     formatFinalData(qrcode, peakData, power, duration) {
@@ -113,17 +113,21 @@ export class Scanner extends React.Component {
     }
 
     checkCalibrationStatus() {
-        Contra.start(['WAIT',':CALibration:PIManalyzer:FULL?'])
+        Contra.start([':CALibration:PIManalyzer:FULL?'])
         .then( data => {
-            if(data[1].indexOf("ON") > -1) {
-                document.getElementById("calibrationStatusON").className = "calibrationStatusON";
-                document.getElementById("calibrationStatusOFF").className = "";
-                document.getElementById("scanner").className = "backgroundAnimatedGreen";
-            }
-            if(data[1].indexOf("OFF") > -1) {
-                document.getElementById("calibrationStatusOFF").className = "calibrationStatusOFF";
-                document.getElementById("calibrationStatusON").className = "";
-                document.getElementById("scanner").className = "backgroundAnimatedRed";
+            try {
+                if(data[0].indexOf("ON") > -1) {
+                    document.getElementById("calibrationStatusON").className = "calibrationStatusON";
+                    document.getElementById("calibrationStatusOFF").className = "";
+                    document.getElementById("scanner").className = "backgroundAnimatedGreen";
+                }
+                if(data[0].indexOf("OFF") > -1) {
+                    document.getElementById("calibrationStatusOFF").className = "calibrationStatusOFF";
+                    document.getElementById("calibrationStatusON").className = "";
+                    document.getElementById("scanner").className = "backgroundAnimatedRed";
+                }
+            } catch(e) {
+                console.log(e);
             }
         });
     }

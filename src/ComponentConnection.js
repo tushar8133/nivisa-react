@@ -14,8 +14,6 @@ export class Connection extends React.Component {
 
     componentDidMount() {
         this.getDeviceList();
-        // Contra.start(['FAKE1', 'FAKE2', 'FAKE3', 'FAKE4', 'FAKE5']);
-        // Contra.start([':PIManalyzer:IMD:ORDer 3', 'WAIT',':PIManalyzer:FREQuency:F1?',':PIManalyzer:FREQuency:F2?']).then( data => console.log(">>",data))
     }
 
     render() {
