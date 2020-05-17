@@ -92,7 +92,6 @@ export class Scanner extends React.Component {
     }
 
     formatPeakData(data) {
-        if(JSON.parse(localStorage.getItem('demo'))) data = `${Math.floor(Math.random()*(999-100+1)+100)}, ${Math.floor(Math.random()*(999-100+1)+100)}`;
         var arr = data.split(',');
         arr[0] = String(arr[0]).trim();
         arr[1] = String(arr[1]).trim();

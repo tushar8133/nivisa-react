@@ -10,7 +10,7 @@ export class Rocket {
 
 	static fire(cmd, sec) {
 		if(JSON.parse(localStorage.getItem('demo'))) {
-			sec = 3000;
+			sec = 1000;
 			RETRY_TIMES = 1;
 			RETRY_PAUSE = 500;
 		}

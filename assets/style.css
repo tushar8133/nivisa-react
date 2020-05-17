@@ -327,15 +327,13 @@ html, body {
 }
 /* ============= AUTOTEST TABLE PAGE ============= */
  #ScannerTable div {
-  /*height: 250px;
-  */
-   width: 100%;
-  /*overflow-y: scroll;
-  */
-   font-size: 120%;
-   margin: 30px auto;
-   text-align: center;
-   border: 0px groove;
+  height: calc(100vh - 320px);
+  width: 100%;
+  overflow-y: scroll;
+  font-size: 120%;
+  margin: 30px auto;
+  text-align: center;
+  border: 0px groove;
 }
  #ScannerTable table {
    width: 100%;
@@ -374,6 +372,16 @@ html, body {
    margin-right: 8px;
    width: 200px;
    margin-top: 1px;
+}
+#ScannerTable .data-table-footer {
+  position: fixed;
+  bottom: 0;
+  background-color: #EEE;
+  margin: 0px;
+  padding: 10px;
+  border-top: 1px solid #AAA;
+  font-size: 100%;
+  height: 30px;
 }
  @-o-keyframes fadeItGreen {
    0% {
