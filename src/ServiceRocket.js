@@ -1,7 +1,9 @@
 import io from 'socket.io-client';
+import { Galaxy } from './ServiceGalaxy';
 
-let RETRY_COUNT = 10;
+let RETRY_TIMES = 5;
 let RETRY_PAUSE = 1000;
+let RETRY_COUNT = 0;
 
 export class Rocket {
 	constructor() {}
@@ -9,9 +11,11 @@ export class Rocket {
 	static fire(cmd, sec) {
 		if(JSON.parse(localStorage.getItem('demo'))) {
 			sec = 500;
-			RETRY_COUNT = 1;
+			RETRY_TIMES = 1;
 			RETRY_PAUSE = 500;
 		}
+		RETRY_COUNT = 0;
+		Rocket.retryCounterHandler();
 
 		if(cmd == ":PIManalyzer:OUTPut:POWer") cmd += " "+localStorage.getItem('power');
 		if(cmd == ":PIManalyzer:TEST:DURation") cmd += " "+localStorage.getItem('duration');
@@ -57,7 +61,8 @@ export class Rocket {
 
 	static async spark(cmd) {
 		let result = null;
-		for (var i = 0; i < RETRY_COUNT; i++) {
+		for (var i = 0; i < RETRY_TIMES; i++) {
+			Rocket.retryCounterHandler()
 			result = await Rocket.ignite(cmd);
 			if(result) break;
 			await Rocket.pause(RETRY_PAUSE);
@@ -66,7 +71,8 @@ export class Rocket {
 	}
 
 	static async checkRFstatus(cmd) {
-		for (var i = 0; i < RETRY_COUNT; i++) {
+		for (var i = 0; i < RETRY_TIMES; i++) {
+			Rocket.retryCounterHandler()
 			let result = await Rocket.ignite(cmd);
 			if(result == "0") break;
 			await Rocket.pause(RETRY_PAUSE);
@@ -89,6 +95,12 @@ export class Rocket {
 				resolve();
 			}, sec)
 		})
+	}
+
+	static retryCounterHandler() {
+		let text = (RETRY_COUNT)? RETRY_COUNT : "";
+		Galaxy.progressBarCounter(text);
+		RETRY_COUNT++;
 	}
 
 }

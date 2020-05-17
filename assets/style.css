@@ -59,11 +59,18 @@ html, body {
    width: 0px;
    border: 1px solid #00ffd0;
 }
- #loading-text {
+ #loading-text-box {
    color: white;
    display: inline-block;
    background-color: black;
    padding: 0 7px;
+}
+#loading-text {
+   padding: 3px;
+}
+#loading-counter {
+   font-size: 8px;
+   color: #666;
 }
  .selected-tab {
    background-color: black;

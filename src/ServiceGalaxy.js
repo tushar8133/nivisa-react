@@ -1,4 +1,5 @@
 import io from 'socket.io-client';
+import { Rocket } from './ServiceRocket';
 
 export class Galaxy {
 
@@ -28,6 +29,10 @@ export class Galaxy {
 	progressBarMsgs(msg) {
 		var loader = document.getElementById("loading-text");
 		loader.innerHTML = msg;
+	}
+
+	static progressBarCounter(count) {
+		document.getElementById("loading-counter").innerHTML = count;
 	}
 
 	progressBarStart() {
