@@ -1,8 +1,9 @@
 import io from 'socket.io-client';
 
+let RETRY_COUNT = 10;
+let RETRY_PAUSE = 1000;
+
 export class Rocket {
-	static RETRY_COUNT = 10;
-	static RETRY_PAUSE = 1000;
 	constructor() {}
 
 	static fire(cmd, sec) {
