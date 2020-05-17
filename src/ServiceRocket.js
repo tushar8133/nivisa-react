@@ -1,14 +1,23 @@
 import io from 'socket.io-client';
 
 export class Rocket {
+	static RETRY_COUNT = 10;
+	static RETRY_PAUSE = 1000;
 	constructor() {}
 
 	static fire(cmd, sec) {
+		if(JSON.parse(localStorage.getItem('demo'))) {
+			sec = 500;
+			RETRY_COUNT = 1;
+			RETRY_PAUSE = 500;
+		}
+
 		if(cmd == ":PIManalyzer:OUTPut:POWer") cmd += " "+localStorage.getItem('power');
 		if(cmd == ":PIManalyzer:TEST:DURation") cmd += " "+localStorage.getItem('duration');
-		if(JSON.parse(localStorage.getItem('demo'))) sec = 500;
+
 		let p1 = Rocket.defaultTimer(cmd, sec);
 		let p2 = null;
+
 		if(cmd == ':PIManalyzer:MEASure:STATus?') {
 			p2 = Rocket.checkRFstatus(cmd);
 		}
@@ -18,6 +27,7 @@ export class Rocket {
 		else {
 			p2 = Rocket.launch(cmd);
 		}
+
 		return new Promise( (resolve, reject) => {
 			Promise.all([p1, p2])
 			.then(function(values) {
@@ -46,19 +56,19 @@ export class Rocket {
 
 	static async spark(cmd) {
 		let result = null;
-		for (var i = 0; i < 10; i++) {
+		for (var i = 0; i < RETRY_COUNT; i++) {
 			result = await Rocket.ignite(cmd);
 			if(result) break;
-			await Rocket.pause(1000);
+			await Rocket.pause(RETRY_PAUSE);
 		}
 		return result;
 	}
 
 	static async checkRFstatus(cmd) {
-		for (var i = 0; i < 10; i++) {
+		for (var i = 0; i < RETRY_COUNT; i++) {
 			let result = await Rocket.ignite(cmd);
 			if(result == "0") break;
-			await Rocket.pause(1000);
+			await Rocket.pause(RETRY_PAUSE);
 		}
 		return true;
 	}
