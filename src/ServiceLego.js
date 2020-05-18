@@ -57,12 +57,12 @@ export const LEGO = [
 	{
 		id: ':PIManalyzer:OUTPut:POWer',
 		desc: 'Setting Power',
-		delay: '1'
+		delay: '0.5'
 	},
 	{
 		id: ':PIManalyzer:TEST:DURation',
 		desc: 'Setting Duration',
-		delay: '1'
+		delay: '0.5'
 	},
 	{
 		id: 'INITiate:PIManalyzer:MEASure ON',

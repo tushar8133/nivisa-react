@@ -9,6 +9,10 @@ export class Rocket {
 	constructor() {}
 
 	static fire(cmd, sec) {
+		if(cmd == ":PIManalyzer:OUTPut:POWer") cmd += " "+localStorage.getItem('power');
+		if(cmd == ":PIManalyzer:TEST:DURation") cmd += " "+localStorage.getItem('duration');
+		if(cmd == "INITiate:PIManalyzer:MEASure ON") sec += 3000;
+
 		if(JSON.parse(localStorage.getItem('demo'))) {
 			sec = 1000;
 			RETRY_TIMES = 1;
@@ -16,9 +20,6 @@ export class Rocket {
 		}
 		RETRY_COUNT = 0;
 		Rocket.retryCounterHandler();
-
-		if(cmd == ":PIManalyzer:OUTPut:POWer") cmd += " "+localStorage.getItem('power');
-		if(cmd == ":PIManalyzer:TEST:DURation") cmd += " "+localStorage.getItem('duration');
 
 		let p1 = Rocket.defaultTimer(cmd, sec);
 		let p2 = null;
