@@ -5,6 +5,7 @@ html, body {
    text-align: center;
    height: 100%;
    user-select: none;
+   min-width:550px;
 }
  @font-face {
    font-family: "Roboto";
