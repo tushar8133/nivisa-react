@@ -24,7 +24,7 @@ export class Scanner extends React.Component {
                         <button onClick={this.pause.bind(this)} className="pause"><div>AUTO</div></button>
                     </td>
                     <td className="autoTestCol2">
-                        <input type="text" id="scanner" spellCheck="false" placeholder="AUTO SCAN MODE" onInput={this.waitForQRCode.bind(this)} autoComplete="off" />
+                        <input type="text" id="scanner" spellCheck="false" placeholder="AUTO SCAN MODE" onInput={this.waitForQRCode.bind(this)} onKeyUp={ (e) => { if(e.keyCode == 13){ this.pause() }}} autoComplete="off" />
                     </td>
                     <td className="autoTestCol3">
                         <ScannerInfo />
