@@ -131,7 +131,7 @@ export class ScannerTable extends React.Component {
     checkDBCValue(val) {
         var local = Number(localStorage.getItem("dbcutoff"));
         if(local) {
-            return (val <= (local - 20))? "pass" : "fail";
+            return (val <= local)? "pass" : "fail";
         } else {
             return "";
         }

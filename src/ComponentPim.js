@@ -22,7 +22,7 @@ export class Pim extends React.Component {
 
             <div className="grid">
                 <div>
-                    <div><label>Pass/Fail Value (dBm)<input type="number" id="dbcutoff" onInput={this.saveDBCutoff} /></label></div>
+                    <div><label>Pass/Fail Value (dBc)<input type="number" id="dbcutoff" onInput={this.saveDBCutoff} /></label></div>
                     <div><label>Output Power Level (dBm)<input type="number" id="outputPowerLevel" onInput={this.savePower} onBlur={ this.setPower.bind(this) } /></label></div>
                     <div><label>Test Duration (sec)<input type="number" id="testDuration" onInput={this.saveDuration} onBlur={ this.setDuration.bind(this) } /></label></div>
                     <button className="btnOrder" onClick={ _ => {this.getIMDOrder(3)} }>IMD Order 3</button>
