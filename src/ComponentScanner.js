@@ -9,7 +9,8 @@ export class Scanner extends React.Component {
         super(props);
         this.state = {
             newData: {},
-            auto: true
+            auto: true,
+            operatorName : ''
         };
         this.debounceTimer1;
         this.cursorTimer1 = null;
@@ -73,6 +74,11 @@ export class Scanner extends React.Component {
 
     sendCommandToDevice() {
         var elem = document.getElementById('scanner');
+        if(!this.state.operatorName) {
+            alert("Operater Name Required");
+            elem.value = '';
+            return;
+        }
         var qrcode = elem.value;
         if(!qrcode) return;
         elem.disabled = true;
@@ -89,11 +95,13 @@ export class Scanner extends React.Component {
     }
 
     formatFinalData(qrcode, peakData, power, duration) {
+        var operatorName = this.state.operatorName;
         var peakDataArr = this.formatPeakData(peakData);
         var dBc = peakDataArr[0];
         var dBm = peakDataArr[1];
-        var timestamp = this.formatDate();
-        var currentData = { qrcode, power, duration, dBc, dBm, timestamp };
+        var date = this.formatDate().date;
+        var time = this.formatDate().time;
+        var currentData = { qrcode, power, duration, dBc, dBm, date, time, operatorName };
         this.setState(prevState => ({
             newData: currentData
         }));
@@ -108,7 +116,16 @@ export class Scanner extends React.Component {
 
     formatDate() {
         var dt = new Date();
-        return (`${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0')}`);
+        var year = dt.getFullYear().toString();
+        var month = (dt.getMonth() + 1).toString().padStart(2, '0');
+        var date = dt.getDate().toString().padStart(2, '0');
+        var hours = dt.getHours().toString().padStart(2, '0');
+        var minutes = dt.getMinutes().toString().padStart(2, '0');
+        var seconds = dt.getSeconds().toString().padStart(2, '0');
+        return {
+            date : `${year}-${month}-${date}`,
+            time: `${hours}:${minutes}:${seconds}`
+        }
     }
 
     getPower() {

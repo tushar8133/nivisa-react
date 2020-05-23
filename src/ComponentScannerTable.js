@@ -6,8 +6,7 @@ export class ScannerTable extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            tableData: [],
-            operatorName: ''
+            tableData: []
         };
         this.clearDataConfirmation = 0;
     }
@@ -68,22 +67,28 @@ export class ScannerTable extends React.Component {
                             <tr>
                                 <th>#</th>
                                 <th>Serial No.</th>
-                                <th>Power</th>
                                 <th>Duration</th>
-                                <th>dBm</th>
                                 <th>dBc</th>
                                 <th>Time</th>
+                                <th>Operator</th>
                                 <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
-                             {this.state.tableData.map((row, index) => <tr key={row.qrcode}><td>{this.state.tableData.length - index}</td><td>{row.qrcode}</td><td>{row.power}</td><td>{row.duration}</td><td className={this.checkDBMValue(row.dBm)}>{row.dBm} dBm</td><td className={this.checkDBCValue(row.dBc)}>{row.dBc} dBc</td><td>{row.timestamp}</td><td><button onClick={_ => this.deleteRow(index)}>&#10005;</button></td></tr>)}
+                             {this.state.tableData.map((row, index) => <tr key={row.qrcode}>
+                                <td>{this.state.tableData.length - index}</td>
+                                <td>{row.qrcode}</td>
+                                <td>{row.duration}</td>
+                                <td className={this.checkDBCValue(row.dBc)}>{row.dBc} dBc</td>
+                                <td>{row.date} {row.time}</td>
+                                <td>{row.operatorName}</td>
+                                <td><button onClick={_ => this.deleteRow(index)}>&#10005;</button></td></tr>)}
                         </tbody>
                     </table>
                 </div>
                 <div className="data-table-footer">
-                    <input type="text" id="operatorName" placeholder="Enter Operator Name" onInput={ _ => this.saveOperatorName(_.target.value.trim()) } onFocus={ _ => this.operatorFocus()  } onBlur={ _ => this.operatorBlur()  }/>
-                    <button onClick={_ => this.exportData()} disabled={!this.state.operatorName}>Save Excel</button>&nbsp;
+                    <input type="text" id="operatorName" placeholder="Enter Operator Name" onInput={ _ => this.saveOperatorName(_.target.value) } onFocus={ _ => this.operatorFocus()  } onBlur={ _ => this.operatorBlur()  }/>
+                    <button onClick={ _ => this.exportData()} >Save Excel</button>&nbsp;
                     <button id="clearData" onClick={_ => this.clearData()}>Clear Data</button>
                 </div>
             </main>);
@@ -98,10 +103,20 @@ export class ScannerTable extends React.Component {
         this.props.that.resetCursor();
     }
 
-    saveOperatorName(name) {
-        this.setState({
+    saveOperatorName(_name) {
+        var name = this.titleCase(_name);
+        document.getElementById("operatorName").value = name;
+        this.props.that.setState({
             operatorName: name
         })
+    }
+
+    titleCase(str) {
+      str = str.toLowerCase().split(' ');
+      for (var i = 0; i < str.length; i++) {
+        str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1); 
+      }
+      return str.join(' ');
     }
 
     checkDBMValue(val) {
@@ -142,27 +157,19 @@ export class ScannerTable extends React.Component {
         return unique;
     }
 
-    formatDate(type) {
-        var dt = new Date();
-        if(type === 'print') return (`${dt.getFullYear().toString().padStart(4, '0')}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')} ${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0')}`);
-        if(type === 'save') return (`${dt.getFullYear().toString().padStart(4, '0')}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')} (${dt.getHours().toString().padStart(2, '0')}${dt.getMinutes().toString().padStart(2, '0')})`);
-    }
-
     exportData() {
-        // console.table(this.state.tableData);
         var data = [...this.state.tableData].reverse();
         var newData = data.map((obj, index) => {
             return Object.assign({ index: String(index + 1) }, obj)
         })
-        // console.table(newData);
-        this.xlsxModule(this.state.operatorName, newData);
+        this.xlsxModule(newData);
     }
 
-    xlsxModule(person, data) {
-        var ws = XLSX.utils.json_to_sheet([{ A: 'Operator Name', B: person }, { A: 'Date', B: this.formatDate('print') }], { header: ['A', 'B'], skipHeader: true });
+    xlsxModule(data) {
+        var ws = XLSX.utils.json_to_sheet([{ A: '', B: '' }], { header: ['A', 'B'], skipHeader: true });
         XLSX.utils.sheet_add_json(ws, data, { skipHeader: false, origin: 'A4' });
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws);
-        XLSX.writeFile(wb, `Anritsu Test -- ${person} -- ${this.formatDate('save')}.xlsx`);
+        XLSX.writeFile(wb, `Anritsu Test Results.xlsx`);
     }
 }
