@@ -13,7 +13,7 @@ export class Pim extends React.Component {
         this.getDBCutoff();
         this.savePower();
         this.saveDuration();
-        this.checkCurrentMode();
+        // this.checkCurrentMode();
     }
 
     render() {
