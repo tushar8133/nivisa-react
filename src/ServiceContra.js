@@ -34,16 +34,6 @@ export class Contra {
 
 	static progressBarMsgsHandler(galaxy, msg) {
 		galaxy.progressBarMsg(msg);
-		if(msg == "RF ON") {
-			let elem = document.getElementById("loading-text");
-			elem.classList.add("rf-flasher");
-			let abortBtn = document.getElementById("rfAbort").style.display = 'block';
-		} else {
-			let elem = document.getElementById("loading-text");
-			elem.classList.remove("rf-flasher");
-			let abortBtn = document.getElementById("rfAbort").style.display = 'none';
-		}
-
 	}
 
 }
