@@ -16,41 +16,50 @@ export class Calibration extends React.Component {
 
                 <h2>Caution During calibration, RF power is present, and the red RF On light is illuminated.</h2>
 
-                <button onClick={ _ => {this.calibrate()} }>Calibrate</button>
-                <p>Please use MW82119B PIM Master unit and follow the below steps as described for the standard calibration process.</p>
+                <p>This calibration is only for the PIM vs TIME calibration, for all power levels. Please follow below:</p>
 
-                <div className="grid">
-                    <div>
-                        <p>STEP 1</p>
-                        <ol>
-                            <li>Press Shift then Cal (2) to open the Calibration menu.</li>
-                            <li>In the Calibration menu, press the Start Calibration submenu key</li>
-                            <li>Connect a PIM standard onto the test port of the PIM Master or at the end of the PIM test cable.</li>
-                            <li>Connect a Low PIM Termination onto the PIM standard and Hit the Enter on instrument</li>
-                        </ol>
-                        <img src="./assets/step1.jpg" />
+                <div id="tab1">
+                    <div className="grid">
+                        <div>
+                            <p>Anritsu PIM Master MW89119B</p>
+                            <img src="./assets/step1.png" />
+                        </div>
+                        <div>
+                            <p>LOW PIM TERMINATION 2000-1749-R</p>
+                            <img src="./assets/step2.png" />
+                        </div>
+                        <div>
+                            <p>LOW PIM TERMINATION Connected onto PIM MASTER</p>
+                            <img src="./assets/step3.png" />
+                        </div>
                     </div>
-                    <div>
-                        <p>STEP 2</p>
-                        <ol>
-                            <li>When prompted, remove the PIM standard and the Low PIM Termination.</li>
-                            <li>Connect only the Low PIM Termination. and Hit the Enter on Instrument.</li>
-                        </ol>
-                        <span>
-                            <img src="./assets/step2.jpg" />
-                        </span>
+                
+
+                    <button onClick={ this.toggleTab }>Calibrate</button>
+                </div>
+
+                <div id="tab2">
+                    <div className="grid-part2">
+                        <div className="hide"></div>
+                        <div>
+                            <p>Please ensure LOW PIM TERMINATION is connected onto PIM Test Port.<br />To continue press ENTER or ESCAPE to EXIT</p>
+                            <img src="./assets/step4.png" />
+                        </div>
+                        <div className="hide"></div>
                     </div>
-                    <div>
-                        <p>STEP 3</p>
-                        <ol>
-                            <li>When prompted, remove all components from the test port leaving nothing connected at the point of calibration (Open circuit) and Hit the Enter on Instrument</li>
-                        </ol>
-                        <img src="./assets/step3.jpg" />
-                    </div>
+
+                    <button onClick={ this.toggleTab }>ESCAPE</button>
+                    <button onClick={ _ => {this.calibrate()} }>ENTER</button>
                 </div>
                 
             </main>
         )
+    }
+
+    toggleTab() {
+        var tab1Status = document.getElementById("tab1").style.display || "block";
+        document.getElementById("tab2").style.display = tab1Status;
+        document.getElementById("tab1").style.display = (tab1Status == "block")? "none" : "block";
     }
 
     sendCommand(cmd) {
@@ -62,6 +71,6 @@ export class Calibration extends React.Component {
     setResponse(resp) {}
 
     calibrate() {
-        Contra.start([':CALibration:PIManalyzer:FULL ON']).then(data => {});
+        Contra.start([':INITiate:PIManalyzer:PVT:ALLPower:CAL']).then(data => {});
     }
 }

@@ -50,6 +50,11 @@ export const LEGO = [
 		delay: '10'
 	},
 	{
+		id:':INITiate:PIManalyzer:PVT:ALLPower:CAL',
+		desc: 'Starting Calibration',
+		delay: '80'
+	},
+	{
 		id: ':CALibration:PIManalyzer:FULL?',
 		desc: 'Checking Calibration',
 		delay: '10'
