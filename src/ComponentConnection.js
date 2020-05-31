@@ -42,11 +42,10 @@ export class Connection extends React.Component {
     }
 
     getDeviceList() {
-        Contra.start(['GET_DEVICE_LIST', ':INSTrument:CATalog:FULL?'])
+        Contra.start(['GET_DEVICE_LIST'])
         .then( data => {
             this.setState(state => ({ addresses: data[0] }));
             this.selectDefaultOption(data[0][0]);
-            localStorage.setItem("modes", JSON.stringify(data[1]));
         })
     }
 
