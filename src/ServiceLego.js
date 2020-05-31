@@ -51,8 +51,8 @@ export const LEGO = [
 	},
 	{
 		id:':INITiate:PIManalyzer:PVT:ALLPower:CAL',
-		desc: 'Starting Calibration',
-		delay: '80'
+		desc: 'Calibrating in progress',
+		delay: '60'
 	},
 	{
 		id: ':CALibration:PIManalyzer:FULL?',
