@@ -10,10 +10,8 @@ export class Pim extends React.Component {
     }
 
     componentDidMount() {
+        this.init();
         this.getDBCutoff();
-        this.savePower();
-        this.saveDuration();
-        // this.checkCurrentMode();
     }
 
     render() {
@@ -36,10 +34,10 @@ export class Pim extends React.Component {
 
                 </div>
                 <div>
-                    <button onClick={ _ => {this.pimvstimeHandler()} }>PIM Vs Time</button><br />
-                    <button onClick={ _ => {this.noiseFloor()} }>Noise Floor</button><br />
-                    <button onClick={ _ => {this.dtpHandler()} }>Distance to PIM</button><br />
-                    <button onClick={ _ => {this.sweptpimHandler()} }>Swept PIM</button><br />
+                    <button id="elem_PIM" onClick={ _ => {this.setMeasurementMode(_.target.id)} }>PIM Vs Time</button><br />
+                    <button id="elem_SPECTRUM_VIEW" onClick={ _ => {this.setMeasurementMode(_.target.id)} }>Noise Floor</button><br />
+                    <button id="elem_DTP" onClick={ _ => {this.setMeasurementMode(_.target.id)} }>Distance to PIM</button><br />
+                    <button id="elem_PIMSwp" onClick={ _ => {this.setMeasurementMode(_.target.id)} }>Swept PIM</button><br />
                 </div>
             </div>
 
@@ -134,45 +132,57 @@ export class Pim extends React.Component {
     }
 
     savePower(evt) {
-
-		if(evt) {
-            if(evt.target.value >= 20 && evt.target.value <= 46) {
-                document.getElementById('outputPowerLevel').style.backgroundColor = "white";
-                localStorage.setItem('power', evt.target.value);
-            } else {
-                document.getElementById('outputPowerLevel').style.backgroundColor = "#ff5976";
-            }
-
-		} else {
-			var power = 43;
-	    	try {
-	        	var local = JSON.parse(localStorage.getItem('power'));
-	    		if(local) power = local;
-	    	} catch (e) {
-	    		console.log(e);
-	    	} finally {
-	    		document.getElementById('outputPowerLevel').value = power;
-	    		localStorage.setItem('power', power);
-	    	}
-		}
+		if(evt.target.value >= 20 && evt.target.value <= 46) {
+            document.getElementById('outputPowerLevel').style.backgroundColor = "white";
+            localStorage.setItem('power', evt.target.value);
+        } else {
+            document.getElementById('outputPowerLevel').style.backgroundColor = "#ff5976";
+        }
     }
 
 	saveDuration(evt) {
-		if(evt) {
-	        if(evt.target.value < 1) evt.target.value = 1;
-	        if(evt.target.value > 600) evt.target.value = 600;
-	        localStorage.setItem('duration', evt.target.value);
-		} else {
-			var duration = 30;
-	    	try {
-	        	var local = JSON.parse(localStorage.getItem('duration'));
-	    		if(local) duration = local;
-	    	} catch (e) {
-	    		console.log(e);
-	    	} finally {
-	    		document.getElementById('testDuration').value = duration;
-	    		localStorage.setItem('duration', duration);
-	    	}
+		if(evt.target.value < 1) evt.target.value = 1;
+        if(evt.target.value > 600) evt.target.value = 600;
+        localStorage.setItem('duration', evt.target.value);
+	}
+
+	init() {
+		Contra.start([':PIManalyzer:OUTPut:POWer?', ':PIManalyzer:TEST:DURation?',':PIManalyzer:MODe?'])
+		.then( data => {
+			this.getPowerAndDuration(data[0], data[1]);
+	        this.checkCurrentMeasurementMode("elem_"+data[2]);
+		})
+		
+	}
+
+	getPowerAndDuration(_power, _duration) {
+	    try {
+	    	var power = parseInt(_power);
+	    	var duration = parseInt(_duration);
+	        localStorage.setItem("power", power );
+	        localStorage.setItem("duration", duration );
+	        document.getElementById('outputPowerLevel').value = power;
+	        document.getElementById('testDuration').value = duration;
+	    } catch(e) {
+	        console.log(e)
+	    }
+
+	}
+
+	checkCurrentMeasurementMode(elemMode) {
+	    let elemArr = ["elem_PIM","elem_SPECTRUM_VIEW","elem_DTP","elem_PIMSwp"];
+    	elemArr.forEach( elem => {
+    		document.getElementById(elem).classList.remove("active_measurement");
+    	});
+    	document.getElementById(elemMode).classList.add("active_measurement");
+	}
+
+	setMeasurementMode(id) {
+		switch(id) {
+			case "elem_PIM" : this.checkCurrentMeasurementMode(id); this.pimvstimeHandler(); break;
+			case "elem_SPECTRUM_VIEW" : this.checkCurrentMeasurementMode(id); this.noiseFloor(); break;
+			case "elem_DTP" : this.checkCurrentMeasurementMode(id); this.dtpHandler(); break;
+			case "elem_PIMSwp" : this.checkCurrentMeasurementMode(id); this.sweptpimHandler(); break;
 		}
 	}
     
