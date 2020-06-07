@@ -12,8 +12,7 @@ export class Header extends React.Component {
             <tbody>
               <tr>
                 <td><img src="./assets/logo.png" className="logo" alt="Anritsu Logo" /></td>
-                <td><h2>Anritsu PIM Analyzer Automation</h2>
-                  </td>
+                <td><h2>Anritsu PIM Automizer</h2></td>
               </tr>
             </tbody>
           </table>

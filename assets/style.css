@@ -106,7 +106,7 @@ html, body {
 }
  #header-page h2 {
    text-align: center;
-   color: black;
+   color: #555;
    font-size: 200%;
   /* -webkit-text-stroke: 0.2px white;
    */
@@ -141,8 +141,8 @@ html, body {
    background-color: lightseagreen;
    width: 100%;
 }
- #header-page table tr:first-child {
-   width: 0px;
+ #header-page table td:first-child {
+   width: 1px;
 }
  #header-page .logo {
    width: 150px;
