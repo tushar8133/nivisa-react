@@ -530,6 +530,9 @@ html, body {
    font-size: 16px;
    margin: 10px;
 }
+ #calibration-page button:nth-child(3) {
+   background-color: red;
+}
  #calibration-page h2 + p {
    border: 1px solid #333;
    margin: 25px 5px;
