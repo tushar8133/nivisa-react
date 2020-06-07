@@ -451,6 +451,9 @@ html, body {
    display: inline-block;
    width: 95%;
 }
+ #pim-page .grid button.active_measurement {
+   background-color: lightseagreen;
+}
  #pim-page .grid .btnPower {
    width: 80%;
 }

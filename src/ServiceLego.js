@@ -25,6 +25,11 @@ export const LEGO = [
 		delay: '10'
 	},
 	{
+		id: ':PIManalyzer:MODe?',
+		desc: 'Getting Current Measurement Mode',
+		delay: '1'
+	},
+	{
 		id: ':PIManalyzer:MODe PIM',
 		desc: 'Setting PIM vs Time Measurement',
 		delay: '10'
@@ -67,6 +72,16 @@ export const LEGO = [
 	{
 		id: ':PIManalyzer:TEST:DURation',
 		desc: 'Setting Duration',
+		delay: '1'
+	},
+	{
+		id: ':PIManalyzer:OUTPut:POWer?',
+		desc: 'Getting Power',
+		delay: '1'
+	},
+	{
+		id: ':PIManalyzer:TEST:DURation?',
+		desc: 'Getting Duration',
 		delay: '1'
 	},
 	{
