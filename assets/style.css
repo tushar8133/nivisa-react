@@ -555,6 +555,7 @@ html, body {
    text-align: center;
    background-color: lightyellow;
    font-weight: bold;
+   padding: 5px 0px;
 }
  #calibration-page .grid-part2 {
    margin: 20px 5px 20px 5px;
@@ -573,6 +574,7 @@ html, body {
    text-align: center;
    background-color: lightyellow;
    font-weight: bold;
+   padding: 5px 0px;
 }
  #calibration-page .grid-part2 .hide {
    visibility: hidden;
