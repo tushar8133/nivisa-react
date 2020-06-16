@@ -21,8 +21,11 @@ export class Galaxy {
 			var pastBar = (pastDuration/totalDuration * 100).toFixed(2);
 			var currBar = (roundDuration/totalDuration * currProgress).toFixed(2);
 			var final = Number(pastBar) + Number(currBar);
-			if(currProgress > 100) this.progressBarReset();
-			bar.style.width = final + '%';
+			if(currProgress > 100) {
+				this.progressBarReset();
+			}else {
+				bar.style.width = final + '%';
+			}
 		}, 100);
 	}
 

@@ -59,6 +59,7 @@ html, body {
  #progressbar {
    width: 0px;
    border: 1px solid #00ffd0;
+   max-width: 100%;
 }
  #loading-text-box {
    color: white;
