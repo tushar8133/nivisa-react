@@ -86,7 +86,6 @@ html, body {
 .selected-tab {
    background-color: black;
 }
-}
  .navLink > button {
    background-color: lightgreen;
 }
@@ -452,7 +451,7 @@ html, body {
    width: 95%;
 }
  #pim-page .grid button.active_measurement {
-   background-color: lightseagreen;
+   background-color: lightgreen;
 }
  #pim-page .grid .btnPower {
    width: 80%;
