@@ -1,4 +1,3 @@
-progress bar max width
 progress bar tip highlight
 progress bar text fadeInOut
 progress bar overlay fadeInOut
@@ -9,13 +8,8 @@ REstore table data functionality
 WASM
 DLL
 Landing page maching name *IDN?
-Minify Uglify nivisa-precompiled
-Electron full screen
-Electron Remove window menu
-Electron KILL.cmd on exit 
 TRee SHaking...
 Navigation button click reload
-Calibration step by step feature
 Enable/Disable Other Modes in NavBar if supported by machine
 Favico
 BEEP

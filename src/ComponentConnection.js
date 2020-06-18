@@ -22,12 +22,13 @@ export class Connection extends React.Component {
             return <h3>Loading...</h3>
         } else return (
             <main id='connection-page'>
+                <div className="radioContainer">
                 {
                     this.state.addresses.map((value, index) => (
                         <div key={value}><input type="radio" id={'rad' + (index + 1)} name='addrs' onInput={_ => this.radioHandler(value)} /><label htmlFor={'rad' + (index + 1)}>{value}</label></div>
                     ))
                 }
-            
+                </div>
                 <div id='command-page'>
                     <button onClick={_ => this.sendCommand('*IDN?')}>*IDN?</button>
                     <span className="spacer" />
