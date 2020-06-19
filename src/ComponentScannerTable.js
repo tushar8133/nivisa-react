@@ -31,6 +31,7 @@ export class ScannerTable extends React.Component {
 
     componentDidMount() {
         this.checkBackupData();
+        this.getOperatorName();
     }
 
     componentDidUpdate() {
@@ -104,11 +105,22 @@ export class ScannerTable extends React.Component {
     }
 
     saveOperatorName(_name) {
-        var name = this.titleCase(_name);
-        document.getElementById("operatorName").value = name;
+		var titleName = this.titleCase(_name)
+		document.getElementById("operatorName").value = titleName;
+		let name = titleName.trim();
+		sessionStorage.setItem("operatorName", name);
         this.props.that.setState({
             operatorName: name
         })
+    }
+
+    getOperatorName() {
+    	let name = sessionStorage.getItem("operatorName");
+    	if(!name) return;
+    	document.getElementById("operatorName").value = name;
+    	this.props.that.setState({
+    	    operatorName: name
+    	})
     }
 
     titleCase(str) {
