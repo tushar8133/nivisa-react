@@ -236,7 +236,14 @@ html, body {
    margin-top: 5px;
 }
 /* ============= AUTOTEST PAGE ============= */
- #autotest label input {
+ #autotest .barHolder {
+  width: 100%;
+  margin: 10px auto;
+}
+ #autotest .barHolder > tbody > tr > td {
+  /*padding: 10px;*/
+}
+#autotest label input {
    width: 40px;
    height: 5px;
    border: 0;
@@ -330,7 +337,6 @@ html, body {
    text-align: right;
 }
  #calibrationStatusON {
-   margin-right: 10px;
    background-color: lime;
    opacity: 0.2;
    width: 25px;
@@ -359,6 +365,9 @@ html, body {
    min-width: 180px;
    font-size: 12px;
 }
+ .infoTable span {
+   margin: 0 5px;
+}
  .infoTable td:nth-child(1) {
    text-align: left;
 }
@@ -367,11 +376,11 @@ html, body {
 }
 /* ============= AUTOTEST TABLE PAGE ============= */
  #ScannerTable div {
-  height: calc(100vh - 320px);
+  height: calc(100vh - 350px);
   width: 100%;
   overflow-y: scroll;
   font-size: 120%;
-  margin: 30px auto;
+  margin-bottom: 30px auto;
   text-align: center;
   border: 0px groove;
 }
