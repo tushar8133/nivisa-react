@@ -193,6 +193,15 @@ html, body {
    margin: 0px;
 }
 /* ============= CONNECTION PAGE ============= */
+ .noConnection {
+  color: black;
+  margin: 20% auto;
+  display: inline-block;
+  font-size: 150%;
+  line-height: 2;
+  background-color: indianred;
+  padding: 5%;
+ }
  #connection-page .radioContainer {
    width: 590px;
    text-align: center;
