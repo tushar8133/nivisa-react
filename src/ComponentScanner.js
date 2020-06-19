@@ -18,7 +18,7 @@ export class Scanner extends React.Component {
 
     render() {
         return (<main id="autotest">
-            <table className="barHolder" cellspacing="10">
+            <table className="barHolder" cellSpacing="10">
                 <tbody>
                 <tr>
                     <td className="autoTestCol1">
