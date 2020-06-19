@@ -35,7 +35,7 @@ export class Calibration extends React.Component {
                     </div>
                 
 
-                    <button onClick={ this.toggleTab }>Calibrate</button>
+                    <button onClick={ _ => {this.readyCalibrationProcess()} }>Calibrate</button>
                 </div>
 
                 <div id="tab2">
@@ -69,6 +69,19 @@ export class Calibration extends React.Component {
     }
 
     setResponse(resp) {}
+
+    readyCalibrationProcess() {
+        Contra.start([':PIManalyzer:MODe?']).then(currentMode => {
+            alert(currentMode)
+            if(currentMode == "PIM") {
+                this.toggleTab();
+            } else {
+                Contra.start([':PIManalyzer:MODe PIM']).then( _ => {
+                    this.toggleTab();
+                })
+            }
+        });
+    }
 
     calibrate() {
         Contra.start([':INITiate:PIManalyzer:PVT:ALLPower:CAL']).then(data => {});
