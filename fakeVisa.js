@@ -7,25 +7,10 @@ function onConnect(socket) {
   io.emit('join');
   socket.on('comm', function(data) {
     console.log(">>>", data);
-    if (data.command == "GET_DEVICE_LIST") {
-      getDeviceList().then( resp => {
-        io.emit('comm', JSON.stringify(resp));
-        console.log("<<<", resp);
-      })
-    } else {
-      sendSCPI(data.address, data.command).then( resp => {
-        io.emit('comm', JSON.stringify(resp));
-        console.log("<<<", resp);
-      })
-    }
-  });
-}
-
-function getDeviceList() {
-  return new Promise((resolve, reject) => {
-    setTimeout( _ => {
-      resolve(['USB', 'ETHERNET']);
-    }, 100);
+    sendSCPI(data.address, data.command).then( resp => {
+      io.emit('comm', JSON.stringify(resp));
+      console.log("<<<", resp);
+    })
   });
 }
 
@@ -41,6 +26,7 @@ function sendSCPI(address, query) {
 function getCmdResponse(query) {
     var final = "";
     switch (query) {
+        case "GET_DEVICE_LIST":                 final = ['USB', 'ETHERNET']; break;
         case "*IDN?":                           final = "\"Anritsu,MW82119B/31/19/850/331,1630010,3.83\""; break;
         case ":INSTrument:CATalog:FULL?":       final = "\"VNA\"2,\"HI_PM\"10,\"MINIPIM\"46"; break;
         case ":INSTrument:NSELect?":            final = pickRandom(["46","10","2"]); break;
@@ -66,9 +52,4 @@ function createRandom() {
 function pickRandom(arr) {
     var ran = Math.floor(Math.random() * Math.floor(arr.length));
     return arr[ran];
-}
-
-module.exports = {
-  getDeviceList,
-  sendSCPI
 }
