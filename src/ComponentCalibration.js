@@ -72,7 +72,6 @@ export class Calibration extends React.Component {
 
     readyCalibrationProcess() {
         Contra.start([':PIManalyzer:MODe?']).then(currentMode => {
-            alert(currentMode)
             if(currentMode == "PIM") {
                 this.toggleTab();
             } else {
