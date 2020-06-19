@@ -49,6 +49,9 @@ function getCmdResponse(query) {
         case ":PIManalyzer:MEASure:STATus?":    final = pickRandom(["0","1"]); break;
         case ":PIManalyzer:FREQuency:F1?":      final = pickRandom(["869000000","871000000","871000000"]); break;
         case ":PIManalyzer:FREQuency:F2?":      final = pickRandom(["894000000","894000000","886660000"]); break;
+        case ":PIManalyzer:OUTPut:POWer?":      final = "20"; break;
+        case ":PIManalyzer:TEST:DURation?":     final = "1"; break;
+        case ":PIManalyzer:MODe?":              final = pickRandom(["PIM","SPECTRUM_VIEW","DTP","PIMSwp"]); break;
         default : "";
     }
     return final;
