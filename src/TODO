@@ -13,3 +13,25 @@ Navigation button click reload
 Enable/Disable Other Modes in NavBar if supported by machine
 Favico
 BEEP
+
+TODO MUST:
+Libre font headline
+Automizer font color
+Create Automizer Logo
+ICO design
+
+BUGS:
+"RF ON" css gone
+dBc values not highlighted in table, when not selected for the first time.
+Device Connection not highlighted if only 1 connection present
+Intermittent hang on PIM page at POWER
+ipaddress set using NIMAX runtime
+child2.html header height
+child2.html background color
+IMD Order color change on click
+Anritsu logo resize using photoshop
+AUTOSCAN MODE animation color change
+
+BEFORE PACKING:
+Remove comments from visa obfuscated with serial check comment
+Add Firmware
