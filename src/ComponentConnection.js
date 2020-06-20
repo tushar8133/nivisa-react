@@ -50,7 +50,7 @@ export class Connection extends React.Component {
             try {
                 if(data[0][0].length == 0) throw null;
                 this.setState(state => ({ addresses: data[0] }));
-                this.selectDefaultOption(data[0][0]);
+                this.selectDefaultOption();
             } catch(e) {
                 data[0] = [];
                 this.setState(state => ({ addresses: data[0] }));
@@ -62,14 +62,15 @@ export class Connection extends React.Component {
         localStorage.setItem("address", val);
     }
 
-    selectDefaultOption(firstOption) {
-        try {
-            var cache = localStorage.getItem("address");
+    selectDefaultOption() {
+        var cache = localStorage.getItem("address");
+        if(cache) {
             // document.querySelector('input[name="addrs"][value='+cache+']').checked = true;
             document.radioForm.addrs.value = cache;
-        } catch(e) {
-            document.getElementById('rad1').checked = true;
-            this.radioHandler(firstOption);
+        } else {
+            let radio1 = document.getElementById('rad1');
+            radio1.checked = true;
+            this.radioHandler(radio1.value);
         }
     }
 
