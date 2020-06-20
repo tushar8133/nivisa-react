@@ -45,7 +45,7 @@ export class Connection extends React.Component {
     }
 
     getDeviceList() {
-        Contra.start(['GET_DEVICE_LIST'])
+        Contra.start(['DEVICE_CONNECTIONS?'])
         .then( data => {
             try {
                 if(data[0][0].length == 0) throw null;

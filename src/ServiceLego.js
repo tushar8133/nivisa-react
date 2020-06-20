@@ -1,8 +1,8 @@
 export const LEGO = [
 	{
-		id: 'GET_DEVICE_LIST',
+		id: 'DEVICE_CONNECTIONS?',
 		desc: 'Getting device connections',
-		delay: '15'
+		delay: '5'
 	},
 	{
 		id: '*IDN?',
