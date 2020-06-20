@@ -53,6 +53,11 @@ export class Rocket {
 			socket.on('comm', function(resp) {
 				resolve(JSON.parse(resp));
 			});
+
+			socket.on('ERROR', function(resp) {
+				alert(`Device Error - ${resp}\nApplication will restart now`)
+				window.location.reload();
+			});
 		});
 	}
 
