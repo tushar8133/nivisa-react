@@ -1,7 +1,30 @@
 <!DOCTYPE html>
 <html>
-   <frameset cols="55%,45%">
-      <frame name="main" id="main" src="child1.html" scrolling="no" marginwidth="0" marginheight="0" frameborder="1"/>
-      <frame name="remote" id="remote" src="child2.html" scrolling="no" marginwidth="0" marginheight="0" frameborder="1"/>
-   </frameset>
+<head>
+  <title>Anritsu PIM Automizer</title>
+  <script>
+
+	try {
+		let win = nw.Window.get();
+		win.maximize();
+
+		let path = require("path");
+		let nwPath = path.dirname(process.execPath);
+
+		win.on('close', function () {
+		  nw.Shell.openItem(path.join(nwPath, "app","kill.vbs"));
+		  this.close(true);
+		});
+
+		win.on('loaded', function () {
+		  nw.Shell.openItem(path.join(nwPath, "app","visa.vbs"));
+		});
+	} catch(e) {}
+
+  </script>
+</head>
+<frameset cols="56.5%,43.5%">
+   <frame name="main" id="main" src="child1.html" scrolling="no" marginwidth="0" marginheight="0" frameborder="1"/>
+   <frame name="remote" id="remote" src="child2.html" scrolling="no" marginwidth="0" marginheight="0" frameborder="1"/>
+</frameset>
 </html>
