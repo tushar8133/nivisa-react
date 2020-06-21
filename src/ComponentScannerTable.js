@@ -171,17 +171,28 @@ export class ScannerTable extends React.Component {
 
     exportData() {
         var data = [...this.state.tableData].reverse();
-        var newData = data.map((obj, index) => {
+        let new_list = data.map( obj => {
+          return {
+            qrcode: obj.qrcode,
+            duration: obj.duration.toString(),
+            dBc: obj.dBc,
+            date: obj.date,
+            time: obj.time,
+            operatorName: obj.operatorName
+          }
+        });
+        var new_list_with_index = new_list.map((obj, index) => {
             return Object.assign({ index: String(index + 1) }, obj)
         })
-        this.xlsxModule(newData);
+        this.xlsxModule(new_list_with_index);
     }
 
     xlsxModule(data) {
-        var ws = XLSX.utils.json_to_sheet([{ A: '', B: '' }], { header: ['A', 'B'], skipHeader: true });
-        XLSX.utils.sheet_add_json(ws, data, { skipHeader: false, origin: 'A4' });
+        var ws = XLSX.utils.json_to_sheet([], { header: ['INDEX','SERIAL NO.','DURATION','dBc','DATE','TIME','OPERATOR'], skipHeader: false });
+        ws['!cols'] = Array(7).fill({ wch: 17});
+        XLSX.utils.sheet_add_json(ws, data, { skipHeader: true, origin: 'A2' });
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws);
-        XLSX.writeFile(wb, `Anritsu Test Results.xlsx`);
+        XLSX.writeFile(wb, `Automizer.xlsx`);
     }
 }
