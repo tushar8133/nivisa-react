@@ -26,7 +26,7 @@ function sendSCPI(address, query) {
 function getCmdResponse(query) {
     var final = "";
     switch (query) {
-        case "GET_DEVICE_LIST":                 final = ['USB', 'ETHERNET']; break;
+        case "DEVICE_CONNECTIONS?":             final = ['USB', 'ETHERNET']; break;
         case "*IDN?":                           final = "\"Anritsu,MW82119B/31/19/850/331,1630010,3.83\""; break;
         case ":INSTrument:CATalog:FULL?":       final = "\"VNA\"2,\"HI_PM\"10,\"MINIPIM\"46"; break;
         case ":INSTrument:NSELect?":            final = pickRandom(["46","10","2"]); break;
