@@ -23,9 +23,9 @@ export class Pim extends React.Component {
                     <div><label>Pass/Fail Value (dBc)<input type="number" id="dbcutoff" onInput={this.saveDBCutoff} /></label></div>
                     <div><label>Output Power Level (dBm)<input type="number" id="outputPowerLevel" onInput={this.savePower} onBlur={ this.setPower.bind(this) } /></label></div>
                     <div><label>Test Duration (sec)<input type="number" id="testDuration" onInput={this.saveDuration} onBlur={ this.setDuration.bind(this) } /></label></div>
-                    <button className="btnOrder" onClick={ _ => {this.getIMDOrder(3)} }>IMD Order 3</button>
-                    <button className="btnOrder" onClick={ _ => {this.getIMDOrder(5)} }>IMD Order 5</button>
-                    <button className="btnOrder" onClick={ _ => {this.getIMDOrder(7)} }>IMD Order 7</button>
+                    <button className="btnOrder" onClick={ _ => {this.getIMDOrder(3, _.target)} }>IMD Order 3</button>
+                    <button className="btnOrder" onClick={ _ => {this.getIMDOrder(5, _.target)} }>IMD Order 5</button>
+                    <button className="btnOrder" onClick={ _ => {this.getIMDOrder(7, _.target)} }>IMD Order 7</button>
 
                     <span className="orderFreq">
                         <div>Frequency F1: {this.state.f1 + " MHz"} </div>
@@ -47,7 +47,8 @@ export class Pim extends React.Component {
         )
     }
 
-    getIMDOrder(val) {
+    getIMDOrder(val, elem) {
+        this.highlightIMDOrder(elem)
         Contra.start([':PIManalyzer:IMD:ORDer '+val,':PIManalyzer:FREQuency:F1?',':PIManalyzer:FREQuency:F2?'])
         .then( data => {
             try {
@@ -59,6 +60,14 @@ export class Pim extends React.Component {
                 console.log(e)
             }
         })
+    }
+
+    highlightIMDOrder(elem) {
+        let elemArr = document.querySelectorAll('.btnOrder');
+        elemArr.forEach( curr => {
+            curr.classList.remove("active_measurement");
+        });
+        elem.classList.add("active_measurement");
     }
 
     checkCurrentMode() {
