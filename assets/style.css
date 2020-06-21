@@ -5,7 +5,7 @@ html, body {
    text-align: center;
    height: 100%;
    user-select: none;
-   min-width:550px;
+   min-width:700px;
 }
  @font-face {
    font-family: "Roboto";
@@ -161,23 +161,21 @@ html, body {
    height: 100px;
 }
  #header-page .logo {
-  width: 100px;
-  display: inline;
-  float: left;
-  margin: 15px;
-  margin-top: 24px;
-  opacity: 1;
+    width: 120px;
+    display: inline;
+    float: left;
+    margin: 15px;
+    margin-top: 20px;
+    opacity: 1;
 }
  #header-page .automizer {
-  font-family: "Tomorrow";
-  color: lightseagreen;
-  font-size: 35px;
-  font-style: italic;
-  margin-right: 120px;
-  margin-top: 9px;
-  background-color: greenyellow;
-  display: inline-block;
-  padding: 0 15px 5px 15px;
+  font-family: "Libre";
+  font-size: 50px;
+  line-height: 0;
+  float: right;
+  margin-top: 45px;
+  margin-right: 41px;
+  color: white;
 }
  #header-page .tagline {
     font-family: "Tomorrow";
@@ -446,7 +444,7 @@ html, body {
      background-color: #fff;
   }
    50% {
-     background-color: greenyellow;
+     background-color: lightgreen;
   }
    100% {
      background-color: #fff;
@@ -457,7 +455,7 @@ html, body {
      background-color: #fff;
   }
    50% {
-     background-color: greenyellow;
+     background-color: lightgreen;
   }
    100% {
      background-color: #fff;
