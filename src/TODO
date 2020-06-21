@@ -19,7 +19,6 @@ ICO design
 
 BUGS:
 RETRY_TIMES not working
-Check with core.exe serial not included
 
 BEFORE PACKING:
 Remove comments from visa obfuscated
