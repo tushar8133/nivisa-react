@@ -63,15 +63,19 @@ export class Connection extends React.Component {
     }
 
     selectDefaultOption() {
-        var cache = localStorage.getItem("address");
-        if(cache) {
-            // document.querySelector('input[name="addrs"][value='+cache+']').checked = true;
-            document.radioForm.addrs.value = cache;
-        } else {
-            let radio1 = document.getElementById('rad1');
-            radio1.checked = true;
-            this.radioHandler(radio1.value);
+        let cache = localStorage.getItem("address");
+        let totalRadios = document.querySelectorAll('[type="radio"]').length;
+        let defaultSelected = 1;
+        for (var i = 1; i <= totalRadios; i++) {
+            let currentRadio = document.getElementById('rad'+i).value;
+            if(currentRadio == cache) {
+                defaultSelected = i;
+                break;
+            }
         }
+        let radio1 = document.getElementById('rad'+defaultSelected);
+        radio1.checked = true;
+        this.radioHandler(radio1.value);
     }
 
     sendCommand(cmd) {
