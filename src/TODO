@@ -22,17 +22,14 @@ ICO design
 
 BUGS:
 RETRY_TIMES not working
-"RF ON" css gone
-dBc values not highlighted in table, when not selected for the first time.
-Device Connection not highlighted if only 1 connection present
 Intermittent hang on PIM page at POWER
-ipaddress set using NIMAX runtime
 child2.html header height
 child2.html background color
-IMD Order color change on click
 Anritsu logo resize using photoshop
 AUTOSCAN MODE animation color change
+Check with core.exe serial not included
 
 BEFORE PACKING:
-Remove comments from visa obfuscated with serial check comment
+Remove comments from visa obfuscated
+Remove console.logs
 Add Firmware
