@@ -12,16 +12,8 @@ html, body {
    src: url("Roboto-Medium.ttf");
 }
 @font-face {
-   font-family: "Gugi";
-   src: url("Gugi-Regular.ttf");
-}
-@font-face {
    font-family: "Libre";
    src: url("LibreBarcode39ExtendedText-Regular.ttf");
-}
-@font-face {
-   font-family: "Tomorrow";
-   src: url("Tomorrow-LightItalic.ttf");
 }
  * {
    font-family: "Roboto";
@@ -178,7 +170,6 @@ html, body {
   color: white;
 }
  #header-page .tagline {
-    font-family: "Tomorrow";
     color: white;
     font-size: 14px;
     margin-right: 120px;
