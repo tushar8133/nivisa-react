@@ -15,21 +15,23 @@ Favico
 BEEP
 
 TODO MUST:
-Libre font headline
-Automizer font color
-Create Automizer Logo
 ICO design
 
 BUGS:
 RETRY_TIMES not working
-Intermittent hang on PIM page at POWER
 child2.html header height
 child2.html background color
-Anritsu logo resize using photoshop
-AUTOSCAN MODE animation color change
 Check with core.exe serial not included
 
 BEFORE PACKING:
 Remove comments from visa obfuscated
 Remove console.logs
-Add Firmware
+
+NOT REQUIRED:
+Create Automizer Logo
+Automizer font color
+Libre font headline
+Intermittent hang on PIM page at POWER
+ipaddress set using NIMAX runtime
+Anritsu logo resize using photoshop
+AUTOSCAN MODE animation color change
