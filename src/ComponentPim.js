@@ -121,10 +121,10 @@ export class Pim extends React.Component {
     }
 
     getDBCutoff() {
-        var local = localStorage.getItem('dbcutoff');
-        var final = (local)? local : 100;
-        document.getElementById('dbcutoff').value = final;
-        return final;
+        if(localStorage.getItem('dbcutoff') === null) {
+            localStorage.setItem('dbcutoff', "-100");
+        }
+        document.getElementById('dbcutoff').value = localStorage.getItem('dbcutoff');
     }
 
     saveDBCutoff(evt) {
