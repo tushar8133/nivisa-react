@@ -1,26 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Anritsu PIM Automizer</title>
+  <title>AUTOMIZER</title>
   <script>
-
-	try {
-		let win = nw.Window.get();
-		win.maximize();
-
-		let path = require("path");
-		let nwPath = path.dirname(process.execPath);
-
-		win.on('close', function () {
-		  nw.Shell.openItem(path.join(nwPath, "app","kill.vbs"));
-		  this.close(true);
-		});
-
-		win.on('loaded', function () {
-		  nw.Shell.openItem(path.join(nwPath, "app","visa.vbs"));
-		});
-	} catch(e) {}
-
+    let win = nw.Window.get();
+    win.maximize();
+    let path = require("path");
+    let nwPath = path.dirname(process.execPath);
+    win.on('close', function () {
+      nw.Shell.openItem(path.join(nwPath, "app","kill.vbs"));
+      this.close(true);
+    });
+    win.on('loaded', function () {
+      nw.Shell.openItem(path.join(nwPath, "app","visa.vbs"));
+    });
   </script>
 </head>
 <frameset cols="56.5%,43.5%">
