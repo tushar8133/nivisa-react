@@ -21,6 +21,7 @@ Create Automizer Logo
 ICO design
 
 BUGS:
+RETRY_TIMES not working
 "RF ON" css gone
 dBc values not highlighted in table, when not selected for the first time.
 Device Connection not highlighted if only 1 connection present
