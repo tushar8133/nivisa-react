@@ -8,11 +8,11 @@
     let path = require("path");
     let nwPath = path.dirname(process.execPath);
     win.on('close', function () {
-      nw.Shell.openItem(path.join(nwPath, "app","kill.vbs"));
+      nw.Shell.openItem(path.join(nwPath, "kill.vbs"));
       this.close(true);
     });
     win.on('loaded', function () {
-      nw.Shell.openItem(path.join(nwPath, "app","visa.vbs"));
+      nw.Shell.openItem(path.join(nwPath, "visa.vbs"));
     });
   </script>
 </head>

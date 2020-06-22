@@ -44,6 +44,7 @@ function getCmdResponse(query) {
 }
 
 function createRandom() {
+  return ("0.0, 0.0");
   var a = Math.floor(Math.random()*(999-100+1)+100);
   var b = a - 20;
   return ("-"+a+".8, -"+b+".8");
