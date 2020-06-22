@@ -14,6 +14,7 @@ export class Scanner extends React.Component {
         };
         this.debounceTimer1;
         this.cursorTimer1 = null;
+        this.scanCounter = 0;
     }
 
     render() {
@@ -22,10 +23,9 @@ export class Scanner extends React.Component {
                 <tbody>
                 <tr>
                     <td className="autoTestCol1">
-                        <button onClick={this.toggleMode.bind(this)} className="pause"><div>AUTO</div></button>
                     </td>
                     <td className="autoTestCol2">
-                        <input type="text" id="scanner" spellCheck="false" placeholder="AUTO SCAN MODE" onInput={this.waitForQRCode.bind(this)} onKeyUp={ (e) => { this.scannerEnterKeyHandler(e.keyCode, e.target.value) }} autoComplete="off" />
+                        <input type="text" id="scanner" spellCheck="false" placeholder="SCANNER" onKeyUp={ e => this.scannerEnterKeyHandler(e.keyCode, e.target.value) } autoComplete="off" />
                     </td>
                     <td className="autoTestCol3">
                         <ScannerInfo />
@@ -39,37 +39,9 @@ export class Scanner extends React.Component {
     }
 
     scannerEnterKeyHandler(keycode, value) {
-        if(!value && keycode == 13) {
-            this.toggleMode();
-        } else if(value && keycode == 13) {
+        if(value && keycode == 13) {
             this.sendCommandToDevice();
         }
-    }
-
-    toggleMode() {
-        this.setState(prevState => ({
-            auto: !this.state.auto
-        }));
-
-        if(!this.state.auto){
-            this.sendCommandToDevice();
-            document.querySelector('.pause > div').innerHTML = "AUTO";
-            document.getElementById("scanner").placeholder = "AUTO SCAN MODE";
-            document.getElementById("scanner").className = (document.getElementById("calibrationStatusON").className.indexOf("ON") > -1)? "backgroundAnimatedGreen" : "backgroundAnimatedRed";
-
-        } else {
-            document.querySelector('.pause > div').innerHTML = "TEST";
-            document.getElementById("scanner").className = "backgroundAnimatedOrange";
-            document.getElementById("scanner").placeholder = "MANUAL MODE";
-        }
-    }
-
-    waitForQRCode() {
-        if(!this.state.auto) return;
-        clearTimeout(this.debounceTimer1);
-        this.debounceTimer1 = setTimeout( _ => {
-            this.sendCommandToDevice();
-        }, 200);
     }
 
     sendCommandToDevice() {
@@ -83,14 +55,28 @@ export class Scanner extends React.Component {
         if(!qrcode) return;
         elem.disabled = true;
 
-        var power = this.getPower();
-        var duration = this.getDuration();
 
-        Contra.start(['INITiate:PIManalyzer:MEASure ON',':PIManalyzer:MEASure:STATus?',':PIManalyzer:MEASure:VALue?'])
-        .then( data => {
+        Contra.start(['INITiate:PIManalyzer:MEASure ON'])
+        .then( _ => {
             elem.disabled = false;
             elem.value = '';
-            if(data[2]) this.formatFinalData(qrcode, data[2], power, duration);
+            this.getRFresult(qrcode);
+            this.scanCounter = 0;
+        })
+    }
+
+    getRFresult(qrcode) {
+        var power = this.getPower();
+        var duration = this.getDuration();
+        Contra.start([':PIManalyzer:MEASure:VALue?'])
+        .then( data => {
+            if( (data[0] == "" || data[0] == "0.0, 0.0") && this.scanCounter < 10) {
+                console.log(this.scanCounter)
+                this.scanCounter++;
+                this.getRFresult(qrcode);
+            } else {
+                this.formatFinalData(qrcode, data[0], power, duration);
+            }
         })
     }
 
