@@ -53,8 +53,8 @@ export class Pim extends React.Component {
         .then( data => {
             try {
                 this.setState(prevState => ({
-                    f1: data[1].substr(0, 3),
-                    f2: data[2].substr(0, 3)
+                    f1: data[1].substr(0, 4),
+                    f2: data[2].substr(0, 4)
                 }));
             } catch(e) {
                 console.log(e)
