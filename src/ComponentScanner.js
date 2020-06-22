@@ -123,8 +123,10 @@ export class Scanner extends React.Component {
     }
 
     checkCalibrationStatus() {
-        Contra.start([':CALibration:PIManalyzer:FULL?'])
+        Contra.start([':CALibration:PIManalyzer:FULL?', ':PIManalyzer:OUTPut:POWer?', ':PIManalyzer:TEST:DURation?'])
         .then( data => {
+            localStorage.setItem("power", data[1]);
+            localStorage.setItem("duration", data[2]);
             try {
                 if(data[0].indexOf("ON") > -1) {
                     document.getElementById("calibrationStatusON").className = "calibrationStatusON";
