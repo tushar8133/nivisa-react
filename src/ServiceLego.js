@@ -60,6 +60,11 @@ export const LEGO = [
 		delay: '60'
 	},
 	{
+		id:':INITiate:PIManalyzer:RESidual:CAL',
+		desc: 'Residual PIM Calibration',
+		delay: '10'
+	},
+	{
 		id: ':CALibration:PIManalyzer:FULL?',
 		desc: 'Checking Calibration',
 		delay: '10'

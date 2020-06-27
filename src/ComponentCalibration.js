@@ -83,6 +83,6 @@ export class Calibration extends React.Component {
     }
 
     calibrate() {
-        Contra.start([':INITiate:PIManalyzer:PVT:ALLPower:CAL']).then(data => {});
+        Contra.start([':INITiate:PIManalyzer:PVT:ALLPower:CAL', ':INITiate:PIManalyzer:RESidual:CAL']).then(data => {});
     }
 }
