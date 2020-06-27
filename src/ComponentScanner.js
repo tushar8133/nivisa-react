@@ -12,8 +12,6 @@ export class Scanner extends React.Component {
             auto: true,
             operatorName : ''
         };
-        this.debounceTimer1;
-        this.cursorTimer1 = null;
         this.scanCounter = 0;
     }
 
@@ -144,28 +142,8 @@ export class Scanner extends React.Component {
         });
     }
 
-    resetCursor() {
-        try {
-            if(this.cursorTimer1) return
-            this.cursorTimer1 = setInterval( _ => {
-                document.getElementById("scanner").focus();
-            }, 200);
-        } catch(e) {
-            clearInterval(this.cursorTimer1);
-        }
-    }
-
-    stopCursor() {
-        clearInterval(this.cursorTimer1);
-    }
-
-    componentWillUnmount() {
-        this.stopCursor();
-    }
-
     componentDidMount() {
         this.checkCalibrationStatus();
-        this.resetCursor();
     }
 
 }

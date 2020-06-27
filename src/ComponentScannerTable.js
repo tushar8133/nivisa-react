@@ -88,20 +88,11 @@ export class ScannerTable extends React.Component {
                     </table>
                 </div>
                 <div className="data-table-footer">
-                    <input type="text" id="operatorName" placeholder="Enter Operator Name" onInput={ _ => this.saveOperatorName(_.target.value) } onFocus={ _ => this.operatorFocus()  } onBlur={ _ => this.operatorBlur()  }/>
+                    <input type="text" id="operatorName" placeholder="Enter Operator Name" onInput={ _ => this.saveOperatorName(_.target.value) } />
                     <button onClick={ _ => this.exportData()} >Save Excel</button>&nbsp;
                     <button id="clearData" onClick={_ => this.clearData()}>Clear Data</button>
                 </div>
             </main>);
-    }
-
-    operatorFocus() {
-        this.props.that.stopCursor();
-    }
-
-    operatorBlur() {
-        this.props.that.cursorTimer1 = null;
-        this.props.that.resetCursor();
     }
 
     saveOperatorName(_name) {
