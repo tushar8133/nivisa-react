@@ -22,7 +22,7 @@ export class Header extends React.Component {
           <nav>
                     <li><Link activeClassName="navLink" exact to="/"><button>Connection</button></Link></li>
                     <li><Link activeClassName="navLink" to="/pim"><button>PIM Mode</button></Link></li>
-                    <li><Link activeClassName="navLink" to="/calibration"><button disabled={true}>Calibration</button></Link></li>
+                    <li><Link activeClassName="navLink" to="/calibration"><button>Calibration</button></Link></li>
                     <li><Link activeClassName="navLink" to="/scanner"><button>Auto Scan</button></Link></li>
                     <Remote />
                   </nav>
