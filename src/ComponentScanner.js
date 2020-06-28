@@ -49,34 +49,17 @@ export class Scanner extends React.Component {
         }
         var qrcode = elem.value;
         if(!qrcode) return;
-        elem.disabled = true;
 
-
-        Contra.start(['INITiate:PIManalyzer:MEASure ON'])
-        .then( _ => {
-            elem.disabled = false;
+        Contra.start(['INITiate:PIManalyzer:MEASure ON', ':PIManalyzer:MEASure:VALue?'])
+        .then( data => {
             elem.value = '';
-            this.getRFresult(qrcode);
-            this.scanCounter = 0;
+            this.formatFinalData(qrcode, data[1]);
         })
     }
 
-    getRFresult(qrcode) {
+    formatFinalData(qrcode, peakData) {
         var power = this.getPower();
         var duration = this.getDuration();
-        Contra.start([':PIManalyzer:MEASure:VALue?'])
-        .then( data => {
-            if( (data[0] == "" || data[0] == "0.0, 0.0") && this.scanCounter < 10) {
-                console.log(this.scanCounter)
-                this.scanCounter++;
-                this.getRFresult(qrcode);
-            } else {
-                this.formatFinalData(qrcode, data[0], power, duration);
-            }
-        })
-    }
-
-    formatFinalData(qrcode, peakData, power, duration) {
         var operatorName = this.state.operatorName;
         var peakDataArr = this.formatPeakData(peakData);
         var dBc = peakDataArr[0];

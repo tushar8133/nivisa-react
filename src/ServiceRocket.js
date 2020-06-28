@@ -70,7 +70,7 @@ export class Rocket {
 		for (var i = 0; i < RETRY_TIMES; i++) {
 			Rocket.retryCounterHandler()
 			result = await Rocket.ignite(cmd);
-			if(result) break;
+			if(result != "" && result != "0.0, 0.0") break;
 			await Rocket.pause(RETRY_PAUSE);
 		}
 		return result;
