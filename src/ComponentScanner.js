@@ -12,7 +12,6 @@ export class Scanner extends React.Component {
             auto: true,
             operatorName : ''
         };
-        this.scanCounter = 0;
     }
 
     render() {
@@ -21,7 +20,7 @@ export class Scanner extends React.Component {
                 <tbody>
                 <tr>
                     <td className="autoTestCol2">
-                        <input type="text" id="scanner" spellCheck="false" placeholder="SCANNER" onKeyUp={ e => this.scannerEnterKeyHandler(e.keyCode, e.target.value) } autoComplete="off" />
+                        <input type="text" id="scanner" spellCheck="false" onKeyUp={ e => this.scannerEnterKeyHandler(e.keyCode, e.target.value) } autoComplete="off" />
                     </td>
                     <td className="autoTestCol3">
                         <ScannerInfo />
@@ -122,8 +121,18 @@ export class Scanner extends React.Component {
         });
     }
 
+    static focusScanner(e) {
+        if(e.target.id != "operatorName") document.getElementById("scanner").focus();
+    }
+
     componentDidMount() {
         this.checkCalibrationStatus();
+        document.addEventListener("click", Scanner.focusScanner);
+        document.getElementById("scanner").focus();
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener("click", Scanner.focusScanner);
     }
 
 }
