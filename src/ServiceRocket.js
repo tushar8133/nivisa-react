@@ -55,8 +55,7 @@ export class Rocket {
 			});
 
 			socket.on('ERROR', function(resp) {
-				alert(`Device Error - ${resp}\nApplication will restart now`)
-				window.location.reload();
+				Galaxy.showErrorWindow(resp, "Please check connection and restart application");
 			});
 		});
 	}
