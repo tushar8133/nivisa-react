@@ -17,7 +17,7 @@ export class Contra {
 		let final = [];
 		var trailblazer = new Trailblazer(cmds);
 		for (var i = 0; i < trailblazer.eachCmd.length; i++) {
-			Contra.progressBarMsgsHandler(galaxy, trailblazer.eachMsgs[i]);
+			Contra.progressBarMsgsHandler(trailblazer.eachMsgs[i]);
 			Galaxy.progressBarMove(trailblazer.eachDuration, i);
 			var currentCmdResult = await Rocket.fire(trailblazer.eachCmd[i], trailblazer.eachDuration[i]);
 			final.push(currentCmdResult);
@@ -29,7 +29,7 @@ export class Contra {
 		return final;
 	}
 
-	static progressBarMsgsHandler(galaxy, msg) {
+	static progressBarMsgsHandler(msg) {
 		Galaxy.progressBarMsg(msg);
 	}
 
