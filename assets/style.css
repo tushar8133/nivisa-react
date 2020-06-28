@@ -236,7 +236,7 @@ html, body {
 /* ============= AUTOTEST PAGE ============= */
  #autotest .barHolder {
   width: 100%;
-  margin: 10px auto;
+  margin-top: -10px;
 }
  #autotest .barHolder > tbody > tr > td {
   /*padding: 10px;*/
@@ -274,22 +274,27 @@ html, body {
    display: inline-block;
 }
  #autotest #scanner {
-  /*margin-top: 10px;
-  */
    width: 100%;
+   height: 60px;
    padding: 10px;
    text-align: center;
-   font-size: 22px;
+   font-size: 60px;
    color: black;
    display: inline-block;
    box-sizing: border-box;
    caret-color: white;
 }
+#autotest #scanner:focus {
+   background-color: black;
+   color: lawngreen;
+}
  #autotest #scanner::-webkit-input-placeholder {
    font-style: italic;
-   font-size: 16px;
-   color: #999;
-   letter-spacing: 3px;
+   color: #F9F9F9;
+   letter-spacing: 30px;
+}
+ #autotest #scanner:focus::-webkit-input-placeholder {
+   color: black;
 }
  #autotest .pause {
    width: 25px;
@@ -314,8 +319,8 @@ html, body {
    width: 100%;
 }
  .autoTestCol3 {
-   min-width: 190px;
-   max-width: 190px;
+   min-width: 300px;
+   max-width: 300px;
 }
  #data-table .fail {
    background-color: pink;
@@ -357,20 +362,34 @@ html, body {
    box-shadow: 0px 0px 3px 1px maroon;
 }
  .infoTable {
-   text-align: left;
-   border: 1px solid lightgray;
+   text-align: center;
    width: 100%;
-   min-width: 180px;
+   min-width: 300px;
+   height: 60px;
    font-size: 12px;
+   padding: 0;
+   border:none;
+   border-collapse: collapse;
 }
  .infoTable span {
    margin: 0 5px;
 }
- .infoTable td:nth-child(1) {
-   text-align: left;
+ .infoTable th {
+   text-align: center;
+   border: 1px solid lightgray;
+   border-right: 1px solid #EEE;
+   border-bottom: none;
+   padding: 5px;
+   background-color: lightgray;
 }
- .infoTable td:nth-child(2) {
-   text-align: left;
+ .infoTable th:last-child {
+   border-right: 1px solid lightgray;
+}
+ .infoTable td {
+   text-align: center;
+   border: 1px solid lightgray;
+   border-top: none;
+   padding: 5px;
 }
 /* ============= AUTOTEST TABLE PAGE ============= */
  #ScannerTable div {

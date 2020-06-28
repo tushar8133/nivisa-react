@@ -17,11 +17,9 @@ export class Scanner extends React.Component {
 
     render() {
         return (<main id="autotest">
-            <table className="barHolder" cellSpacing="10">
+            <table className="barHolder" cellSpacing="30">
                 <tbody>
                 <tr>
-                    <td className="autoTestCol1">
-                    </td>
                     <td className="autoTestCol2">
                         <input type="text" id="scanner" spellCheck="false" placeholder="SCANNER" onKeyUp={ e => this.scannerEnterKeyHandler(e.keyCode, e.target.value) } autoComplete="off" />
                     </td>
@@ -129,12 +127,10 @@ export class Scanner extends React.Component {
                 if(data[0].indexOf("ON") > -1) {
                     document.getElementById("calibrationStatusON").className = "calibrationStatusON";
                     document.getElementById("calibrationStatusOFF").className = "";
-                    document.getElementById("scanner").className = "backgroundAnimatedGreen";
                 }
                 if(data[0].indexOf("OFF") > -1) {
                     document.getElementById("calibrationStatusOFF").className = "calibrationStatusOFF";
                     document.getElementById("calibrationStatusON").className = "";
-                    document.getElementById("scanner").className = "backgroundAnimatedRed";
                 }
             } catch(e) {
                 console.log(e);

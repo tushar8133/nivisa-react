@@ -13,16 +13,14 @@ export class ScannerInfo extends React.Component {
             <table className="infoTable">
               <tbody>
                 <tr>
-                  <td>Output Power Level</td>
-                  <td> : 2 X {this.getPower()} dBm</td>
+                  <th>Output Power Level</th>
+                  <th>Test Duration</th>
+                  <th>Calibration Status</th>
                 </tr>
                 <tr>
-                  <td>Test Duration</td>
-                  <td> : {this.getDuration()} seconds</td>
-                </tr>
-                <tr>
-                  <td>Calibration Status</td>
-                  <td> : <span id="calibrationStatusON">ON</span><span id="calibrationStatusOFF">OFF</span></td>
+                  <td>2 X {this.getPower()} dBm</td>
+                  <td>{this.getDuration()} Sec</td>
+                  <td><span id="calibrationStatusON">ON</span><span id="calibrationStatusOFF">OFF</span></td>
                 </tr>
               </tbody>
             </table>
