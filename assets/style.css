@@ -36,6 +36,22 @@ html, body {
    align-items: center;
    z-index: 11;
 }
+ .loader-grid .error-template {
+   display: none;
+}
+ .loader-grid .error-msg-template {
+    display: inline-block;
+    background-color: crimson;
+    padding: 20px;
+}
+ .loader-grid .error-msg1 {
+    color: black;
+    font-size: 150%;
+}
+ .loader-grid .error-msg2 {
+    color: white;
+    font-size: 130%;
+}
  .loader-bg {
    position: fixed;
    background-color: black;
