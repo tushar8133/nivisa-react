@@ -4,17 +4,17 @@ import { Rocket } from './ServiceRocket';
 export class Galaxy {
 
 	constructor(){
-		window.timer = null;
+		this.timer = null;
 	}
 
-	progressBarMove(eachDuration, round) {
+	static progressBarMove(eachDuration, round) {
 		var roundDuration = eachDuration[round];
 		var totalDuration = eachDuration.reduce( (total, curr) => total += curr);
 		var pastDuration = ( (past,all,round) => { all.forEach( (val,index) => {if(round > index) past += val}); return past; })(0, eachDuration, round);
 		
 		var bar = document.getElementById("progressbar");
 		var finish = Date.now() + roundDuration;
-		window.timer = setInterval( _ => {
+		this.timer = setInterval( _ => {
 			var current = Date.now();
 			var remaining = finish - current;
 			var currProgress = (100 - (remaining/roundDuration) * 100).toFixed(2);
@@ -29,7 +29,7 @@ export class Galaxy {
 		}, 100);
 	}
 
-	progressBarMsg(msg) {
+	static progressBarMsg(msg) {
 		var loader = document.getElementById("loading-text");
 		loader.innerHTML = msg;
 	}
@@ -38,19 +38,18 @@ export class Galaxy {
 		document.getElementById("loading-counter").innerHTML = count;
 	}
 
-	progressBarStart() {
+	static progressBarStart() {
 		document.getElementById("progressbar").style.width = '0px'
 		document.getElementById('loader').style.display = 'block';
 	}
 
-	progressBarStop() {
+	static progressBarStop() {
 		document.getElementById("progressbar").style.width = '0px'
 		document.getElementById('loader').style.display = 'none';
 	}
 
-	progressBarReset() {
-		clearInterval(window.timer);
-		window.timer = null;
+	static progressBarReset() {
+		window.clearInterval(this.timer);
 	}
 
 }

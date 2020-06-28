@@ -8,32 +8,29 @@ export class Contra {
 	constructor(){}
 
 	static async start(cmds) {
-		let galaxy = new Galaxy();
-		galaxy.progressBarStart();
+		Galaxy.progressBarStart();
 		
 		document.getElementById("rfAbort").onclick = function() {
-			// console.log("clicked", p1, p2)
-			// p1 = p2 = true;
-			galaxy.progressBarStop();
+			Galaxy.progressBarStop();
 		}
 
 		let final = [];
 		var trailblazer = new Trailblazer(cmds);
 		for (var i = 0; i < trailblazer.eachCmd.length; i++) {
 			Contra.progressBarMsgsHandler(galaxy, trailblazer.eachMsgs[i]);
-			galaxy.progressBarMove(trailblazer.eachDuration, i);
+			Galaxy.progressBarMove(trailblazer.eachDuration, i);
 			var currentCmdResult = await Rocket.fire(trailblazer.eachCmd[i], trailblazer.eachDuration[i]);
 			final.push(currentCmdResult);
-			galaxy.progressBarReset();
+			Galaxy.progressBarReset();
 		}
 
-		galaxy.progressBarReset();
-		galaxy.progressBarStop();
+		Galaxy.progressBarReset();
+		Galaxy.progressBarStop();
 		return final;
 	}
 
 	static progressBarMsgsHandler(galaxy, msg) {
-		galaxy.progressBarMsg(msg);
+		Galaxy.progressBarMsg(msg);
 	}
 
 }
