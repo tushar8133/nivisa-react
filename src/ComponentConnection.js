@@ -17,12 +17,7 @@ export class Connection extends React.Component {
     }
 
     render() {
-
-        if (this.state.addresses.length === 0) {
-            return <div className="noConnection">
-                No connection found!<br /> Please check device connections first,<br /> Then close this application and reload again.
-            </div>
-        } else return (
+        return (
             <main id='connection-page'>
                 <form name="radioForm" className="radioContainer">
                 {
