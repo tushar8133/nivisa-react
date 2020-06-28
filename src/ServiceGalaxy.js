@@ -52,4 +52,12 @@ export class Galaxy {
 		window.clearInterval(this.timer);
 	}
 
+	static showErrorWindow(msg1, msg2) {
+		document.getElementById('loader').style.display = 'block';
+		document.querySelector('.loader-template').style.display = 'none';
+		document.querySelector('.error-template').style.display = 'block';
+		document.querySelector('.error-msg1').innerHTML = msg1;
+		document.querySelector('.error-msg2').innerHTML = msg2;
+	}
+
 }
