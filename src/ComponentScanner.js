@@ -43,6 +43,7 @@ export class Scanner extends React.Component {
     sendCommandToDevice() {
         var elem = document.getElementById('scanner');
         if(!this.state.operatorName) {
+            document.getElementById("operatorName").focus();
             alert("Operater Name Required");
             elem.value = '';
             return;
