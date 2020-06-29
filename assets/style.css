@@ -299,6 +299,8 @@ html, body {
    display: inline-block;
    box-sizing: border-box;
    caret-color: white;
+   border: 3px solid black;
+   border-radius: 5px;
 }
 #autotest #scanner:focus {
    background-color: black;
@@ -344,30 +346,23 @@ html, body {
  #data-table .pass {
    background-color: lightgreen;
 }
- #calibrationStatus {
-   height: 20px;
-   width: 12px;
-   background-color: #0f0;
-   padding: 0px 8px;
-   box-shadow: 0px 0px 4px 1px #0f1;
-   margin-top: 20px;
-}
- #calibrationStatus td:first-child {
-   text-align: right;
-}
  #calibrationStatusON {
    background-color: lime;
    opacity: 0.2;
-   width: 25px;
+   width: 40px;
+   height: 18px;
    display: inline-block;
    text-align: center;
+   line-height: 20px;
 }
  #calibrationStatusOFF {
    background-color: red;
    opacity: 0.2;
-   width: 25px;
+   width: 40px;
+   height: 18px;
    display: inline-block;
    text-align: center;
+   line-height: 20px;
 }
  .calibrationStatusON {
    opacity: 1 !important;
