@@ -49,6 +49,13 @@ export class Pim extends React.Component {
                     <button id="elem_PIMSwp" onClick={ _ => {this.setMeasurementMode(_.target.id)} }>Swept PIM</button>
                 </fieldset>
 
+                <span></span>
+                <span></span>
+
+                <fieldset>
+                    <legend>System Preset</legend>
+                    <button className="systemPreset" onClick={ _ => {this.systemPreset()} }>Reset</button>
+                </fieldset>
             </div>
 
 	            <br />
@@ -204,5 +211,12 @@ export class Pim extends React.Component {
 			case "elem_PIMSwp" : this.checkCurrentMeasurementMode(id); this.sweptpimHandler(); break;
 		}
 	}
+
+    systemPreset() {
+        Contra.start([':SYSTem:PRESet'])
+        .then( data => {
+            alert("Preset done!");
+        })
+    }
     
 }

@@ -75,6 +75,11 @@ export const LEGO = [
 		delay: '10'
 	},
 	{
+		id: ':SYSTem:PRESet',
+		desc: 'Resetting system',
+		delay: '10'
+	},
+	{
 		id: ':PIManalyzer:OUTPut:POWer',
 		desc: 'Setting Power',
 		delay: '2'
