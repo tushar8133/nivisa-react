@@ -217,16 +217,22 @@ legend {
   background-color: indianred;
   padding: 5%;
  }
+ #connection-page {
+ 	width: 100%;
+ }
+ #connection-page fieldset{
+ 	width: 70%;
+    margin: 0 auto;
+    padding: 0 20px;
+ }
  #connection-page .radioContainer {
-   width: 590px;
    text-align: center;
-   margin: 0 auto;
  }
  #connection-page label {
    display: block;
    background-color: lightgrey;
-   margin: 20px;
    padding: 10px;
+   margin: 20px 0;
   /* box-sizing: border-box;
    */
    border: 1px solid lightgray;
@@ -247,12 +253,20 @@ legend {
 }
  #command-page button {
    padding: 7px 15px;
-   margin: 5px;
+   margin-left: 15px;
+   width: 70px;
+   height: 35px;
+}
+ #command-page #custom-cmd {
+   width: calc(100% - 90px);
+   text-indent: 80px;
 }
  #command-page input {
-   width: 455px;
-   padding: 7px;
-   margin: 5px;
+   width: 100%;
+   padding: 10px;
+   margin: 10px 0;
+   box-sizing: border-box;
+   text-align: center;
 }
  #command-page textarea {
    width: 540px;

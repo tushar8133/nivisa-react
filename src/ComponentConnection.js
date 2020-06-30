@@ -19,6 +19,8 @@ export class Connection extends React.Component {
     render() {
         return (
             <main id='connection-page'>
+                <fieldset>
+                <legend>Select Device Connection</legend>
                 <form name="radioForm" className="radioContainer">
                 {
                     this.state.addresses.map((value, index) => (
@@ -26,14 +28,17 @@ export class Connection extends React.Component {
                     ))
                 }
                 </form>
+                </fieldset>
+                <span className="spacer" />
+                <fieldset>
+                <legend>SCPI Command Pannel</legend>
                 <div id='command-page'>
-                    <button onClick={_ => this.sendCommand('*IDN?')}>*IDN?</button>
-                    <span className="spacer" />
-                    <input type="text" id="custom-cmd" placeholder="SCPI command" />
+                    <input type="text" id="custom-cmd" placeholder="SCPI command" value="*IDN?"/>
                     <button onClick={ this.customSCPI }>Send</button>
-                    <span className="spacer" />
-                    <textarea id="textarea" rows="10" cols="60"></textarea>
+                    <input id="output" type="text" placeholder="Output" />
                 </div>
+                <span className="spacer" />
+                </fieldset>
             </main>
 
         )
@@ -82,11 +87,11 @@ export class Connection extends React.Component {
     customSCPI() {
         let cmd = document.getElementById("custom-cmd").value.trim();
         Rocket.ignite(cmd).then(data => {
-           document.getElementById('textarea').value = data;
+           document.getElementById('output').value = data;
         })
     }
 
     setResponse(resp) {
-        document.getElementById('textarea').value = String(resp);
+        document.getElementById('output').value = String(resp);
     }
 }
