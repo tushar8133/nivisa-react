@@ -621,7 +621,7 @@ legend {
    margin-top: 5px;
 }
  #pim-page .systemPreset {
-   background-color: crimson;
+   background-color: deepskyblue;
 }
 /* ============= CALIBRATION PAGE ============= */
  #calibration-page h2 {
@@ -640,7 +640,7 @@ legend {
    margin: 10px;
 }
  #calibration-page .calibration-step1 button:nth-child(2) {
-   background-color: red;
+   background-color: crimson;
 }
  #calibration-page .calibration-step2 button {
    padding: 10px 40px;
@@ -648,7 +648,7 @@ legend {
    margin: 10px;
 }
  #calibration-page .calibration-step2 button:nth-child(2) {
-   background-color: red;
+   background-color: crimson;
 }
  #calibration-page h2 + p {
    margin: 5px 5px;
