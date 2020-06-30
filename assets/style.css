@@ -26,6 +26,14 @@ html, body {
  button {
    outline-width: 0;
 }
+
+fieldset {
+	border: 1px solid #CCC;
+}
+
+legend {
+	text-align: center;
+}
  .loader-grid {
    display: grid;
    grid-template-columns: 100%;
@@ -523,8 +531,9 @@ html, body {
 /* ============= PIM PAGE ============= */
  #pim-page .grid {
    display: grid;
-   grid-template-columns: 68% 30%;
+   grid-template-columns: 1fr 1fr 1fr;
    column-gap: 10px;
+   row-gap: 15px;
 }
  #pim-page .grid button {
    display: inline-block;
@@ -538,7 +547,7 @@ html, body {
    width: 80%;
 }
  #pim-page .grid .btnOrder {
-   width: 29%;
+   /*width: 29%;*/
 }
  #pim-page .grid .orderFreq {
    display: grid;

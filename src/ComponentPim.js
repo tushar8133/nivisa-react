@@ -19,26 +19,36 @@ export class Pim extends React.Component {
             <main id='pim-page'>
 
             <div className="grid">
-                <div>
+                <fieldset>
+                    <legend>Test Setting</legend>
                     <div><label>Pass/Fail Value (dBc)<input type="number" id="dbcutoff" onInput={this.saveDBCutoff} /></label></div>
-                    <div><label>Output Power Level (dBm)<input type="number" id="outputPowerLevel" onInput={this.savePower} onBlur={ this.setPower.bind(this) } /></label></div>
+                    <div><label>Output Power (dBm)<input type="number" id="outputPowerLevel" onInput={this.savePower} onBlur={ this.setPower.bind(this) } /></label></div>
                     <div><label>Test Duration (sec)<input type="number" id="testDuration" onInput={this.saveDuration} onBlur={ this.setDuration.bind(this) } /></label></div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>IMD</legend>
                     <button className="btnOrder" onClick={ _ => {this.getIMDOrder(3, _.target)} }>IMD Order 3</button>
                     <button className="btnOrder" onClick={ _ => {this.getIMDOrder(5, _.target)} }>IMD Order 5</button>
                     <button className="btnOrder" onClick={ _ => {this.getIMDOrder(7, _.target)} }>IMD Order 7</button>
+                    {
+                    (this.state.f1 || this.state.f2) && (
+                    <fieldset className="orderFreq" >
+                        <legend>Frequency</legend>
+                        <div>F1 Tone: {this.state.f1 + " MHz"}</div>
+                        <div>F2 Tone: {this.state.f2 + " MHz"}</div>
+                    </fieldset>)
+                    }
+                </fieldset>
 
-                    <span className="orderFreq">
-                        <div>Frequency F1: {this.state.f1 + " MHz"} </div>
-                        <div>Frequency F2: {this.state.f2 + " MHz"} </div>
-                    </span>
+                <fieldset>
+                    <legend>Measurement</legend>
+                    <button id="elem_PIM" onClick={ _ => {this.setMeasurementMode(_.target.id)} }>PIM Vs Time</button>
+                    <button id="elem_SPECTRUM_VIEW" onClick={ _ => {this.setMeasurementMode(_.target.id)} }>Noise Floor</button>
+                    <button id="elem_DTP" onClick={ _ => {this.setMeasurementMode(_.target.id)} }>Distance to PIM</button>
+                    <button id="elem_PIMSwp" onClick={ _ => {this.setMeasurementMode(_.target.id)} }>Swept PIM</button>
+                </fieldset>
 
-                </div>
-                <div>
-                    <button id="elem_PIM" onClick={ _ => {this.setMeasurementMode(_.target.id)} }>PIM Vs Time</button><br />
-                    <button id="elem_SPECTRUM_VIEW" onClick={ _ => {this.setMeasurementMode(_.target.id)} }>Noise Floor</button><br />
-                    <button id="elem_DTP" onClick={ _ => {this.setMeasurementMode(_.target.id)} }>Distance to PIM</button><br />
-                    <button id="elem_PIMSwp" onClick={ _ => {this.setMeasurementMode(_.target.id)} }>Swept PIM</button><br />
-                </div>
             </div>
 
 	            <br />
