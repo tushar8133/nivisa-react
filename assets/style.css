@@ -606,12 +606,20 @@ html, body {
    margin: 5px 5px;
    margin-top: 20px;
 }
- #calibration-page button {
+ #calibration-page .calibration-step1 button {
+   padding: 5px 25px;
+   font-size: 14px;
+   margin: 10px;
+}
+ #calibration-page .calibration-step1 button:nth-child(2) {
+   background-color: red;
+}
+ #calibration-page .calibration-step2 button {
    padding: 10px 40px;
    font-size: 16px;
    margin: 10px;
 }
- #calibration-page button:nth-child(3) {
+ #calibration-page .calibration-step2 button:nth-child(2) {
    background-color: red;
 }
  #calibration-page h2 + p {
