@@ -54,7 +54,7 @@ export class Pim extends React.Component {
 
                 <fieldset>
                     <legend>System Preset</legend>
-                    <button className="systemPreset" onClick={ _ => {this.systemPreset()} }>Reset</button>
+                    <button className="systemPreset" onClick={ _ => {this.systemPreset()} }>Preset</button>
                 </fieldset>
             </div>
 
