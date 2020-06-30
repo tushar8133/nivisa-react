@@ -302,17 +302,21 @@ html, body {
    border: 3px solid black;
    border-radius: 5px;
 }
+#autotest #scanner:placeholder-shown {
+   font-size: 15px;
+}
 #autotest #scanner:focus {
-   background-color: black;
-   color: lawngreen;
+   /*background-color: black;*/
+   /*color: lawngreen;*/
 }
  #autotest #scanner::-webkit-input-placeholder {
    font-style: italic;
-   color: #F9F9F9;
-   letter-spacing: 30px;
+   color: #999;
+   letter-spacing: 10px;
+   /*font-size: 16px;*/
 }
  #autotest #scanner:focus::-webkit-input-placeholder {
-   color: black;
+   /*color: black;*/
 }
  #autotest .pause {
    width: 25px;
@@ -337,8 +341,8 @@ html, body {
    width: 100%;
 }
  .autoTestCol3 {
-   min-width: 300px;
-   max-width: 300px;
+   min-width: 350px;
+   max-width: 350px;
 }
  #data-table .fail {
    background-color: pink;
@@ -375,9 +379,8 @@ html, body {
  .infoTable {
    text-align: center;
    width: 100%;
-   min-width: 300px;
    height: 60px;
-   font-size: 12px;
+   font-size: 14px;
    padding: 0;
    border:none;
    border-collapse: collapse;
