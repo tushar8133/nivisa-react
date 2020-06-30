@@ -66,24 +66,27 @@ export class ScannerTable extends React.Component {
                     <table id="data-table" border="1">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Serial No.</th>
-                                <th>Duration</th>
-                                <th>dBc</th>
-                                <th>Time</th>
-                                <th>Operator</th>
-                                <th>Delete</th>
+                                <th>INDEX</th>
+                                <th>SERIAL NO.</th>
+                                <th>OPERATOR</th>
+                                <th>STATUS</th>
+                                <th>PIM Value (dBc)</th>
+                                <th>DATE</th>
+                                <th>TIME</th>
+                                <th>DELETE</th>
                             </tr>
                         </thead>
                         <tbody>
                              {this.state.tableData.map((row, index) => <tr key={row.qrcode}>
                                 <td>{this.state.tableData.length - index}</td>
                                 <td>{row.qrcode}</td>
-                                <td>{row.duration}</td>
-                                <td className={this.checkDBCValue(row.dBc)}>{row.dBc} dBc</td>
-                                <td>{row.date} {row.time}</td>
                                 <td>{row.operatorName}</td>
-                                <td><button onClick={_ => this.deleteRow(index)}>&#10005;</button></td></tr>)}
+                                <td className={this.checkDbcClass(row.dBc)}>{this.checkDbcValue(row.dBc)}</td>
+                                <td>{row.dBc} dBc</td>
+                                <td>{row.date}</td>
+                                <td>{row.time}</td>
+                                <td><button onClick={_ => this.deleteRow(index)}>&#10005;</button></td>
+                            </tr>)}
                         </tbody>
                     </table>
                 </div>
@@ -131,10 +134,19 @@ export class ScannerTable extends React.Component {
         }
     }
 
-    checkDBCValue(val) {
+    checkDbcClass(val) {
         var local = Number(localStorage.getItem("dbcutoff"));
         if(local) {
             return (val <= local)? "pass" : "fail";
+        } else {
+            return "";
+        }
+    }
+
+    checkDbcValue(val) {
+        var local = Number(localStorage.getItem("dbcutoff"));
+        if(local) {
+            return (val <= local)? "OK" : "NG";
         } else {
             return "";
         }
@@ -165,11 +177,11 @@ export class ScannerTable extends React.Component {
         let new_list = data.map( obj => {
           return {
             qrcode: obj.qrcode,
-            duration: obj.duration.toString(),
+            operatorName: obj.operatorName,
+            status: this.checkDbcValue(obj.dBc),
             dBc: obj.dBc,
             date: obj.date,
-            time: obj.time,
-            operatorName: obj.operatorName
+            time: obj.time
           }
         });
         var new_list_with_index = new_list.map((obj, index) => {
@@ -179,7 +191,7 @@ export class ScannerTable extends React.Component {
     }
 
     xlsxModule(data) {
-        var ws = XLSX.utils.json_to_sheet([], { header: ['INDEX','SERIAL NO.','DURATION','dBc','DATE','TIME','OPERATOR'], skipHeader: false });
+        var ws = XLSX.utils.json_to_sheet([], { header: ["INDEX","SERIAL NO.","OPERATOR","STATUS","PIM Value (dBc)","DATE","TIME"], skipHeader: false });
         ws['!cols'] = Array(7).fill({ wch: 17});
         XLSX.utils.sheet_add_json(ws, data, { skipHeader: true, origin: 'A2' });
         const wb = XLSX.utils.book_new();
