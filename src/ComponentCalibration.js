@@ -34,8 +34,8 @@ export class Calibration extends React.Component {
                         </div>
                     </div>
                 
-
-                    <button onClick={ _ => {this.readyCalibrationProcess()} }>Calibrate</button>
+                    <button onClick={ _ => {this.resetCalibration()} }>RESET<br />Calibrate</button>
+                    <button onClick={ _ => {this.readyCalibrationProcess()} }>INITIATE<br />Calibrate</button>
                 </div>
 
                 <div id="tab2">
@@ -83,6 +83,15 @@ export class Calibration extends React.Component {
     }
 
     calibrate() {
-        Contra.start([':INITiate:PIManalyzer:PVT:ALLPower:CAL', ':INITiate:PIManalyzer:RESidual:CAL']).then(data => {});
+        Contra.start([':INITiate:PIManalyzer:PVT:ALLPower:CAL', ':INITiate:PIManalyzer:RESidual:CAL']).then(data => {
+            alert("Calibration Process Done");
+            this.toggleTab();
+        });
+    }
+
+    resetCalibration() {
+        Contra.start([':CALibration:PIManalyzer:FULL OFF']).then(data => {
+            alert("Calibration Reset Done");
+        });
     }
 }
