@@ -19,7 +19,7 @@ export class Pim extends React.Component {
             <main id='pim-page'>
 
             <div className="grid">
-                <fieldset>
+                <fieldset style={{minWidth: '240px'}}>
                     <legend>Test Setting</legend>
                     <div><label>Pass/Fail Value (dBc)<input type="number" id="dbcutoff" onInput={this.saveDBCutoff} /></label></div>
                     <div><label>Output Power (dBm)<input type="number" id="outputPowerLevel" onInput={this.savePower} onBlur={ this.setPower.bind(this) } /></label></div>
