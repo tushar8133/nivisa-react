@@ -33,7 +33,7 @@ export class Connection extends React.Component {
                 <fieldset>
                 <legend>SCPI Command Pannel</legend>
                 <div id='command-page'>
-                    <input type="text" id="custom-cmd" placeholder="SCPI command" value="*IDN?"/>
+                    <input type="text" id="custom-cmd" placeholder="SCPI command" defaultValue="*IDN?"/>
                     <button onClick={ this.customSCPI }>Send</button>
                     <input id="output" type="text" placeholder="Output" />
                 </div>
