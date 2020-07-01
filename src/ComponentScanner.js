@@ -110,12 +110,10 @@ export class Scanner extends React.Component {
                 if(data[0].indexOf("ON") > -1) {
                     document.getElementById("calibrationStatusON").className = "calibrationStatusON";
                     document.getElementById("calibrationStatusOFF").className = "";
-                    document.getElementById("scanner").className = "backgroundAnimatedGreen";
                 }
                 if(data[0].indexOf("OFF") > -1) {
                     document.getElementById("calibrationStatusOFF").className = "calibrationStatusOFF";
                     document.getElementById("calibrationStatusON").className = "";
-                    document.getElementById("scanner").className = "backgroundAnimatedRed";
                 }
             } catch(e) {
                 console.log(e);
