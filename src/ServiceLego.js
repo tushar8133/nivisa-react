@@ -67,7 +67,7 @@ export const LEGO = [
 	{
 		id:':INITiate:PIManalyzer:RESidual:CAL',
 		desc: 'Residual PIM Calibration',
-		delay: '20'
+		delay: '8'
 	},
 	{
 		id: ':CALibration:PIManalyzer:FULL?',
@@ -138,5 +138,10 @@ export const LEGO = [
 		id: ':PIManalyzer:IMD:ORDer 7',
 		desc: 'Setting PIM7 Order',
 		delay: '5'
+	},
+	{
+		id: 'WAIT',
+		desc: 'Please wait',
+		delay: '2'
 	}
 ]
