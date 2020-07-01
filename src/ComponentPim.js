@@ -7,6 +7,8 @@ export class Pim extends React.Component {
         this.state = {
             f1 : null, f2: null
         };
+        this.durationDebounce = null;
+        this.powerDebounce = null;
     }
 
     componentDidMount() {
@@ -22,8 +24,8 @@ export class Pim extends React.Component {
                 <fieldset style={{minWidth: '240px'}}>
                     <legend>Test Setting</legend>
                     <div><label>Pass/Fail Value (dBc)<input type="number" id="dbcutoff" onInput={this.saveDBCutoff} /></label></div>
-                    <div><label>Output Power (dBm)<input type="number" id="outputPowerLevel" onInput={this.savePower} onBlur={ this.setPower.bind(this) } /></label></div>
-                    <div><label>Test Duration (sec)<input type="number" id="testDuration" onInput={this.saveDuration} onBlur={ this.setDuration.bind(this) } /></label></div>
+                    <div><label>Output Power (dBm)<input type="number" id="outputPowerLevel" onInput={ _ => {this.savePower(_.target)} } /></label></div>
+                    <div><label>Test Duration (sec)<input type="number" id="testDuration" onInput={ _ => {this.saveDuration(_.target)} } /></label></div>
                 </fieldset>
 
                 <fieldset>
@@ -101,17 +103,21 @@ export class Pim extends React.Component {
     	});
     }
 
-    setPower() {
+    setPower(elem) {
+        elem.disabled = true;
         Contra.start([':PIManalyzer:OUTPut:POWer'])
         .then( data => {
             this.setResponse(data);
+            elem.disabled = false;
         });
     }
 
-    setDuration() {
+    setDuration(elem) {
+        elem.disabled = true;
         Contra.start([':PIManalyzer:TEST:DURation'])
         .then( data => {
             this.setResponse(data);
+            elem.disabled = false;
         });
     }
 
@@ -157,19 +163,27 @@ export class Pim extends React.Component {
         localStorage.setItem('dbcutoff', evt.target.value);
     }
 
-    savePower(evt) {
-		if(evt.target.value >= 20 && evt.target.value <= 46) {
+    savePower(elem) {
+		if(elem.value >= 20 && elem.value <= 46) {
             document.getElementById('outputPowerLevel').style.backgroundColor = "white";
-            localStorage.setItem('power', evt.target.value);
+            localStorage.setItem('power', elem.value);
+            clearTimeout(this.powerDebounce);
+            this.powerDebounce = setTimeout( _ => {
+                this.setPower(elem);
+            }, 1000);
         } else {
             document.getElementById('outputPowerLevel').style.backgroundColor = "#ff5976";
         }
     }
 
-	saveDuration(evt) {
-		if(evt.target.value < 1) evt.target.value = 1;
-        if(evt.target.value > 600) evt.target.value = 600;
-        localStorage.setItem('duration', evt.target.value);
+	saveDuration(elem) {
+		if(elem.value < 1) elem.value = 1;
+        if(elem.value > 600) elem.value = 600;
+        localStorage.setItem('duration', elem.value);
+        clearTimeout(this.durationDebounce);
+        this.durationDebounce = setTimeout( _ => {
+            this.setDuration(elem);
+        }, 1000);
 	}
 
 	init() {
