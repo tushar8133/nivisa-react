@@ -67,7 +67,6 @@ iframe {
 </body>
 <script type="text/javascript">
 var zoomLevel = localStorage.getItem("zoomLevel")? Number(localStorage.getItem("zoomLevel")) : 1;
-var timerStatus = true;
 function setZoom(val) {
     if (val) {
         zoomLevel = Number(zoomLevel) + 0.01;
@@ -100,17 +99,10 @@ function setAddress() {
     elem.allowtransparency = "true"
     elem.overflow = "hidden"
     elem.style.transform = "scale(" + zoomLevel + ")";
-    elem.src = "http://" + ip + "/Remote";
+    elem.src = "http://" + ip;
     document.getElementById("iFrameHolder").innerHTML = "";
     document.getElementById("iFrameHolder").appendChild(elem);
     document.getElementById("zoomText").innerHTML = zoomLevel;
-
-    if(timerStatus) {
-        timerStatus = false;
-        setInterval( function(){
-            elem.src = "http://" + ip + "/Remote";
-        }, 1000 * 60 * 5)
-    }
 }
 
 function init() {
