@@ -1,4 +1,3 @@
-import io from 'socket.io-client';
 import { LEGO } from './ServiceLego';
 
 export class Trailblazer {

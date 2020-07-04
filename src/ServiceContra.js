@@ -1,4 +1,3 @@
-import io from 'socket.io-client';
 import { Galaxy } from './ServiceGalaxy';
 import { Rocket } from './ServiceRocket';
 import { Trailblazer } from './ServiceTrailblazer';
