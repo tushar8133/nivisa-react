@@ -55,14 +55,10 @@ export class Rocket {
 			});
 
 			socket.on('ERROR', function(resp) {
-				if(resp.indexOf("CONNECTION_NOT_FOUND") > -1) {
-					Galaxy.showErrorWindow(resp, "Please check connection and restart application");
-				} else {
-					Galaxy.showErrorWindow(resp, "Error - Reloading application in few seconds...");
-					setTimeout( _ => {
-						window.location.reload();
-					}, 5000);
-				}
+				Galaxy.showErrorWindow(resp, "Application is reloading...");
+				setTimeout( _ => {
+					window.location.reload();
+				}, 3000);
 			});
 		});
 	}
