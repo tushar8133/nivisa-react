@@ -12,7 +12,10 @@ export class Header extends React.Component {
             <tbody>
               <tr>
                 <td><img src="./assets/logo.png" className="logo" alt="Anritsu Logo" />
-                  <div className="automizer">AUTOMIZER</div>
+                  <div className="automizerLogo">
+                    <span className="automizerBar">AUTOMIZER</span>
+                    <span className="automizerText">AUTOMIZER</span>
+                  </div>
                 </td>
               </tr>
             </tbody>
