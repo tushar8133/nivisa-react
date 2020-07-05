@@ -5,19 +5,43 @@ export class Calibration extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            calibrationStatus: null
         };
+
+        Contra.start([':CALibration:PIManalyzer:FULL?']).then(data => {
+            this.setState({
+                calibrationStatus: data[0].replace("CAL ", "")
+            })
+        });
     }
 
     render() {
-
         return (
             <main id='calibration-page'>
-
-                <h2>Caution During calibration, RF power is present, and the red RF On light is illuminated.</h2>
-
-                <p>This calibration is only for the PIM vs TIME Measurement, for all power levels. Please follow below:</p>
-
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <fieldset style={{display: 'inline', margin: "0 auto"}}>
+                                <legend>Important Message</legend>
+                                <h2>Caution During calibration, RF power is present, and the red RF On light is illuminated.</h2>
+                                <p>This calibration is only for the PIM vs TIME Measurement, for all power levels. Please follow below:</p>
+                            </fieldset>
+                            
+                        </td>
+                        <td>
+                            <fieldset style={{display: 'inline', margin: "0 auto"}}>
+                                <legend>Calibration Status</legend>
+                                <div className="status">
+                                <span id="calibrationStatusON" className={this.getCalibrationColor('ON')}>ON</span>
+                                <span id="calibrationStatusOFF" className={this.getCalibrationColor('OFF')}>OFF</span>
+                                </div>
+                            </fieldset>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                
                 <div id="tab1">
                     <div className="grid">
                         <div>
@@ -34,6 +58,7 @@ export class Calibration extends React.Component {
                         </div>
                     </div>
 
+
                     <div className="calibration-step1">
                         <button onClick={ _ => {this.resetCalibration()} }>RESET<br />Calibration</button>
                         <button onClick={ _ => {this.readyCalibrationProcess()} }>INITIATE<br />Calibration</button>
@@ -49,6 +74,7 @@ export class Calibration extends React.Component {
                         </div>
                         <div className="hide"></div>
                     </div>
+
 
                     <div className="calibration-step2">
                         <button onClick={ this.toggleTab }>ESCAPE</button>
@@ -87,14 +113,23 @@ export class Calibration extends React.Component {
     }
 
     calibrate() {
-        Contra.start([':INITiate:PIManalyzer:PVT:ALLPower:CAL', 'WAIT', ':INITiate:PIManalyzer:RESidual:CAL']).then(data => {
+        Contra.start([':INITiate:PIManalyzer:PVT:ALLPower:CAL', 'WAIT', ':INITiate:PIManalyzer:RESidual:CAL', ':CALibration:PIManalyzer:FULL?']).then(data => {
+            this.setState({
+                calibrationStatus: data[3].replace("CAL ", "")
+            })
             this.toggleTab();
         });
     }
 
     resetCalibration() {
         Contra.start([':CALibration:PIManalyzer:FULL OFF']).then(data => {
-            
+            this.setState({
+                calibrationStatus: ""
+            })
         });
+    }
+
+    getCalibrationColor(color) {
+        return (color == this.state.calibrationStatus)? 'calibrationStatus'+color : "";
     }
 }

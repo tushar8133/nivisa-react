@@ -633,7 +633,25 @@ legend {
    background-color: #333;
    padding: 5px;
    margin: 5px 5px;
-   margin-top: 20px;
+}
+#calibration-page table {
+   width: 100%;
+   height: 50px;
+   padding: 0;
+   vertical-align: top;
+}
+#calibration-page table fieldset {
+  box-sizing: border-box;
+   width: 100%;
+   height: 100%;
+   margin: 0;
+   display: table-cell;
+}
+#calibration-page .status span {
+  margin: 5px;
+  margin-top: 14px;
+  padding: 3px;
+  font-size: 17px;
 }
  #calibration-page .calibration-step1 button {
    padding: 5px 25px;
@@ -677,7 +695,7 @@ legend {
  #calibration-page .grid-part2 {
    margin: 20px 5px 20px 5px;
    display: grid;
-   grid-template-columns: 20% 60% 20%;
+   grid-template-columns: 1fr 2fr 1fr;
    grid-column-gap: 10px;
 }
  #calibration-page .grid-part2 div {
@@ -685,7 +703,7 @@ legend {
    text-align: center;
 }
  #calibration-page .grid-part2 div img {
-   width: 50%;
+   width: 40%;
 }
  #calibration-page .grid-part2 div p {
    text-align: center;
