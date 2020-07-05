@@ -55,10 +55,17 @@ export class Rocket {
 			});
 
 			socket.on('ERROR', function(resp) {
-				Galaxy.showErrorWindow(resp, "Application is reloading...");
-				setTimeout( _ => {
-					window.location.reload();
-				}, 3000);
+				let counter = 5;
+				let restartTimer = setInterval( _ => {
+					let msg = `Application restarting in ${counter} seconds...`;
+					Galaxy.showErrorWindow(resp, msg);
+					if(counter == 0) {
+						clearTimeout(restartTimer);
+						window.location.reload();
+					} else {
+						counter--;
+					}
+				}, 1000);
 			});
 		});
 	}
