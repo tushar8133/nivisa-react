@@ -7,6 +7,9 @@ function onConnect(socket) {
   io.emit('join');
   socket.on('comm', function(data) {
     console.log(">>>", data);
+    if(data.command == "BASe:KEYpress 12") {
+      io.emit('ERROR', "CONNECTION_NOT_FOUND");
+    }
     sendSCPI(data.address, data.command).then( resp => {
       io.emit('comm', JSON.stringify(resp));
       console.log("<<<", resp);
