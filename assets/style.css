@@ -323,13 +323,14 @@ legend {
    display: inline-block;
    box-sizing: border-box;
    caret-color: white;
-   border: 3px solid black;
-   border-radius: 5px;
+   border: 1px solid lightgray;
 }
 #autotest #scanner:placeholder-shown {
    font-size: 15px;
 }
 #autotest #scanner:focus {
+   border: 3px solid black;
+   border-radius: 5px;
    /*background-color: black;*/
    /*color: lawngreen;*/
 }
