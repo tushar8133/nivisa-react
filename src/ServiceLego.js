@@ -101,8 +101,13 @@ export const LEGO = [
 	},
 	{
 		id: 'INITiate:PIManalyzer:MEASure ON',
-		desc: '<span class="rf-flasher">RF ON</span>',
+		desc: 'RF ON',
 		delay: '-1'
+	},
+	{
+		id: 'INITiate:PIManalyzer:MEASure OFF',
+		desc: 'RF Abort',
+		delay: '1'
 	},
 	{
 		id: ':PIManalyzer:MEASure:STATus?',

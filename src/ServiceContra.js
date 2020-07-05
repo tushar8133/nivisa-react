@@ -10,7 +10,9 @@ export class Contra {
 		Galaxy.progressBarStart();
 		
 		document.getElementById("rfAbort").onclick = function() {
-			Galaxy.progressBarStop();
+			Contra.start(['INITiate:PIManalyzer:MEASure OFF']).then( data => {
+				location.reload();
+			})
 		}
 
 		let final = [];
@@ -30,6 +32,14 @@ export class Contra {
 
 	static progressBarMsgsHandler(msg) {
 		Galaxy.progressBarMsg(msg);
+		let elem = document.getElementById("loading-text");
+		if(msg == "RF ON") {
+			elem.classList.add("rf-flasher");
+			document.getElementById("rfAbort").style.display = 'block';
+		} else {
+			elem.classList.remove("rf-flasher");
+			document.getElementById("rfAbort").style.display = 'none';
+		}
 	}
 
 }
