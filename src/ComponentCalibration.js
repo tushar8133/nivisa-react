@@ -16,7 +16,7 @@ export class Calibration extends React.Component {
 
                 <h2>Caution During calibration, RF power is present, and the red RF On light is illuminated.</h2>
 
-                <p>This calibration is only for the PIM vs TIME calibration, for all power levels. Please follow below:</p>
+                <p>This calibration is only for the PIM vs TIME Measurement, for all power levels. Please follow below:</p>
 
                 <div id="tab1">
                     <div className="grid">
@@ -29,7 +29,7 @@ export class Calibration extends React.Component {
                             <img src="./assets/step2.png" />
                         </div>
                         <div>
-                            <p>LOW PIM TERMINATION Connected onto PIM MASTER</p>
+                            <p>Please connect LOW PIM TERMINATION onto PIM MASTER TEST PORT</p>
                             <img src="./assets/step3.png" />
                         </div>
                     </div>
@@ -44,7 +44,7 @@ export class Calibration extends React.Component {
                     <div className="grid-part2">
                         <div className="hide"></div>
                         <div>
-                            <p>Please ensure LOW PIM TERMINATION is connected onto PIM Test Port.<br />To continue press ENTER or ESCAPE to EXIT</p>
+                            <p>Please ensure LOW PIM TERMINATION is connected onto PIM Test Port.<br />To continue press ENTER or ESCAPE to exit.</p>
                             <img src="./assets/step4.png" />
                         </div>
                         <div className="hide"></div>

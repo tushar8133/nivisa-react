@@ -35,7 +35,7 @@ export class Connection extends React.Component {
                 <div id='command-page'>
                     <input type="text" id="custom-cmd" placeholder="SCPI command" defaultValue="*IDN?"/>
                     <button onClick={ this.customSCPI }>Send</button>
-                    <input id="output" type="text" placeholder="Output" />
+                    <input id="output" type="text" placeholder="SCPI Response" />
                 </div>
                 <span className="spacer" />
                 </fieldset>
