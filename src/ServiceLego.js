@@ -82,12 +82,12 @@ export const LEGO = [
 	{
 		id: ':PIManalyzer:OUTPut:POWer',
 		desc: 'Setting Power',
-		delay: '5'
+		delay: '3'
 	},
 	{
 		id: ':PIManalyzer:TEST:DURation',
 		desc: 'Setting Duration',
-		delay: '5'
+		delay: '3'
 	},
 	{
 		id: ':PIManalyzer:OUTPut:POWer?',
@@ -107,7 +107,7 @@ export const LEGO = [
 	{
 		id: 'INITiate:PIManalyzer:MEASure OFF',
 		desc: 'RF Abort',
-		delay: '1'
+		delay: '0'
 	},
 	{
 		id: ':PIManalyzer:MEASure:STATus?',
