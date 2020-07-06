@@ -110,13 +110,11 @@ legend {
 }
 #loader #rfAbort {
   display: none;
-  position: fixed;
-  top: 0;
-  right: 0;
-  padding: 11px 13px;
-  margin: 10px;
+  padding: 0px 5px;
+  margin: 15px auto 0 auto;
   background-color: crimson;
   color: black;
+  font-size: 20px;
 }
 .selected-tab {
    background-color: black;
