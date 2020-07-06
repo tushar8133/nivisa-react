@@ -196,6 +196,7 @@ legend {
   background-color: white;
   height: 29px;
   padding: 30px 0px 9px 2px;
+  opacity: 0.8;
 }
  #header-page .automizerBar {
   font-family: "Libre";
