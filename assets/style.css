@@ -664,6 +664,9 @@ legend {
    margin: 0;
    display: table-cell;
 }
+#calibration-page table fieldset legend {
+  font-size: 12px;
+}
 #calibration-page .status span {
   margin: 5px;
   margin-top: 14px;
