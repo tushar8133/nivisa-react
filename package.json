@@ -14,7 +14,7 @@
     "react-dom": "^16.13.1",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
-    "socket.io": "^2.3.0",
+    "socket.io": "^2.4.0",
     "xlsx": "^0.15.6"
   },
   "keywords": [],
